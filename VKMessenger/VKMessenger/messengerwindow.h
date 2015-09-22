@@ -3,6 +3,9 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_messengerwindow.h"
+#include "authorization.h"
+
+
 
 class MessengerWindow : public QMainWindow
 {
@@ -14,6 +17,7 @@ public:
 
 private:
 	Ui::MessengerWindowClass ui;
+	Authorization *authorization;
 };
 
 #endif // MESSENGERWINDOW_H
