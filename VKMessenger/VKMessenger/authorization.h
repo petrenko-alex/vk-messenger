@@ -21,12 +21,10 @@ public:
 	Authorization(QObject *parent);
 	~Authorization();
 
-
 private:
 	QWebView *browser;
 	QUrl authorizationUrl;
 	QUrl redirectUri;
-	QNetworkAccessManager *manager;
 };
 
 #endif // AUTHORIZATION_H
