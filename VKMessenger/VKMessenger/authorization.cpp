@@ -4,13 +4,85 @@ Authorization::Authorization(QObject *parent)
 	: QObject(parent)
 {
 	browser = new QWebView;
+	networkManager = new QNetworkAccessManager(this);
 
-	browser->resize(700, 700);
+	browser->resize(AUTH_WINDOW_WIDTH, AUTH_WINDOW_HEIGHT);
 
+	loadAuthorizationPage();
 
+	setConnections();
+}
 
+Authorization::~Authorization()
+{
+	delete browser;
+	delete networkManager;
+}
+
+void Authorization::urlChanged(const QUrl &url)
+{
+	QString stringUrl = url.toString();
+
+	if (stringUrl.isEmpty() || url.path() == authorizationUrl.path())
+	{
+		return;
+	}
+
+	stringUrl.replace('#', '?');
+	QUrl changedUrl(stringUrl);
+	QUrlQuery query(changedUrl);
+	QString error = query.queryItemValue("error");
+
+	if (error.isEmpty())
+	{
+		accessToken = query.queryItemValue("access_token");
+		expiresIn = query.queryItemValue("expires_in");
+		userId = query.queryItemValue("user_id");
+	}
+	else
+	{
+		QMessageBox::critical(browser, "Ошибка доступа", "Вы не предоставили приложению необходимые права доступа");
+		accessToken.clear();
+		expiresIn.clear();
+		userId.clear();
+	}
+	browser->close();
+
+}
+
+void Authorization::loadFinished(bool isSuccesful)
+{
+	QUrl browserUrl(browser->url());
+	QUrlQuery query(browserUrl);
+
+	if (!isSuccesful)
+	{
+		browser->close();
+		QMessageBox::critical(browser, "Ошибка соединения", "Не удалось подключиться к серверу vk.com");
+	}
+	else if (browserUrl.path() == authorizationUrl.path())
+	{
+		browser->show();
+	}
+	else if (query.hasQueryItem("error") || browserUrl.path() == redirectUri.path())
+	{
+		browser->hide();
+	}
+	else
+	{
+		browser->show();
+	}
+}
+
+void Authorization::getReply(QNetworkReply *reply)
+{
+
+}
+
+void Authorization::loadAuthorizationPage()
+{
 	authorizationUrl.setUrl("https://oauth.vk.com/authorize");
-	redirectUri.setUrl("https://api.vk.com/blank.html");
+	redirectUri.setUrl("https://oauth.vk.com/blank.html");
 
 	QUrlQuery query;
 	query.addQueryItem("client_id", QString::number(VK_APPLICATION_ID).toLatin1());
@@ -18,16 +90,14 @@ Authorization::Authorization(QObject *parent)
 	query.addQueryItem("redirect_uri", redirectUri.toString());
 	query.addQueryItem("display", "popup");
 	query.addQueryItem("response_type", "token");
-	
 	authorizationUrl.setQuery(query);
-	
 
 	browser->load(authorizationUrl);
-	browser->show();
-	
 }
 
-Authorization::~Authorization()
+void Authorization::setConnections()
 {
-	delete browser;
+	connect(browser, SIGNAL(urlChanged(const QUrl&)), this, SLOT(urlChanged(const QUrl&)));
+	connect(browser, SIGNAL(loadFinished(bool)), this, SLOT(loadFinished(bool)));
+	connect(networkManager, SIGNAL(finished(QNetworkReply*)),this,SLOT(getReply (QNetworkReply*)));
 }
