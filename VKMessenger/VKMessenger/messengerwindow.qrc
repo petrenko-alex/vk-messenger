@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="MessengerWindow">
-    </qresource>
+  <qresource prefix="MessengerWindow">
+    <file>vk.png</file>
+  </qresource>
 </RCC>
