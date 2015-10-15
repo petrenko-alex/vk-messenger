@@ -15,7 +15,13 @@ public:
 	MessengerWindow(QWidget *parent = 0);
 	~MessengerWindow();
 
+private slots:
+	void dialogsLoaded(const QByteArray &data);
+
 private:
+	void setConnections();
+
+
 	Ui::MessengerWindowClass ui;
 	Authorization *authorization;
 };

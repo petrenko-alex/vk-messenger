@@ -20,6 +20,9 @@ class Authorization : public QObject
 {
 	Q_OBJECT
 
+signals:
+	void dialogsLoaded(const QByteArray &data);
+
 public:
 	Authorization(QObject *parent);
 	~Authorization();
@@ -32,6 +35,7 @@ private slots:
 private:
 	void loadAuthorizationPage();
 	void setConnections();
+	void loadDialogs();
 
 	QString accessToken;
 	QString expiresIn;

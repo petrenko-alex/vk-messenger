@@ -38,6 +38,7 @@ void Authorization::urlChanged(const QUrl &url)
 		accessToken = query.queryItemValue("access_token");
 		expiresIn = query.queryItemValue("expires_in");
 		userId = query.queryItemValue("user_id");
+		loadDialogs();
 	}
 	else
 	{
@@ -47,7 +48,6 @@ void Authorization::urlChanged(const QUrl &url)
 		userId.clear();
 	}
 	browser->close();
-
 }
 
 void Authorization::loadFinished(bool isSuccesful)
@@ -76,7 +76,17 @@ void Authorization::loadFinished(bool isSuccesful)
 
 void Authorization::getReply(QNetworkReply *reply)
 {
+	const QByteArray dialogsData = reply->readAll();
 
+	QString test = reply->url().path();
+	if (reply->url().path() == "/method/messages.getDialogs")
+	{
+		emit dialogsLoaded(dialogsData);
+	}
+	else
+	{
+		/* Ошибка */
+	}
 }
 
 void Authorization::loadAuthorizationPage()
@@ -100,4 +110,18 @@ void Authorization::setConnections()
 	connect(browser, SIGNAL(urlChanged(const QUrl&)), this, SLOT(urlChanged(const QUrl&)));
 	connect(browser, SIGNAL(loadFinished(bool)), this, SLOT(loadFinished(bool)));
 	connect(networkManager, SIGNAL(finished(QNetworkReply*)),this,SLOT(getReply (QNetworkReply*)));
+}
+
+void Authorization::loadDialogs()
+{
+	QUrl url("https://api.vk.com/method/messages.getDialogs");
+
+	QUrlQuery query;
+	query.addQueryItem("count", "100");
+	query.addQueryItem("v", "5.37");
+	query.addQueryItem("access_token", accessToken);
+	url.setQuery(query);
+
+	QNetworkRequest dialogsRequest(url);
+	networkManager->get(dialogsRequest);
 }
