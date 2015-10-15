@@ -68,6 +68,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_dialoginfo.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="vkdatareceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_vkdatareceiver.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_vkdatareceiver.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messengerwindow.h">
@@ -87,6 +96,9 @@
     </CustomBuild>
     <CustomBuild Include="dialoginfo.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vkdatareceiver.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

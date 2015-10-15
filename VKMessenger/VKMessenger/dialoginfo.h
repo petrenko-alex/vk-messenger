@@ -3,7 +3,10 @@
 
 #include <QWidget>
 #include <QDateTime>
+#include <QUrl>
+#include <QJsonDocument>
 #include "ui_dialoginfo.h"
+#include "vkdatareceiver.h"
 
 class DialogInfo : public QWidget
 {
@@ -16,6 +19,7 @@ public:
 
 private:
 	Ui::DialogInfo ui;
+	unsigned int userId;
 	QString username;
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
