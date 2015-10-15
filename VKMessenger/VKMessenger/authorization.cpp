@@ -4,11 +4,7 @@ Authorization::Authorization(QObject *parent)
 	: QObject(parent)
 {
 	browser = new QWebView;
-	networkManager = new QNetworkAccessManager(this);
-
 	browser->resize(AUTH_WINDOW_WIDTH, AUTH_WINDOW_HEIGHT);
-
-	loadAuthorizationPage();
 
 	setConnections();
 }
@@ -16,7 +12,6 @@ Authorization::Authorization(QObject *parent)
 Authorization::~Authorization()
 {
 	delete browser;
-	delete networkManager;
 }
 
 void Authorization::urlChanged(const QUrl &url)
@@ -35,17 +30,15 @@ void Authorization::urlChanged(const QUrl &url)
 
 	if (error.isEmpty())
 	{
-		accessToken = query.queryItemValue("access_token");
-		expiresIn = query.queryItemValue("expires_in");
-		userId = query.queryItemValue("user_id");
-		loadDialogs();
+		QString accessToken = query.queryItemValue("access_token");
+		QString expiresIn = query.queryItemValue("expires_in");
+		QString userId = query.queryItemValue("user_id");
+		emit authorizationCompleted(accessToken, userId, expiresIn);
 	}
 	else
 	{
 		QMessageBox::critical(browser, "Ошибка доступа", "Вы не предоставили приложению необходимые права доступа");
-		accessToken.clear();
-		expiresIn.clear();
-		userId.clear();
+		emit authorizationFailed();
 	}
 	browser->close();
 }
@@ -74,21 +67,6 @@ void Authorization::loadFinished(bool isSuccesful)
 	}
 }
 
-void Authorization::getReply(QNetworkReply *reply)
-{
-	const QByteArray dialogsData = reply->readAll();
-
-	QString test = reply->url().path();
-	if (reply->url().path() == "/method/messages.getDialogs")
-	{
-		emit dialogsLoaded(dialogsData);
-	}
-	else
-	{
-		/* Ошибка */
-	}
-}
-
 void Authorization::loadAuthorizationPage()
 {
 	authorizationUrl.setUrl("https://oauth.vk.com/authorize");
@@ -109,19 +87,4 @@ void Authorization::setConnections()
 {
 	connect(browser, SIGNAL(urlChanged(const QUrl&)), this, SLOT(urlChanged(const QUrl&)));
 	connect(browser, SIGNAL(loadFinished(bool)), this, SLOT(loadFinished(bool)));
-	connect(networkManager, SIGNAL(finished(QNetworkReply*)),this,SLOT(getReply (QNetworkReply*)));
-}
-
-void Authorization::loadDialogs()
-{
-	QUrl url("https://api.vk.com/method/messages.getDialogs");
-
-	QUrlQuery query;
-	query.addQueryItem("count", "100");
-	query.addQueryItem("v", "5.37");
-	query.addQueryItem("access_token", accessToken);
-	url.setQuery(query);
-
-	QNetworkRequest dialogsRequest(url);
-	networkManager->get(dialogsRequest);
 }
