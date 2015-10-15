@@ -23,7 +23,7 @@ public:
 	VKDataReceiver();
 	~VKDataReceiver();
 
-	void sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres, const QString &accessToken);
+	void sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
 
 private:
 	QNetworkAccessManager *networkManager;

@@ -14,7 +14,7 @@ VKDataReceiver::~VKDataReceiver()
 	networkManager = NULL;
 }
 
-void VKDataReceiver::sendRequest(const QString &methodName,const QList<QPair<QString,QString> > &parametres,const QString &accessToken)
+void VKDataReceiver::sendRequest(const QString &methodName,const QList<QPair<QString,QString> > &parametres)
 {
 	this->methodName = methodName;
 
