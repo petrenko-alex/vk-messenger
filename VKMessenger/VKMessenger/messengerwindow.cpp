@@ -16,7 +16,7 @@ MessengerWindow::~MessengerWindow()
 
 void MessengerWindow::dialogsLoaded(const QByteArray &data)
 {
-	int a = 32;
+	
 }
 
 void MessengerWindow::setConnections()
