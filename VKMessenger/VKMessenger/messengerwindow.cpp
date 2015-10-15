@@ -5,7 +5,10 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	/* Авторизируем пользователя */
 	authorization = new Authorization(this);
+	authorization->loadAuthorizationPage();
+
 	setConnections();
 }
 
@@ -14,12 +17,20 @@ MessengerWindow::~MessengerWindow()
 	delete authorization;
 }
 
-void MessengerWindow::dialogsLoaded(const QByteArray &data)
+
+
+void MessengerWindow::setConnections()
+{
+	connect(authorization, SIGNAL(authorizationCompleted(const QString&, const QString&, const QString&)), this, SLOT(authorizationCompleted(const QString&, const QString&, const QString&)));
+	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
+}
+
+void MessengerWindow::authorizationCompleted(const QString &accessToken, const QString &userId, const QString &expiresIn)
 {
 	
 }
 
-void MessengerWindow::setConnections()
+void MessengerWindow::authorizationFailed()
 {
-	connect(authorization, SIGNAL(dialogsLoaded(const QByteArray &)), this, SLOT(dialogsLoaded(const QByteArray &)));
+	
 }

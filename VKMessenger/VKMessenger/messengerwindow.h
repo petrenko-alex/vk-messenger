@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_messengerwindow.h"
 #include "authorization.h"
+#include "dialoginfo.h"
 
 
 
@@ -16,14 +17,20 @@ public:
 	~MessengerWindow();
 
 private slots:
-	void dialogsLoaded(const QByteArray &data);
+	void authorizationCompleted(const QString &accessToken, const QString &userId, const QString &expiresIn);
+	void authorizationFailed();
 
 private:
 	void setConnections();
 
-
 	Ui::MessengerWindowClass ui;
+
+	/* Модуль авторизации */
 	Authorization *authorization;
+
+	QString accessToken;
+	QString userId;
+	QString expiresIn;
 };
 
 #endif // MESSENGERWINDOW_H
