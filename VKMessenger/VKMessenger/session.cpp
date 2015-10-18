@@ -1,11 +1,11 @@
 #include "session.h"
 
 
-Session::Session(const QString &userName, const QString &userId, const QUrl &userPhoto, const QString &accessToken, const QString &expiresIn)
+Session::Session(const QString &userName, const QString &userId, const QUrl &userPhotoURL, const QString &accessToken, const QString &expiresIn)
 {
 	this->userName = userName;
 	this->userId = userId;
-	this->userPhoto = userPhoto;
+	this->userPhotoURL = userPhotoURL;
 	this->accessToken = accessToken;
 	this->expiresIn = expiresIn;
 }
@@ -19,7 +19,7 @@ Session & Session::operator=(const Session &other)
 {
 	this->userName = other.userName;
 	this->userId = other.userId;
-	this->userPhoto = other.userPhoto;
+	this->userPhotoURL = other.userPhotoURL;
 	this->accessToken = other.accessToken;
 	this->expiresIn = other.expiresIn;
 
@@ -36,9 +36,9 @@ QString Session::getUserId()
 	return this->userId;
 }
 
-QUrl Session::getUserPhoto()
+QUrl Session::getUserPhotoURL()
 {
-	return this->userPhoto;
+	return this->userPhotoURL;
 }
 
 QString Session::getAccessToken()
@@ -56,7 +56,7 @@ QStringList & Session::getSessionData()
 	QStringList sessionData;
 	sessionData << this->userName
 				<< this->userId
-				<< this->userPhoto.toDisplayString()
+				<< this->userPhotoURL.toDisplayString()
 				<< this->accessToken
 				<< this->expiresIn;
 

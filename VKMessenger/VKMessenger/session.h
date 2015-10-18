@@ -5,14 +5,15 @@
 #include <QString>
 #include <QStringList>
 #include <QUrl>
+#include <QImage>
+#include "vkdatareceiver.h"
 
 class Session
 {
-
 public:
 	Session(const QString &userName, 
 		    const QString &userId, 
-		    const QUrl &userPhoto, 
+			const QUrl	  &userPhotoURL,
 		    const QString &accessToken, 
 		    const QString &expiresIn);
 
@@ -22,15 +23,16 @@ public:
 
 	QString getUserName();
 	QString getUserId();
-	QUrl getUserPhoto();
+	QUrl getUserPhotoURL();
 	QString getAccessToken();
 	QString getExpiresIn();
 	QStringList & getSessionData();
+	
 
 private:
 	QString userName;
 	QString userId;
-	QUrl userPhoto;
+	QUrl userPhotoURL;	
 	QString accessToken;
 	QString expiresIn;
 };
