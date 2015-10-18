@@ -100,7 +100,7 @@ public:
         userPhoto->setFont(font);
         userName = new QLabel(panel);
         userName->setObjectName(QStringLiteral("userName"));
-        userName->setGeometry(QRect(55, 0, 161, 50));
+        userName->setGeometry(QRect(60, 0, 161, 50));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Button, brush);

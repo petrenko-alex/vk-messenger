@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QUrl>
 #include <QImage>
+#include <QDataStream>
 #include "vkdatareceiver.h"
 
 class Session
@@ -27,6 +28,8 @@ public:
 	QString getAccessToken();
 	QString getExpiresIn();
 	QStringList & getSessionData();
+	friend QDataStream & operator<<(QDataStream &stream, const Session &session);
+	friend QDataStream & operator>>(QDataStream &stream, Session &session);
 	
 
 private:

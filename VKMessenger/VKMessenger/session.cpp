@@ -63,3 +63,28 @@ QStringList & Session::getSessionData()
 	return sessionData;
 }
 
+QDataStream & operator<<(QDataStream &stream, const Session &session)
+{
+	stream	<< session.userName
+			<< session.userId
+			<< session.userPhotoURL.toDisplayString()
+			<< session.accessToken
+			<< session.expiresIn;
+
+	return stream;
+}
+
+QDataStream & operator>>(QDataStream &stream, Session &session)
+{
+	QString userPhotoUrl;
+
+	stream	>> session.userName
+			>> session.userId
+			>> userPhotoUrl
+			>> session.accessToken
+			>> session.expiresIn;
+
+	session.userPhotoURL = QUrl(userPhotoUrl);
+
+	return stream;
+}
