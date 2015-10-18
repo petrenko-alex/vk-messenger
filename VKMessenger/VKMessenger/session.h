@@ -5,13 +5,13 @@
 #include <QString>
 #include <QStringList>
 #include <QUrl>
-#include <QImage>
 #include <QDataStream>
 #include "vkdatareceiver.h"
 
 class Session
 {
 public:
+	Session();
 	Session(const QString &userName, 
 		    const QString &userId, 
 			const QUrl	  &userPhotoURL,

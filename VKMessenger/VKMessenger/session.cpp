@@ -10,6 +10,15 @@ Session::Session(const QString &userName, const QString &userId, const QUrl &use
 	this->expiresIn = expiresIn;
 }
 
+Session::Session()
+{
+	this->userName = "";
+	this->userId = "";
+	this->userPhotoURL = QUrl("");
+	this->accessToken = "";
+	this->expiresIn = "";
+}
+
 Session::~Session()
 {
 
@@ -65,9 +74,11 @@ QStringList & Session::getSessionData()
 
 QDataStream & operator<<(QDataStream &stream, const Session &session)
 {
+	QString userPhotUrl = session.userPhotoURL.toDisplayString();
+
 	stream	<< session.userName
 			<< session.userId
-			<< session.userPhotoURL.toDisplayString()
+			<< userPhotUrl
 			<< session.accessToken
 			<< session.expiresIn;
 
