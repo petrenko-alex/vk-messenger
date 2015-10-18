@@ -2,12 +2,13 @@
 #define MESSENGERWINDOW_H
 
 #include <QtWidgets/QMainWindow>
+#include <QPixmap>
 #include "ui_messengerwindow.h"
 #include "authorization.h"
 #include "dialoginfo.h"
 #include "session.h"
 
-
+//gafk555@gmail.com
 
 class MessengerWindow : public QMainWindow
 {
@@ -18,8 +19,9 @@ public:
 	~MessengerWindow();
 
 private slots:
-	void authorizationCompleted(Session &currentSession);
+	void authorizationCompleted(Session receivedSession);
 	void authorizationFailed();
+	void userPhotoLoaded(const QByteArray &data);
 
 private:
 	void setConnections();
@@ -33,6 +35,8 @@ private:
 	QString accessToken;
 	QString userId;
 	QString expiresIn;
+
+	VKDataReceiver *dataReceiver;
 };
 
 #endif // MESSENGERWINDOW_H
