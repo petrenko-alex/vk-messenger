@@ -15,6 +15,17 @@ Session::~Session()
 
 }
 
+Session & Session::operator=(const Session &other)
+{
+	this->userName = other.userName;
+	this->userId = other.userId;
+	this->userPhoto = other.userPhoto;
+	this->accessToken = other.accessToken;
+	this->expiresIn = other.expiresIn;
+
+	return *this;
+}
+
 QString Session::getUserName()
 {
 	return this->userName;

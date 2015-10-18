@@ -1,6 +1,7 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+#include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QUrl>
@@ -16,6 +17,8 @@ public:
 		    const QString &expiresIn);
 
 	~Session();
+
+	Session & operator=(const Session &other);
 
 	QString getUserName();
 	QString getUserId();
