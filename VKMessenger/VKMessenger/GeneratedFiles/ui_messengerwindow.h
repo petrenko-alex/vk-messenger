@@ -78,7 +78,7 @@ public:
         panel->setFrameShadow(QFrame::Sunken);
         userPhoto = new QLabel(panel);
         userPhoto->setObjectName(QStringLiteral("userPhoto"));
-        userPhoto->setGeometry(QRect(10, 0, 50, 50));
+        userPhoto->setGeometry(QRect(0, 0, 50, 50));
         QPalette palette1;
         QBrush brush1(QColor(255, 255, 255, 255));
         brush1.setStyle(Qt::SolidPattern);
@@ -100,7 +100,7 @@ public:
         userPhoto->setFont(font);
         userName = new QLabel(panel);
         userName->setObjectName(QStringLiteral("userName"));
-        userName->setGeometry(QRect(70, 0, 161, 50));
+        userName->setGeometry(QRect(55, 0, 161, 50));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Button, brush);
