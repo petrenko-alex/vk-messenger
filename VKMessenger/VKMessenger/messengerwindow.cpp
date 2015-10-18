@@ -4,8 +4,14 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	currentSession = NULL;
+	//currentSession = NULL;
 	dataReceiver = new VKDataReceiver;
+
+	if (!loadData())
+	{
+
+	}
+
 
 	/* Авторизируем пользователя */
 	authorization = new Authorization(this);
@@ -31,12 +37,26 @@ void MessengerWindow::setConnections()
 	connect(dataReceiver, SIGNAL(photoReceived(const QByteArray &)), this, SLOT(userPhotoLoaded(const QByteArray &)));
 }
 
+void MessengerWindow::closeEvent(QCloseEvent *event)
+{
+	event->ignore();
+	if (saveData())
+	{
+		event->accept();
+	}
+	else
+	{
+		event->ignore();
+		// #TODO: попытаться еще раз?
+	}
+}
+
 void MessengerWindow::authorizationCompleted(Session receivedSession)
 {
-	currentSession = &receivedSession;
+	currentSession = receivedSession;
 
-	ui.userName->setText(currentSession->getUserName());
-	dataReceiver->loadPhoto(currentSession->getUserPhotoURL());
+	ui.userName->setText(currentSession.getUserName());
+	dataReceiver->loadPhoto(currentSession.getUserPhotoURL());
 
 }
 
@@ -56,4 +76,30 @@ void MessengerWindow::userPhotoLoaded(const QByteArray &data)
 	{
 		// #TODO: Попытаться загрузить еще раз?
 	}
+}
+
+bool MessengerWindow::saveData()
+{
+	QFile dataFile(QString(DATA_FILENAME));
+	if (dataFile.open(QIODevice::WriteOnly))
+	{
+		QDataStream stream(&dataFile);
+		stream << currentSession;
+		dataFile.close();
+		return true;
+	}
+	return false;
+}
+
+bool MessengerWindow::loadData()
+{
+	QFile dataFile(QString(DATA_FILENAME));
+	if (dataFile.open(QIODevice::ReadOnly))
+	{
+		QDataStream stream(&dataFile);
+		stream >> currentSession;
+		dataFile.close();
+		return true;
+	}
+	return false;
 }

@@ -3,10 +3,16 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QPixmap>
+#include <QFile>
+#include <QDataStream>
+#include <QIODevice>
+#include <QCloseEvent>
 #include "ui_messengerwindow.h"
 #include "authorization.h"
 #include "dialoginfo.h"
 #include "session.h"
+
+#define DATA_FILENAME "./Data/data.vkmd"
 
 //gafk555@gmail.com
 
@@ -22,19 +28,19 @@ private slots:
 	void authorizationCompleted(Session receivedSession);
 	void authorizationFailed();
 	void userPhotoLoaded(const QByteArray &data);
+	bool saveData();
+	bool loadData();
 
 private:
 	void setConnections();
+	void closeEvent(QCloseEvent *event);
 
 	Ui::MessengerWindowClass ui;
 
 	/* Модуль авторизации */
 	Authorization *authorization;
-	Session *currentSession;
+	Session currentSession;
 
-	QString accessToken;
-	QString userId;
-	QString expiresIn;
 
 	VKDataReceiver *dataReceiver;
 };
