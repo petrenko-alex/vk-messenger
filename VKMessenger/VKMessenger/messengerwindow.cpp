@@ -4,6 +4,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	currentSession = NULL;
 
 	/* Авторизируем пользователя */
 	authorization = new Authorization(this);
@@ -21,13 +22,14 @@ MessengerWindow::~MessengerWindow()
 
 void MessengerWindow::setConnections()
 {
-	connect(authorization, SIGNAL(authorizationCompleted(const QString&, const QString&, const QString&)), this, SLOT(authorizationCompleted(const QString&, const QString&, const QString&)));
+	connect(authorization, SIGNAL(authorizationCompleted(Session &)), this, SLOT(authorizationCompleted(Session &)));
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 }
 
-void MessengerWindow::authorizationCompleted(const QString &accessToken, const QString &userId, const QString &expiresIn)
+void MessengerWindow::authorizationCompleted(Session &currentSession)
 {
-	
+	currentSession = currentSession;
+	int a = 32;
 }
 
 void MessengerWindow::authorizationFailed()

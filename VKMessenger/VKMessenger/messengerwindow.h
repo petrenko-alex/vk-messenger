@@ -5,6 +5,7 @@
 #include "ui_messengerwindow.h"
 #include "authorization.h"
 #include "dialoginfo.h"
+#include "session.h"
 
 
 
@@ -17,7 +18,7 @@ public:
 	~MessengerWindow();
 
 private slots:
-	void authorizationCompleted(const QString &accessToken, const QString &userId, const QString &expiresIn);
+	void authorizationCompleted(Session &currentSession);
 	void authorizationFailed();
 
 private:
@@ -27,6 +28,7 @@ private:
 
 	/* Модуль авторизации */
 	Authorization *authorization;
+	Session *currentSession;
 
 	QString accessToken;
 	QString userId;
