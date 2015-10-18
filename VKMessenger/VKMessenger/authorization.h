@@ -4,16 +4,16 @@
 #include <QApplication>
 #include <QObject>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <QtWebKit>
 #include <QList>
 #include <QPair>
 #include <QtNetwork>
-#include <QNetworkRequest>
-#include <QUrlQuery>
 #include <QUrl>
 #include <QWebView>
-#include <QNetworkAccessManager>
 #include "vkdatareceiver.h"
+#include "session.h"
 
 #define VK_APPLICATION_ID 5078976
 #define AUTH_WINDOW_WIDTH 640
@@ -32,7 +32,7 @@ public:
 
 signals:
 	/* Сигнал об успешной авторизации */
-	void authorizationCompleted(const QString &accessToken,const QString &userId,const QString &expiresIn);
+	void authorizationCompleted(Session &currentSession);
 	/* Сигнал о неуспешной авторизации */
 	void authorizationFailed();
 
@@ -41,15 +41,23 @@ private slots:
 	void urlChanged(const QUrl &url);
 	/* Слот, вызывающийся при окончании загрузки браузером browser страницы */
 	void loadFinished(bool isSuccesful);
+	/* Слот, вызывающийся при успешном получении данных об авторизовавшемся пользователе */
+	void userInfoReceived(const QByteArray &userInfo);
 
 private:
 	/* Соединение сигналов и слотов */
 	void setConnections();
+	/* Запрос на получение данных об авторизовавшемся пользователе */
+	void loadUserInfo();
 
 	/* Поля класса */
 	QWebView *browser;		
+	VKDataReceiver *dataReceiver;
 	QUrl authorizationUrl;
 	QUrl redirectUri;
+	QString accessToken;
+	QString expiresIn;
+	QString userId;
 };
 
 #endif // AUTHORIZATION_H
