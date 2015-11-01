@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>649</height>
+    <width>1111</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="font">
@@ -27,6 +27,18 @@
       <width>1111</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1111</width>
+      <height>50</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1111</width>
+      <height>50</height>
+     </size>
     </property>
     <property name="palette">
      <palette>
@@ -137,6 +149,18 @@
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
      </property>
      <property name="palette">
       <palette>
@@ -274,6 +298,18 @@
        <height>50</height>
       </rect>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>161</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>161</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="palette">
       <palette>
        <active>
@@ -409,6 +445,18 @@
        <width>71</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>71</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>71</width>
+       <height>31</height>
+      </size>
      </property>
      <property name="palette">
       <palette>
@@ -546,6 +594,18 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>71</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>71</width>
+       <height>31</height>
+      </size>
+     </property>
      <property name="palette">
       <palette>
        <active>
@@ -681,6 +741,18 @@
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
      </property>
      <property name="palette">
       <palette>
@@ -821,6 +893,18 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>181</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>181</width>
+       <height>31</height>
+      </size>
+     </property>
      <property name="palette">
       <palette>
        <active>
@@ -955,11 +1039,23 @@
    <widget class="QFrame" name="dialogsInfoFrame">
     <property name="geometry">
      <rect>
-      <x>-2</x>
+      <x>0</x>
       <y>50</y>
-      <width>281</width>
-      <height>600</height>
+      <width>285</width>
+      <height>620</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>285</width>
+      <height>620</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>285</width>
+      <height>620</height>
+     </size>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -967,58 +1063,74 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QScrollArea" name="dialogsInfoArea">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>30</y>
-       <width>271</width>
-       <height>571</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>271</width>
-        <height>571</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QLineEdit" name="dialogSearch">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>5</y>
-       <width>271</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <property name="placeholderText">
-      <string>Поиск...</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <widget class="QScrollArea" name="dialogsInfoArea">
+       <property name="minimumSize">
+        <size>
+         <width>269</width>
+         <height>571</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>269</width>
+         <height>571</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>269</width>
+          <height>571</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="dialogSearch">
+       <property name="minimumSize">
+        <size>
+         <width>265</width>
+         <height>21</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>265</width>
+         <height>21</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>Поиск...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+    <zorder>dialogsInfoArea</zorder>
+    <zorder>dialogSearch</zorder>
    </widget>
    <widget class="QFrame" name="dialogFrame">
     <property name="geometry">
      <rect>
       <x>280</x>
       <y>50</y>
-      <width>821</width>
-      <height>601</height>
+      <width>835</width>
+      <height>616</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -1027,65 +1139,85 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QScrollArea" name="dialogArea">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>821</width>
-       <height>561</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>819</width>
-        <height>559</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QTextEdit" name="message">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>560</y>
-       <width>721</width>
-       <height>38</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <property name="placeholderText">
-      <string>Введите сообщение...</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="sendMessageB">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>560</y>
-       <width>101</width>
-       <height>39</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <property name="text">
-      <string>Отправить</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0" colspan="2">
+      <widget class="QScrollArea" name="dialogArea">
+       <property name="minimumSize">
+        <size>
+         <width>815</width>
+         <height>551</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>813</width>
+          <height>549</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTextEdit" name="message">
+       <property name="minimumSize">
+        <size>
+         <width>721</width>
+         <height>38</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>721</width>
+         <height>38</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>Введите сообщение...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="sendMessageB">
+       <property name="minimumSize">
+        <size>
+         <width>81</width>
+         <height>39</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>81</width>
+         <height>39</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Verdana</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>Отправить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>

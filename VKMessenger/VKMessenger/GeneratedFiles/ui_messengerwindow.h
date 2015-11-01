@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -37,10 +38,12 @@ public:
     QPushButton *newDialogB;
     QLabel *currentOponent;
     QFrame *dialogsInfoFrame;
+    QGridLayout *gridLayout;
     QScrollArea *dialogsInfoArea;
     QWidget *scrollAreaWidgetContents;
     QLineEdit *dialogSearch;
     QFrame *dialogFrame;
+    QGridLayout *gridLayout_2;
     QScrollArea *dialogArea;
     QWidget *scrollAreaWidgetContents_2;
     QTextEdit *message;
@@ -50,7 +53,7 @@ public:
     {
         if (MessengerWindowClass->objectName().isEmpty())
             MessengerWindowClass->setObjectName(QStringLiteral("MessengerWindowClass"));
-        MessengerWindowClass->resize(1100, 649);
+        MessengerWindowClass->resize(1111, 674);
         QFont font;
         font.setFamily(QStringLiteral("Verdana"));
         MessengerWindowClass->setFont(font);
@@ -59,6 +62,8 @@ public:
         panel = new QFrame(centralWidget);
         panel->setObjectName(QStringLiteral("panel"));
         panel->setGeometry(QRect(0, 0, 1111, 50));
+        panel->setMinimumSize(QSize(1111, 50));
+        panel->setMaximumSize(QSize(1111, 50));
         QPalette palette;
         QBrush brush(QColor(86, 124, 164, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -79,6 +84,8 @@ public:
         userPhoto = new QLabel(panel);
         userPhoto->setObjectName(QStringLiteral("userPhoto"));
         userPhoto->setGeometry(QRect(0, 0, 50, 50));
+        userPhoto->setMinimumSize(QSize(50, 50));
+        userPhoto->setMaximumSize(QSize(50, 50));
         QPalette palette1;
         QBrush brush1(QColor(255, 255, 255, 255));
         brush1.setStyle(Qt::SolidPattern);
@@ -101,6 +108,8 @@ public:
         userName = new QLabel(panel);
         userName->setObjectName(QStringLiteral("userName"));
         userName->setGeometry(QRect(60, 0, 161, 50));
+        userName->setMinimumSize(QSize(161, 50));
+        userName->setMaximumSize(QSize(161, 50));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Button, brush);
@@ -119,6 +128,8 @@ public:
         loginB = new QPushButton(panel);
         loginB->setObjectName(QStringLiteral("loginB"));
         loginB->setGeometry(QRect(940, 10, 71, 31));
+        loginB->setMinimumSize(QSize(71, 31));
+        loginB->setMaximumSize(QSize(71, 31));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::Button, brush);
         palette3.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
@@ -137,6 +148,8 @@ public:
         logoutB = new QPushButton(panel);
         logoutB->setObjectName(QStringLiteral("logoutB"));
         logoutB->setGeometry(QRect(1020, 10, 71, 31));
+        logoutB->setMinimumSize(QSize(71, 31));
+        logoutB->setMaximumSize(QSize(71, 31));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::Button, brush);
         palette4.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
@@ -155,6 +168,8 @@ public:
         newDialogB = new QPushButton(panel);
         newDialogB->setObjectName(QStringLiteral("newDialogB"));
         newDialogB->setGeometry(QRect(230, 0, 50, 50));
+        newDialogB->setMinimumSize(QSize(50, 50));
+        newDialogB->setMaximumSize(QSize(50, 50));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::Button, brush);
         palette5.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
@@ -176,6 +191,8 @@ public:
         currentOponent = new QLabel(panel);
         currentOponent->setObjectName(QStringLiteral("currentOponent"));
         currentOponent->setGeometry(QRect(580, 10, 181, 31));
+        currentOponent->setMinimumSize(QSize(181, 31));
+        currentOponent->setMaximumSize(QSize(181, 31));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush1);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush);
@@ -194,43 +211,75 @@ public:
         currentOponent->setAlignment(Qt::AlignCenter);
         dialogsInfoFrame = new QFrame(centralWidget);
         dialogsInfoFrame->setObjectName(QStringLiteral("dialogsInfoFrame"));
-        dialogsInfoFrame->setGeometry(QRect(-2, 50, 281, 600));
+        dialogsInfoFrame->setGeometry(QRect(0, 50, 285, 620));
+        dialogsInfoFrame->setMinimumSize(QSize(285, 620));
+        dialogsInfoFrame->setMaximumSize(QSize(285, 620));
         dialogsInfoFrame->setFrameShape(QFrame::Box);
         dialogsInfoFrame->setFrameShadow(QFrame::Raised);
+        gridLayout = new QGridLayout(dialogsInfoFrame);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         dialogsInfoArea = new QScrollArea(dialogsInfoFrame);
         dialogsInfoArea->setObjectName(QStringLiteral("dialogsInfoArea"));
-        dialogsInfoArea->setGeometry(QRect(0, 30, 271, 571));
+        dialogsInfoArea->setMinimumSize(QSize(269, 571));
+        dialogsInfoArea->setMaximumSize(QSize(269, 571));
         dialogsInfoArea->setFrameShape(QFrame::NoFrame);
         dialogsInfoArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 271, 571));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 269, 571));
         dialogsInfoArea->setWidget(scrollAreaWidgetContents);
+
+        gridLayout->addWidget(dialogsInfoArea, 1, 0, 1, 1);
+
         dialogSearch = new QLineEdit(dialogsInfoFrame);
         dialogSearch->setObjectName(QStringLiteral("dialogSearch"));
-        dialogSearch->setGeometry(QRect(5, 5, 271, 21));
+        dialogSearch->setMinimumSize(QSize(265, 21));
+        dialogSearch->setMaximumSize(QSize(265, 21));
         dialogSearch->setFont(font);
+
+        gridLayout->addWidget(dialogSearch, 0, 0, 1, 1);
+
+        dialogsInfoArea->raise();
+        dialogSearch->raise();
         dialogFrame = new QFrame(centralWidget);
         dialogFrame->setObjectName(QStringLiteral("dialogFrame"));
-        dialogFrame->setGeometry(QRect(280, 50, 821, 601));
+        dialogFrame->setGeometry(QRect(280, 50, 835, 616));
         dialogFrame->setFrameShape(QFrame::StyledPanel);
         dialogFrame->setFrameShadow(QFrame::Raised);
+        gridLayout_2 = new QGridLayout(dialogFrame);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         dialogArea = new QScrollArea(dialogFrame);
         dialogArea->setObjectName(QStringLiteral("dialogArea"));
-        dialogArea->setGeometry(QRect(0, 0, 821, 561));
+        dialogArea->setMinimumSize(QSize(815, 551));
+        dialogArea->setMaximumSize(QSize(16777215, 16777215));
         dialogArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 819, 559));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 813, 549));
         dialogArea->setWidget(scrollAreaWidgetContents_2);
+
+        gridLayout_2->addWidget(dialogArea, 0, 0, 1, 2);
+
         message = new QTextEdit(dialogFrame);
         message->setObjectName(QStringLiteral("message"));
-        message->setGeometry(QRect(0, 560, 721, 38));
+        message->setMinimumSize(QSize(721, 38));
+        message->setMaximumSize(QSize(721, 38));
         message->setFont(font);
+
+        gridLayout_2->addWidget(message, 1, 0, 1, 1);
+
         sendMessageB = new QPushButton(dialogFrame);
         sendMessageB->setObjectName(QStringLiteral("sendMessageB"));
-        sendMessageB->setGeometry(QRect(720, 560, 101, 39));
+        sendMessageB->setMinimumSize(QSize(81, 39));
+        sendMessageB->setMaximumSize(QSize(81, 39));
         sendMessageB->setFont(font);
+
+        gridLayout_2->addWidget(sendMessageB, 1, 1, 1, 1);
+
         MessengerWindowClass->setCentralWidget(centralWidget);
 
         retranslateUi(MessengerWindowClass);
