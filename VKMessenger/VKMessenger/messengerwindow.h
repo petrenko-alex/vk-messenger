@@ -11,6 +11,8 @@
 #include "authorization.h"
 #include "dialoginfo.h"
 #include "session.h"
+#include "dialogs.h"
+#include "dialoginfo.h"
 
 #define DATA_FILENAME "./Data/data.vkmd"
 
@@ -24,10 +26,15 @@ public:
 	MessengerWindow(QWidget *parent = 0);
 	~MessengerWindow();
 
+signals:
+	void userInfoLoaded();
+
 private slots:
 	void authorizationCompleted(Session receivedSession);
 	void authorizationFailed();
 	void userPhotoLoaded(const QByteArray &data);
+	void loadDialogs();
+	void dialogReceived(DialogInfo *dialogInfo);
 	bool saveData();
 	bool loadData();
 
@@ -36,13 +43,10 @@ private:
 	void closeEvent(QCloseEvent *event);
 
 	Ui::MessengerWindowClass ui;
-
-	/* Модуль авторизации */
 	Authorization *authorization;
-	Session currentSession;
-
-
+	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
+	Session currentSession;
 };
 
 #endif // MESSENGERWINDOW_H

@@ -80,6 +80,15 @@
     <ClCompile Include="session.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialogs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dialogs.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dialogs.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messengerwindow.h">
@@ -104,6 +113,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="session.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="dialogs.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
