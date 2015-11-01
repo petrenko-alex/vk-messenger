@@ -111,7 +111,6 @@ void Authorization::loadUserInfo()
 	parametres << QPair<QString,QString>("fields", "photo_50");
 	parametres << QPair<QString, QString>("name_case", "Nom");
 	parametres << QPair<QString, QString>("v", "5.37");
-	parametres << QPair<QString, QString>("lang", "ru");
 	parametres << QPair<QString, QString>("access_token", accessToken);
 
 	dataReceiver->sendRequest("users.get", parametres);
