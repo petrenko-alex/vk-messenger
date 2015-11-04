@@ -12,12 +12,16 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 
 	}
 
-
 	/* Авторизируем пользователя */
 	authorization = new Authorization(this);
 	authorization->loadAuthorizationPage();
 
 	setConnections();
+
+	ui.dialogsInfoArea->setWidgetResizable(true);
+	dialogsScrollWidget = new QWidget;
+	dialogsScrollWidget->setLayout(new QVBoxLayout);
+	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
 }
 
 MessengerWindow::~MessengerWindow()
@@ -85,13 +89,7 @@ void MessengerWindow::loadDialogs()
 
 void MessengerWindow::dialogReceived(DialogInfo *dialogInfo)
 {
-// 	QVBoxLayout *layout = new QVBoxLayout(ui.dialogsInfoArea);
-// 	ui.dialogsInfoArea->setLayout(layout);
-// 	dialogInfo->setMinimumSize(ui.dialogsInfoArea->minimumSize());
-// 	layout->addWidget(dialogInfo);
-// 	
-// 	ui.dialogsInfoArea->show();
-// 	dialogInfo->show();
+	dialogsScrollWidget->layout()->addWidget(dialogInfo);
 }
 
 bool MessengerWindow::saveData()

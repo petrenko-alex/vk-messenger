@@ -47,6 +47,8 @@ private:
 	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
 	Session currentSession;
+
+	QWidget *dialogsScrollWidget;
 };
 
 #endif // MESSENGERWINDOW_H

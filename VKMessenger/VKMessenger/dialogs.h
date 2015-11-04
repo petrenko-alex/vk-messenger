@@ -8,7 +8,7 @@
 #include "vkdatareceiver.h"
 #include "dialoginfo.h"
 
-#define DIALOGS_COUNT 1
+#define DIALOGS_COUNT 20
 
 class Dialogs : public QObject
 {
@@ -25,12 +25,12 @@ public:
 	void loadDialogs();
 
 private slots:
-	void dialogsReceived(const QByteArray &userDialogs);
+	void dialogsReceived(const QByteArray &userDialogsData);
 
 private:
 	Session *currentSession;
 	VKDataReceiver *dataReceiver;
-	QHash<unsigned int, DialogInfo *> userDialogs;
+	QList<DialogInfo *> userDialogs;
 };
 
 #endif // DIALOGS_H

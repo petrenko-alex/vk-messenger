@@ -29,22 +29,20 @@ void Dialogs::loadDialogs()
 	dataReceiver->sendRequest("messages.getDialogs", parametres);
 }
 
-void Dialogs::dialogsReceived(const QByteArray &userDialogs)
+void Dialogs::dialogsReceived(const QByteArray &userDialogsData)
 {
-	QJsonObject userDialogsObject = QJsonDocument::fromJson(userDialogs).object();
+	QJsonObject userDialogsObject = QJsonDocument::fromJson(userDialogsData).object();
 	QJsonArray userDialogsArray =  userDialogsObject.value("response").toObject()["items"].toArray ();
 	
 	for (auto dialog : userDialogsArray)
 	{
 		QJsonObject dialogInfo = dialog.toObject()["message"].toObject();
 
-		DialogInfo d( dialogInfo["user_id"].toInt(), dialogInfo["id"].toInt(),
-					  dialogInfo["title"].toString(), dialogInfo["body"].toString(),
-					  QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toBool());
+		DialogInfo *d = new DialogInfo( dialogInfo["user_id"].toInt(), dialogInfo["id"].toInt(),
+										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
+										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toBool());
 
-		unsigned int key = dialogInfo["user_id"].toInt();
-
-		this->userDialogs.insert(dialogInfo["id"].toInt(),&d);
-		emit dialogLoaded(this->userDialogs.value(key));
+		userDialogs << d;
+		emit dialogLoaded(d);
 	}
 }

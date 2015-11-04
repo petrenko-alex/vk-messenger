@@ -31,14 +31,14 @@ public:
     QLabel *photo;
     QLabel *name;
     QDateTimeEdit *lastMessageDateTime;
-    QLabel *lastMessage;
     QFrame *line_2;
+    QLabel *lastMessage;
 
     void setupUi(QWidget *DialogInfo)
     {
         if (DialogInfo->objectName().isEmpty())
             DialogInfo->setObjectName(QStringLiteral("DialogInfo"));
-        DialogInfo->resize(309, 130);
+        DialogInfo->resize(293, 111);
         gridLayout_2 = new QGridLayout(DialogInfo);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -80,19 +80,19 @@ public:
 
         gridLayout->addWidget(lastMessageDateTime, 0, 2, 1, 1);
 
-        lastMessage = new QLabel(dialogInfo);
-        lastMessage->setObjectName(QStringLiteral("lastMessage"));
-        sizePolicy1.setHeightForWidth(lastMessage->sizePolicy().hasHeightForWidth());
-        lastMessage->setSizePolicy(sizePolicy1);
-
-        gridLayout->addWidget(lastMessage, 1, 1, 1, 1);
-
         line_2 = new QFrame(dialogInfo);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShadow(QFrame::Raised);
         line_2->setFrameShape(QFrame::HLine);
 
         gridLayout->addWidget(line_2, 2, 0, 1, 3);
+
+        lastMessage = new QLabel(dialogInfo);
+        lastMessage->setObjectName(QStringLiteral("lastMessage"));
+        sizePolicy1.setHeightForWidth(lastMessage->sizePolicy().hasHeightForWidth());
+        lastMessage->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(lastMessage, 1, 1, 1, 2);
 
 
         gridLayout_2->addWidget(dialogInfo, 0, 0, 1, 1);
