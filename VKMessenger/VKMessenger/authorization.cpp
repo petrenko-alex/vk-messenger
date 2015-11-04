@@ -78,8 +78,12 @@ void Authorization::userInfoReceived(const QByteArray &userInfo)
 	QString userName = userDataArray[0].toObject().value("first_name").toString() + " " + userDataArray[0].toObject().value("last_name").toString();
 	QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
 	/* Сигнал об успешной авторизации */
-	Session currentSession(userName,userId,QUrl(userPhoto),accessToken,expiresIn);
-	emit authorizationCompleted(currentSession);
+	Session::getInstance().add("userName", userName);
+	Session::getInstance().add("userId", userId);
+	Session::getInstance().add("userPhoto", userPhoto);
+	Session::getInstance().add("accessToken", accessToken);
+	Session::getInstance().add("expiresIn", expiresIn);
+	emit authorizationCompleted();
 }
 
 void Authorization::loadAuthorizationPage()

@@ -30,7 +30,7 @@ signals:
 	void userInfoLoaded();
 
 private slots:
-	void authorizationCompleted(Session receivedSession);
+	void authorizationCompleted();
 	void authorizationFailed();
 	void userPhotoLoaded(const QByteArray &data);
 	void loadDialogs();
@@ -46,7 +46,6 @@ private:
 	Authorization *authorization;
 	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
-	Session currentSession;
 
 	QWidget *dialogsScrollWidget;
 };

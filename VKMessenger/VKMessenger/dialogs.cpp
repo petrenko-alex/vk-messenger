@@ -1,8 +1,7 @@
 #include "dialogs.h"
 
-Dialogs::Dialogs(Session &currentSession)
+Dialogs::Dialogs()
 {
-	this->currentSession = &currentSession;
 	dataReceiver = new VKDataReceiver;
 
 	setConnections();
@@ -11,7 +10,6 @@ Dialogs::Dialogs(Session &currentSession)
 Dialogs::~Dialogs()
 {
 	delete dataReceiver;
-	delete currentSession;
 }
 
 void Dialogs::setConnections()
@@ -24,7 +22,7 @@ void Dialogs::loadDialogs()
 	QList<QPair<QString, QString> > parametres;
 	parametres << QPair<QString, QString>("count", QString::number(DIALOGS_COUNT));
 	parametres << QPair<QString, QString>("v", "5.37");
-	parametres << QPair<QString, QString>("access_token", QString(currentSession->getAccessToken()));
+	parametres << QPair<QString, QString>("access_token", QString(Session::getInstance ().get ("accessToken")));
 
 	dataReceiver->sendRequest("messages.getDialogs", parametres);
 }

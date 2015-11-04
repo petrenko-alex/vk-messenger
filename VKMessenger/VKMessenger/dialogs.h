@@ -18,7 +18,7 @@ signals:
 	void dialogLoaded(DialogInfo *dialogInfo);
 
 public:
-	Dialogs(Session &currentSession);
+	Dialogs();
 	~Dialogs();
 
 	void setConnections();
@@ -28,7 +28,6 @@ private slots:
 	void dialogsReceived(const QByteArray &userDialogsData);
 
 private:
-	Session *currentSession;
 	VKDataReceiver *dataReceiver;
 	QList<DialogInfo *> userDialogs;
 };

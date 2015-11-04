@@ -3,41 +3,36 @@
 
 #include <QObject>
 #include <QString>
-#include <QStringList>
-#include <QUrl>
+#include <QHash>
 #include <QDataStream>
-#include "vkdatareceiver.h"
 
 class Session
 {
 public:
-	Session();
-	Session(const QString &userName, 
-		    const QString &userId, 
-			const QUrl	  &userPhotoURL,
-		    const QString &accessToken, 
-		    const QString &expiresIn);
+	/* Получить объект класса */
+	static Session & getInstance();
 
-	~Session();
+	/* Получить значени по ключу key */
+	QString get(const QString &key) const;
 
-	Session & operator=(const Session &other);
+	/* Добавить значене value с ключом key */
+	void add(const QString &key, const QString &value);
 
-	QString getUserName();
-	QString getUserId();
-	QUrl getUserPhotoURL();
-	QString getAccessToken();
-	QString getExpiresIn();
-	QStringList & getSessionData();
+	/* Загрузить данные в поток */
 	friend QDataStream & operator<<(QDataStream &stream, const Session &session);
+
+	/* Выгрузить данные из потока */
 	friend QDataStream & operator>>(QDataStream &stream, Session &session);
 	
 
 private:
-	QString userName;
-	QString userId;
-	QUrl userPhotoURL;	
-	QString accessToken;
-	QString expiresIn;
+	Session();
+	Session(const Session &) = delete;
+	Session(const Session &&) = delete;
+	void operator=(const Session &) = delete;
+	void operator=(const Session &&) = delete;
+
+	QHash<QString, QString> sessionData;
 };
 
 #endif // SESSION_H

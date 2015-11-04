@@ -3,7 +3,6 @@
 DialogInfo::DialogInfo(/*QWidget *parent, */unsigned int userId, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out) /*: QWidget(parent)*/
 {
 	ui.setupUi(this);
-	dataReceiver = new VKDataReceiver;
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	this->setMinimumSize(WIDTH, HEIGHT);
 

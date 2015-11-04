@@ -1,101 +1,55 @@
 #include "session.h"
 
-
-Session::Session(const QString &userName, const QString &userId, const QUrl &userPhotoURL, const QString &accessToken, const QString &expiresIn)
+Session & Session::getInstance()
 {
-	this->userName = userName;
-	this->userId = userId;
-	this->userPhotoURL = userPhotoURL;
-	this->accessToken = accessToken;
-	this->expiresIn = expiresIn;
+	static Session session;
+	return session;
+}
+
+QString Session::get(const QString &key) const
+{
+	return sessionData.contains(key) ? sessionData[key] : "";
+}
+
+void Session::add(const QString &key, const QString &value)
+{
+	sessionData[key] = value;
 }
 
 Session::Session()
 {
-	this->userName = "";
-	this->userId = "";
-	this->userPhotoURL = QUrl("");
-	this->accessToken = "";
-	this->expiresIn = "";
-}
-
-Session::~Session()
-{
-
-}
-
-Session & Session::operator=(const Session &other)
-{
-	this->userName = other.userName;
-	this->userId = other.userId;
-	this->userPhotoURL = other.userPhotoURL;
-	this->accessToken = other.accessToken;
-	this->expiresIn = other.expiresIn;
-
-	return *this;
-}
-
-QString Session::getUserName()
-{
-	return this->userName;
-}
-
-QString Session::getUserId()
-{
-	return this->userId;
-}
-
-QUrl Session::getUserPhotoURL()
-{
-	return this->userPhotoURL;
-}
-
-QString Session::getAccessToken()
-{
-	return this->accessToken;
-}
-
-QString Session::getExpiresIn()
-{
-	return this->expiresIn;
-}
-
-QStringList & Session::getSessionData()
-{
-	QStringList sessionData;
-	sessionData << this->userName
-				<< this->userId
-				<< this->userPhotoURL.toDisplayString()
-				<< this->accessToken
-				<< this->expiresIn;
-
-	return sessionData;
 }
 
 QDataStream & operator<<(QDataStream &stream, const Session &session)
 {
-	QString userPhotUrl = session.userPhotoURL.toDisplayString();
+	QList<QString> keys = session.sessionData.keys();
+	int elementsCount = keys.size();
+	stream << elementsCount;
 
-	stream	<< session.userName
-			<< session.userId
-			<< userPhotUrl
-			<< session.accessToken
-			<< session.expiresIn;
+	for (int i = 0; i < elementsCount;++i)
+	{
+		stream << keys[i];
+		QString value;
+		value = session.sessionData.value(keys[i]);
+		stream << value;
+	}
 
 	return stream;
 }
 
 QDataStream & operator>>(QDataStream &stream, Session &session)
 {
-	QString userPhotoUrl;
+	int elementsCount = 0;
+	stream >> elementsCount;
 
-	stream	>> session.userName
-			>> session.userId
-			>> userPhotoUrl
-			>> session.accessToken
-			>> session.expiresIn;
-
-	session.userPhotoURL = QUrl(userPhotoUrl);
+	for (int i = 0; i < elementsCount; ++i)
+	{
+		QString key;
+		stream >> key;
+		QString value;
+		stream >> value;
+		Session::getInstance().add(key, value);
+	}
 
 	return stream;
 }

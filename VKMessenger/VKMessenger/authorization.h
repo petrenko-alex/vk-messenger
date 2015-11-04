@@ -32,7 +32,7 @@ public:
 
 signals:
 	/* Сигнал об успешной авторизации */
-	void authorizationCompleted(Session currentSession);
+	void authorizationCompleted();
 	/* Сигнал о неуспешной авторизации */
 	void authorizationFailed();
 

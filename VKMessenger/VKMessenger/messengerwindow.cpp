@@ -32,7 +32,7 @@ MessengerWindow::~MessengerWindow()
 
 void MessengerWindow::setConnections()
 {
-	connect(authorization, SIGNAL(authorizationCompleted(Session)), this, SLOT(authorizationCompleted(Session)));
+	connect(authorization, SIGNAL(authorizationCompleted()), this, SLOT(authorizationCompleted()));
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 	connect(this, SIGNAL(userInfoLoaded()), this, SLOT(loadDialogs()));
 	connect(dataReceiver, SIGNAL(photoReceived(const QByteArray &)), this, SLOT(userPhotoLoaded(const QByteArray &)));
@@ -52,12 +52,10 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 	}
 }
 
-void MessengerWindow::authorizationCompleted(Session receivedSession)
+void MessengerWindow::authorizationCompleted()
 {
-	currentSession = receivedSession;
-
-	ui.userName->setText(currentSession.getUserName());
-	dataReceiver->loadPhoto(currentSession.getUserPhotoURL());
+	ui.userName->setText(Session::getInstance().get("userName"));
+	dataReceiver->loadPhoto(QUrl(Session::getInstance().get("userPhoto")));
 
 }
 
@@ -82,7 +80,7 @@ void MessengerWindow::userPhotoLoaded(const QByteArray &data)
 
 void MessengerWindow::loadDialogs()
 {
-	userDialogs = new Dialogs(currentSession);
+	userDialogs = new Dialogs();
 	connect(userDialogs, SIGNAL(dialogLoaded(DialogInfo *)), this, SLOT(dialogReceived(DialogInfo *)));
 	userDialogs->loadDialogs();
 }
@@ -98,7 +96,7 @@ bool MessengerWindow::saveData()
 	if (dataFile.open(QIODevice::WriteOnly))
 	{
 		QDataStream stream(&dataFile);
-		stream << currentSession;
+		stream << Session::getInstance ();
 		dataFile.close();
 		return true;
 	}
@@ -111,7 +109,7 @@ bool MessengerWindow::loadData()
 	if (dataFile.open(QIODevice::ReadOnly))
 	{
 		QDataStream stream(&dataFile);
-		stream >> currentSession;
+		stream >> Session::getInstance ();
 		dataFile.close();
 		return true;
 	}
