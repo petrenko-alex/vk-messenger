@@ -3,11 +3,17 @@
 DialogInfo::DialogInfo(/*QWidget *parent, */unsigned int userId, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out) /*: QWidget(parent)*/
 {
 	ui.setupUi(this);
+	dataReceiver = new VKDataReceiver;
+	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->setMinimumSize(WIDTH, HEIGHT);
+
 	this->userId = userId;
 	this->messageId = messageId;
 	this->title = title;
 	this->lastMessage = lastMessage;
+	ui.lastMessage->setText(lastMessage);
 	this->lastMessageDateTime = lastMessageDateTime;
+	ui.lastMessageDateTime->setDateTime(lastMessageDateTime);
 	this->out = out;
 }
 

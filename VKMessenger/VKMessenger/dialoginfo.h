@@ -8,14 +8,15 @@
 #include "ui_dialoginfo.h"
 #include "vkdatareceiver.h"
 
+#define WIDTH  250
+#define HEIGHT 100
 
 class DialogInfo : public QWidget
 {
 	Q_OBJECT
 
 public:
-	DialogInfo( /*QWidget *parent, */
-			    unsigned int userId,unsigned int messageId,
+	DialogInfo( unsigned int userId,unsigned int messageId,
 				QString &title,QString &lastMessage,
 				QDateTime &lastMessageDateTime, bool out);
 	~DialogInfo();
@@ -30,7 +31,6 @@ private:
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
 	bool out;
-	/* Добавить фото */
 };
 
 #endif // DIALOGINFO_H
