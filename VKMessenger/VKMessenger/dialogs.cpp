@@ -38,9 +38,15 @@ void Dialogs::dialogsReceived(const QByteArray &userDialogsData)
 
 		DialogInfo *d = new DialogInfo( dialogInfo["user_id"].toInt(), dialogInfo["id"].toInt(),
 										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
-										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toBool());
+										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 
 		userDialogs << d;
-		emit dialogLoaded(d);
 	}
+
+	for (auto dialog : userDialogs)
+	{
+		emit dialogLoaded(dialog);
+		dialog->loadOpponentInfo();
+	}
+
 }

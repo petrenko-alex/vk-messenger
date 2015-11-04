@@ -6,6 +6,8 @@
 #include <QUrl>
 #include <QJsonDocument>
 #include "ui_dialoginfo.h"
+#include "session.h"
+#include <windows.h>
 #include "vkdatareceiver.h"
 
 #define WIDTH  250
@@ -22,7 +24,16 @@ public:
 	~DialogInfo();
 	DialogInfo & operator=(const DialogInfo &other);
 
+	void loadOpponentInfo();
+	void loadOpponentPhoto(QString photoUrl);
+private slots:
+	void opponentInfoReceived(const QByteArray &userInfo);
+	void opponentPhotoLoaded(const QByteArray &userPhoto);
+
 private:
+	void setConnections();
+	void setDataToWidgets();
+
 	Ui::DialogInfo ui;
 	unsigned int userId;
 	unsigned int messageId;
@@ -31,6 +42,7 @@ private:
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
 	bool out;
+	VKDataReceiver *dataReceiver;
 };
 
 #endif // DIALOGINFO_H

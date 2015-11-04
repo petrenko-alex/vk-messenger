@@ -8,7 +8,7 @@
 #include "vkdatareceiver.h"
 #include "dialoginfo.h"
 
-#define DIALOGS_COUNT 20
+#define DIALOGS_COUNT 5
 
 class Dialogs : public QObject
 {
