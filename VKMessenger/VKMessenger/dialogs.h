@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPair>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include "session.h"
 #include "vkdatareceiver.h"
 #include "dialoginfo.h"
@@ -21,13 +22,12 @@ public:
 	Dialogs();
 	~Dialogs();
 
-	void setConnections();
 	void loadDialogs();
 
-private slots:
-	void dialogsReceived(const QByteArray &userDialogsData);
-
 private:
+	void setConnections();
+	void parseDialogs(const QByteArray &userDialogsData);
+
 	VKDataReceiver *dataReceiver;
 	QList<DialogInfo *> userDialogs;
 };
