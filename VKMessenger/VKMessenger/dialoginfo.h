@@ -10,7 +10,7 @@
 #include <windows.h>
 #include "vkdatareceiver.h"
 
-#define WIDTH  250
+#define WIDTH  235
 #define HEIGHT 100
 
 class DialogInfo : public QWidget
