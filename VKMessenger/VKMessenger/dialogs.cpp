@@ -60,4 +60,5 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		dialog->loadOpponentInfo();
 	}
 
+	emit dialogsLoaded(true);
 }

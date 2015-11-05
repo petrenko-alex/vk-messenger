@@ -9,7 +9,7 @@
 #include "vkdatareceiver.h"
 #include "dialoginfo.h"
 
-#define DIALOGS_COUNT 5
+#define DIALOGS_COUNT 20
 
 class Dialogs : public QObject
 {
@@ -17,6 +17,7 @@ class Dialogs : public QObject
 
 signals:
 	void dialogLoaded(DialogInfo *dialogInfo);
+	void dialogsLoaded(bool isSuccessful);
 
 public:
 	Dialogs();
