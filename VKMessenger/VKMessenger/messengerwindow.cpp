@@ -80,12 +80,25 @@ void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
 	connect(userDialogs, SIGNAL(dialogLoaded(DialogInfo *)), this, SLOT(dialogReceived(DialogInfo *)));
+	connect(userDialogs, SIGNAL(dialogsLoaded(bool)), this, SLOT(dialogsLoaded(bool)));
 	userDialogs->loadDialogs();
 }
 
 void MessengerWindow::dialogReceived(DialogInfo *dialogInfo)
 {
 	dialogsScrollWidget->layout()->addWidget(dialogInfo);
+}
+
+void MessengerWindow::dialogsLoaded(bool isSuccessful)
+{
+	if (isSuccessful)
+	{
+		this->show();
+	}
+	else
+	{
+		// #TODO: Решить что делать здесь!
+	}
 }
 
 bool MessengerWindow::saveData()

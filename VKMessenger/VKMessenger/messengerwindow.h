@@ -34,6 +34,7 @@ private slots:
 	void authorizationFailed();
 	void loadDialogs();
 	void dialogReceived(DialogInfo *dialogInfo);
+	void dialogsLoaded(bool isSuccessful);
 	bool saveData();
 	bool loadData();
 
