@@ -24,8 +24,8 @@ public:
 	VKDataReceiver();
 	~VKDataReceiver();
 
-	QByteArray & sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
-	QByteArray & loadPhoto(const QUrl &photoUrl);
+	QByteArray sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
+	QByteArray loadPhoto(const QUrl &photoUrl);
 
 };
 

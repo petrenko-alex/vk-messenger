@@ -8,7 +8,7 @@ VKDataReceiver::~VKDataReceiver()
 {
 }
 
-QByteArray & VKDataReceiver::sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres)
+QByteArray VKDataReceiver::sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres)
 {
 	QByteArray data;
 
@@ -44,7 +44,7 @@ QByteArray & VKDataReceiver::sendRequest(const QString &methodName, const QList<
 	return data;
 }
 
-QByteArray & VKDataReceiver::loadPhoto(const QUrl &photoUrl)
+QByteArray VKDataReceiver::loadPhoto(const QUrl &photoUrl)
 {
 	QByteArray photo;
 
