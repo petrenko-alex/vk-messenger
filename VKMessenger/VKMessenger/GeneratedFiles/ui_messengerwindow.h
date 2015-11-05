@@ -57,6 +57,28 @@ public:
         QFont font;
         font.setFamily(QStringLiteral("Verdana"));
         MessengerWindowClass->setFont(font);
+        MessengerWindowClass->setStyleSheet(QLatin1String("QFrame#panel 									{  background-color: rgb(86, 124, 164); }\n"
+"\n"
+"\n"
+"QPushButton#newDialogB 					{  border: 0px; border-radius: 0px}\n"
+"QPushButton#newDialogB:pressed 	{  border: 0px solid black; color: black; font: 32px}\n"
+"\n"
+"\n"
+"QPushButton#sendMessageB 			{  border: 1px solid black; border-radius: 10px;}\n"
+"\n"
+"\n"
+"\n"
+"QPushButton 										{  border: 1px solid white; border-radius: 10px;}\n"
+"QPushButton:hover 							{  border: 1px solid black; color: black; }\n"
+"QPushButton:pressed 						{  border: 2px solid black; color: black; font:  bold ; }\n"
+"\n"
+"QLineEdit#dialogSearch						{  border: 1px solid ; border-radius: 7px; }\n"
+"\n"
+"QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}\n"
+"\n"
+"\n"
+"\n"
+""));
         centralWidget = new QWidget(MessengerWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         panel = new QFrame(centralWidget);
@@ -77,8 +99,7 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::Base, brush);
         palette.setBrush(QPalette::Disabled, QPalette::Window, brush);
         panel->setPalette(palette);
-        panel->setStyleSheet(QLatin1String("background-color: rgb(86, 124, 164);\n"
-""));
+        panel->setStyleSheet(QStringLiteral(""));
         panel->setFrameShape(QFrame::Box);
         panel->setFrameShadow(QFrame::Sunken);
         userPhoto = new QLabel(panel);
@@ -238,11 +259,10 @@ public:
         dialogSearch->setMinimumSize(QSize(265, 21));
         dialogSearch->setMaximumSize(QSize(265, 21));
         dialogSearch->setFont(font);
+        dialogSearch->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(dialogSearch, 0, 0, 1, 1);
 
-        dialogsInfoArea->raise();
-        dialogSearch->raise();
         dialogFrame = new QFrame(centralWidget);
         dialogFrame->setObjectName(QStringLiteral("dialogFrame"));
         dialogFrame->setGeometry(QRect(280, 50, 835, 616));
