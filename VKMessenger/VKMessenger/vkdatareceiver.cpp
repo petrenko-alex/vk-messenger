@@ -2,24 +2,18 @@
 
 VKDataReceiver::VKDataReceiver()
 {
-	networkManager = new QNetworkAccessManager(this);
-	this->methodName = "";
-
-	connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getReply(QNetworkReply*)));
 }
 
 VKDataReceiver::~VKDataReceiver()
 {
-	delete networkManager;
-	networkManager = NULL;
 }
 
-void VKDataReceiver::sendRequest(const QString &methodName,const QList<QPair<QString,QString> > &parametres)
+QByteArray & VKDataReceiver::sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres)
 {
+	QByteArray data;
+
 	if (!methodName.isEmpty() && !parametres.isEmpty())
 	{
-		this->methodName = methodName;
-
 		/* Создаем URL запроса на основе переданного имени метода API */
 		QString stringUrl = "https://api.vk.com/method/" + methodName;
 		QUrl apiRequestUrl(stringUrl);
@@ -33,35 +27,44 @@ void VKDataReceiver::sendRequest(const QString &methodName,const QList<QPair<QSt
 		apiRequestUrl.setQuery(query);
 
 		/* Посылаем запрос */
+		QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
 		QNetworkRequest request(apiRequestUrl);
-		networkManager->get(request);
+		QNetworkReply *reply = networkManager->get(request);
+		/* Ожидаем ответ */
+		QEventLoop waitForAnswer;
+		connect(networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
+		connect(networkManager, SIGNAL(finished(QNetworkReply*)), networkManager, SLOT(deleteLater()));
+		QTimer::singleShot(WAIT_FOR_ANSWER_TIME, &waitForAnswer, SLOT(quit()));
+		waitForAnswer.exec();
+		/* Получаем ответ */
+		data = reply->readAll();
+		reply->deleteLater();
 	}
+
+	return data;
 }
 
-void VKDataReceiver::loadPhoto(const QUrl &photoUrl)
+QByteArray & VKDataReceiver::loadPhoto(const QUrl &photoUrl)
 {
+	QByteArray photo;
+
 	if (!photoUrl.isEmpty())
 	{
-		this->photoUrl = photoUrl;
+		/* Посылаем запрос */
+		QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
 		QNetworkRequest request(photoUrl);
-		networkManager->get(request);
+		QNetworkReply *reply = networkManager->get(request);
+		/* Ожидаем ответ */
+		QEventLoop waitForAnswer;
+		connect(networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
+		connect(networkManager, SIGNAL(finished(QNetworkReply*)), networkManager, SLOT(deleteLater()));
+		QTimer::singleShot(WAIT_FOR_ANSWER_TIME, &waitForAnswer, SLOT(quit()));
+		waitForAnswer.exec();
+		/* Получаем ответ */
+		photo = reply->readAll();
+		reply->deleteLater();
 	}
+
+	return photo;
 }
 
-void VKDataReceiver::getReply(QNetworkReply *reply)
-{
-	const QByteArray data = reply->readAll();
-
-	if (reply->url().path() == ("/method/" + methodName))
-	{
-		emit dataReceived(data);
-	}
-	else if (reply->url().toDisplayString() == photoUrl.toDisplayString())
-	{
-		emit photoReceived(data);
-	}
-	else
-	{
-		// #TODO: Породить исключение.
-	}
-}
