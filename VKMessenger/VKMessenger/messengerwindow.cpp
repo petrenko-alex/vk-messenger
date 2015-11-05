@@ -6,15 +6,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	ui.setupUi(this);
 	userDialogs = nullptr;
 	dataReceiver = new VKDataReceiver;
-
-	if (!loadData())
-	{
-
-	}
-
-	/* Авторизируем пользователя */
 	authorization = new Authorization(this);
-	authorization->loadAuthorizationPage();
 
 	setConnections();
 
@@ -22,6 +14,18 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	dialogsScrollWidget = new QWidget;
 	dialogsScrollWidget->setLayout(new QVBoxLayout);
 	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
+
+	/* Если данные с файла успешно загружены и загруженный токен валиден */
+	if (loadData() && authorization->isTokenValid(Session::getInstance().get("accessToken")))
+	{
+		authorization->closeBrowser();
+		authorization->loadUserInfo();
+	}
+	else
+	{
+		/* Авторизируем пользователя */
+		authorization->loadAuthorizationPage();
+	}
 }
 
 MessengerWindow::~MessengerWindow()
