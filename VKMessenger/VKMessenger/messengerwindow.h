@@ -32,7 +32,6 @@ signals:
 private slots:
 	void authorizationCompleted();
 	void authorizationFailed();
-	void userPhotoLoaded(const QByteArray &data);
 	void loadDialogs();
 	void dialogReceived(DialogInfo *dialogInfo);
 	bool saveData();

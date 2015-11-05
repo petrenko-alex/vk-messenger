@@ -39,12 +39,14 @@ signals:
 private slots:
 	/* Слот, вызывающийся при перенаправлении браузера browser */
 	void urlChanged(const QUrl &url);
+
 	/* Слот, вызывающийся при окончании загрузки браузером browser страницы */
 	void loadFinished(bool isSuccesful);
 
 private:
 	/* Соединение сигналов и слотов */
 	void setConnections();
+
 	/* Запрос на получение данных об авторизовавшемся пользователе */
 	void loadUserInfo();
 

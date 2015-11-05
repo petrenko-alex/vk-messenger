@@ -35,7 +35,6 @@ void MessengerWindow::setConnections()
 	connect(authorization, SIGNAL(authorizationCompleted()), this, SLOT(authorizationCompleted()));
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 	connect(this, SIGNAL(userInfoLoaded()), this, SLOT(loadDialogs()));
-	connect(dataReceiver, SIGNAL(photoReceived(const QByteArray &)), this, SLOT(userPhotoLoaded(const QByteArray &)));
 }
 
 void MessengerWindow::closeEvent(QCloseEvent *event)
@@ -54,20 +53,13 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 
 void MessengerWindow::authorizationCompleted()
 {
+	/* Устанавливаем имя пользователя */
 	ui.userName->setText(Session::getInstance().get("userName"));
-	dataReceiver->loadPhoto(QUrl(Session::getInstance().get("userPhoto")));
+	/* Получаем и устанавливаем фото*/
+	QByteArray photoData = dataReceiver->loadPhoto(QUrl(Session::getInstance().get("userPhoto")));
 
-}
-
-void MessengerWindow::authorizationFailed()
-{
-	// #TODO: Реализовать слот
-}
-
-void MessengerWindow::userPhotoLoaded(const QByteArray &data)
-{
 	QPixmap photo;
-	if (!data.isEmpty() && photo.loadFromData(data))
+	if (!photoData.isEmpty() && photo.loadFromData(photoData))
 	{
 		ui.userPhoto->setPixmap(photo);
 	}
@@ -75,7 +67,13 @@ void MessengerWindow::userPhotoLoaded(const QByteArray &data)
 	{
 		// #TODO: Попытаться загрузить еще раз?
 	}
+
 	emit userInfoLoaded();
+}
+
+void MessengerWindow::authorizationFailed()
+{
+	// #TODO: Реализовать слот
 }
 
 void MessengerWindow::loadDialogs()
