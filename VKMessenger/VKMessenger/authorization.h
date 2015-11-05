@@ -30,6 +30,15 @@ public:
 	/* Метод, загружающий страницу авторизации Вконтакте */
 	void loadAuthorizationPage();
 
+	/* Проверка токена на валидность */
+	bool isTokenValid(const QString &accessToken) const;
+
+	/* Запрос на получение данных об авторизовавшемся пользователе */
+	void loadUserInfo();
+
+	/* Закрыть браузер QWebView */
+	void closeBrowser();
+
 signals:
 	/* Сигнал об успешной авторизации */
 	void authorizationCompleted();
@@ -47,8 +56,6 @@ private:
 	/* Соединение сигналов и слотов */
 	void setConnections();
 
-	/* Запрос на получение данных об авторизовавшемся пользователе */
-	void loadUserInfo();
 
 	/* Поля класса */
 	QWebView *browser;		

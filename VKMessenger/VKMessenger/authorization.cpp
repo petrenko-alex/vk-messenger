@@ -86,6 +86,21 @@ void Authorization::loadAuthorizationPage()
 	browser->load(authorizationUrl);
 }
 
+bool Authorization::isTokenValid(const QString &accessToken) const
+{
+	/* Формируем параметры запроса */
+	QList<QPair<QString, QString> > parametres;
+	parametres << QPair<QString, QString>("q", "#");
+	parametres << QPair<QString, QString>("count", "1");
+	parametres << QPair<QString, QString>("v", "5.37");
+	parametres << QPair<QString, QString>("access_token", accessToken);
+
+	/* Посылаем запрос - получаем ответ */
+	QByteArray test = dataReceiver->sendRequest("users.search", parametres);
+
+	return test.contains("error") ? false : true;
+}
+
 void Authorization::setConnections()
 {
 	connect(browser, SIGNAL(urlChanged(const QUrl&)), this, SLOT(urlChanged(const QUrl&)));
@@ -122,4 +137,12 @@ void Authorization::loadUserInfo()
 	}
 
 	emit authorizationCompleted();
+}
+
+void Authorization::closeBrowser()
+{
+	if (browser != NULL)
+	{
+		browser->close();
+	}
 }
