@@ -41,8 +41,6 @@ private slots:
 	void urlChanged(const QUrl &url);
 	/* Слот, вызывающийся при окончании загрузки браузером browser страницы */
 	void loadFinished(bool isSuccesful);
-	/* Слот, вызывающийся при успешном получении данных об авторизовавшемся пользователе */
-	void userInfoReceived(const QByteArray &userInfo);
 
 private:
 	/* Соединение сигналов и слотов */
