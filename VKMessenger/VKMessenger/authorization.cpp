@@ -32,9 +32,10 @@ void Authorization::urlChanged(const QUrl &url)
 
 	if (error.isEmpty())
 	{
-		accessToken = query.queryItemValue("access_token");
-		expiresIn = query.queryItemValue("expires_in");
-		userId = query.queryItemValue("user_id");
+		/* Запоминаем данные сессии */
+		Session::getInstance().add("userId", query.queryItemValue("user_id"));
+		Session::getInstance().add("accessToken", query.queryItemValue("access_token"));
+		Session::getInstance().add("expiresIn", query.queryItemValue("expires_in"));
 		loadUserInfo();
 	}
 	else
@@ -98,24 +99,27 @@ void Authorization::loadUserInfo()
 	parametres << QPair<QString,QString>("fields", "photo_50");
 	parametres << QPair<QString, QString>("name_case", "Nom");
 	parametres << QPair<QString, QString>("v", "5.37");
-	parametres << QPair<QString, QString>("access_token", accessToken);
+	parametres << QPair<QString, QString>("access_token", Session::getInstance ().get ("accessToken"));
 
 	/* Посылаем запрос - получаем ответ */
 	QByteArray userInfo = dataReceiver->sendRequest("users.get", parametres);
 
-	/* Получаем информацию о пользователе */
-	QJsonObject userDataObject = QJsonDocument::fromJson(userInfo).object();
-	QJsonValue userDataValue = userDataObject.value("response");
-	QJsonArray userDataArray = userDataValue.toArray();
-	QString userName = userDataArray[0].toObject().value("first_name").toString() + " " + userDataArray[0].toObject().value("last_name").toString();
-	QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
+	if (!userInfo.isEmpty())
+	{
+		/* Получаем информацию о пользователе */
+		QJsonObject userDataObject = QJsonDocument::fromJson(userInfo).object();
+		QJsonValue userDataValue = userDataObject.value("response");
+		QJsonArray userDataArray = userDataValue.toArray();
+		QString userName = userDataArray[0].toObject().value("first_name").toString() + " " + userDataArray[0].toObject().value("last_name").toString();
+		QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
 
-	/* Запоминаем данные сессии */
-	Session::getInstance().add("userName", userName);
-	Session::getInstance().add("userId", userId);
-	Session::getInstance().add("userPhoto", userPhoto);
-	Session::getInstance().add("accessToken", accessToken);
-	Session::getInstance().add("expiresIn", expiresIn);
+		Session::getInstance().add("userName", userName);
+		Session::getInstance().add("userPhoto", userPhoto);
+	}
+	else
+	{
+		// #TODO: Решить, что делать здесь!
+	}
 
 	emit authorizationCompleted();
 }

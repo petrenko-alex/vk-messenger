@@ -55,9 +55,6 @@ private:
 	VKDataReceiver *dataReceiver;
 	QUrl authorizationUrl;
 	QUrl redirectUri;
-	QString accessToken;
-	QString expiresIn;
-	QString userId;
 };
 
 #endif // AUTHORIZATION_H
