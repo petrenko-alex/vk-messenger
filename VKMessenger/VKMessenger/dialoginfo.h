@@ -26,9 +26,6 @@ public:
 
 	void loadOpponentInfo();
 	void loadOpponentPhoto(QString photoUrl);
-private slots:
-	void opponentInfoReceived(const QByteArray &userInfo);
-	void opponentPhotoLoaded(const QByteArray &userPhoto);
 
 private:
 	void setConnections();
