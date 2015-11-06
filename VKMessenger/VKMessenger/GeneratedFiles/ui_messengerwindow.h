@@ -276,6 +276,7 @@ public:
         dialogArea->setObjectName(QStringLiteral("dialogArea"));
         dialogArea->setMinimumSize(QSize(815, 551));
         dialogArea->setMaximumSize(QSize(16777215, 16777215));
+        dialogArea->setLayoutDirection(Qt::LeftToRight);
         dialogArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));

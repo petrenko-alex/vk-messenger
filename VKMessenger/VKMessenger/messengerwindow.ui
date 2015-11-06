@@ -1178,6 +1178,9 @@ QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}
          <height>16777215</height>
         </size>
        </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
