@@ -6,9 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>504</width>
+    <width>407</width>
     <height>86</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>407</width>
+    <height>86</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -18,9 +36,18 @@
   <property name="windowTitle">
    <string>OpponentTextMessage</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QTextEdit#message							{  border: 0px solid  white; border-radius: 10px;}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QWidget" name="frame" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">QWidget#frame {
 	border: 1px solid #567CA4;
@@ -65,7 +92,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>50</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="palette">
@@ -105,16 +132,41 @@
           </disabled>
          </palette>
         </property>
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
         <property name="lineWidth">
-         <number>0</number>
+         <number>1</number>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="0" column="1">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
