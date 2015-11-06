@@ -99,6 +99,18 @@ void MessengerWindow::loadDialogs()
 
 void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, QString &username)
 {
+
+	while (messagesScrollWidget->layout()->count())
+	{
+		QLayoutItem * item = messagesScrollWidget->layout()->itemAt(0);
+
+		messagesScrollWidget->layout()->removeItem(item);
+		messagesScrollWidget->layout()->removeWidget(item->widget());
+		delete item->widget();
+		delete item;
+		messagesScrollWidget->layout()->update();
+	}
+
 	for (auto message : *userMessages)
 	{
 		messagesScrollWidget->layout()->addWidget(message);
