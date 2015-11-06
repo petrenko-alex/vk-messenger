@@ -62,6 +62,8 @@ void DialogInfo::loadOpponentInfo()
 	{
 		/* Имя группы */
 		ui.name->setText(title);
+		/* Фото группы */
+		ui.photo->setPixmap(QPixmap(GROUP_AVATAR_PATH));
 	}
 }
 
@@ -144,12 +146,12 @@ void DialogInfo::setDataToWidgets()
 	if (QDate::currentDate() == lastMessageDateTime.date())
 	{
 		ui.lastMessageDateTime->setTime(lastMessageDateTime.time());
-		ui.lastMessageDateTime->setDisplayFormat("h:m");
+		ui.lastMessageDateTime->setDisplayFormat("H:mm");
 	}
 	else
 	{
 		ui.lastMessageDateTime->setDate(lastMessageDateTime.date());
-		ui.lastMessageDateTime->setDisplayFormat("d MMM");
+		ui.lastMessageDateTime->setDisplayFormat("d MMM.");
 	}
 
 	/* Отображение последнего сообщения диалога */
