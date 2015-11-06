@@ -61,4 +61,6 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 	}
 
 	emit dialogsLoaded(&userDialogs);
+	/* Последний диалог как текущий */
+	userDialogs[0]->loadMessages();
 }

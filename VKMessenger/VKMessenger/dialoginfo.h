@@ -31,12 +31,12 @@ public:
 
 	void loadOpponentInfo();
 	void loadOpponentPhoto(QString photoUrl);
+	void loadMessages();
 
 signals:
 	void messagesLoaded(QList<AbstractMessage *> *userMessages, QString &username);
 
 private:
-	void loadMessages();
 	void setConnections();
 	void setDataToWidgets();
 	void parseMessages(const QByteArray &messages);
