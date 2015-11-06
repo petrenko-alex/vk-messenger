@@ -14,7 +14,7 @@
 #include "usertextmessage.h"
 #include "opponenttextmessage.h"
 
-#define WIDTH  230
+#define WIDTH  260
 #define HEIGHT 100
 #define MESSAGES_COUNT 100
 #define GROUP_AVATAR_PATH "./Application Resources/group_avatar.png"
