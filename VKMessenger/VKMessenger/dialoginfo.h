@@ -4,14 +4,19 @@
 #include <QWidget>
 #include <QDateTime>
 #include <QUrl>
+#include <QMouseEvent>
 #include <QJsonDocument>
 #include "ui_dialoginfo.h"
 #include "session.h"
 #include <windows.h>
 #include "vkdatareceiver.h"
+#include "abstractmessage.h"
+#include "usertextmessage.h"
+#include "opponenttextmessage.h"
 
 #define WIDTH  230
 #define HEIGHT 100
+#define MESSAGES_COUNT 100
 
 class DialogInfo : public QWidget
 {
@@ -27,9 +32,16 @@ public:
 	void loadOpponentInfo();
 	void loadOpponentPhoto(QString photoUrl);
 
+signals:
+	void messageLoaded(AbstractMessage *message,QString &username);
+
 private:
+	void loadMessages();
 	void setConnections();
 	void setDataToWidgets();
+	void parseMessages(const QByteArray &messages);
+	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 	Ui::DialogInfo ui;
 	unsigned int userId;
@@ -38,8 +50,12 @@ private:
 	QString username;
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
+	QByteArray photo;
 	bool out;
 	VKDataReceiver *dataReceiver;
+
+	QList<AbstractMessage *> userMessages;
+	bool clicked;
 };
 
 #endif // DIALOGINFO_H

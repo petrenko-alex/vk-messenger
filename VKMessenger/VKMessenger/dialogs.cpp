@@ -37,6 +37,11 @@ void Dialogs::loadDialogs()
 	}
 }
 
+void Dialogs::messageReceived(AbstractMessage *message, QString &username)
+{
+	emit messageLoaded(message,username);
+}
+
 void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 {
 	QJsonObject userDialogsObject = QJsonDocument::fromJson(userDialogsData).object();
@@ -49,6 +54,8 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		DialogInfo *d = new DialogInfo( dialogInfo["user_id"].toInt(), dialogInfo["id"].toInt(),
 										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
+
+		connect(d, SIGNAL(messageLoaded(AbstractMessage *,QString &)), this, SLOT(messageReceived(AbstractMessage *,QString &)));
 
 		userDialogs << d;
 	}

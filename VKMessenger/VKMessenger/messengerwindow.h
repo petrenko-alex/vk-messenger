@@ -17,7 +17,7 @@
 #define DATA_FILENAME "./Data/data.vkmd"
 
 //gafk555@gmail.com
-// #TODO: Кэшировать фото
+// #TODO: РљСЌС€РёСЂРѕРІР°С‚СЊ С„РѕС‚Рѕ
 
 class MessengerWindow : public QMainWindow
 {
@@ -35,6 +35,7 @@ private slots:
 	void authorizationFailed();
 	void loadDialogs();
 	void dialogReceived(DialogInfo *dialogInfo);
+	void messageReceived(AbstractMessage *message,QString &username);
 	void dialogsLoaded(bool isSuccessful);
 	bool saveData();
 	bool loadData();
@@ -49,6 +50,7 @@ private:
 	VKDataReceiver *dataReceiver;
 
 	QWidget *dialogsScrollWidget;
+	QWidget *messagesScrollWidget;
 };
 
 #endif // MESSENGERWINDOW_H

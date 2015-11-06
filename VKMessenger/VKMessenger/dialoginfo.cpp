@@ -18,6 +18,7 @@ DialogInfo::DialogInfo(unsigned int userId, unsigned int messageId, QString &tit
 	this->out = out;
 
 	setDataToWidgets();
+	clicked = false;
 }
 
 DialogInfo::~DialogInfo()
@@ -48,6 +49,7 @@ void DialogInfo::loadOpponentInfo()
 			QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
 
 			ui.name->setText(userName);
+			this->username = userName;
 			loadOpponentPhoto(userPhoto);
 		}
 		else
@@ -76,6 +78,7 @@ void DialogInfo::loadOpponentPhoto(QString photoUrl)
 		if (!userPhoto.isEmpty() && photo.loadFromData(userPhoto))
 		{
 			ui.photo->setPixmap(photo);
+			this->photo = userPhoto;
 		}
 		else
 		{
@@ -84,9 +87,58 @@ void DialogInfo::loadOpponentPhoto(QString photoUrl)
 	}
 }
 
+void DialogInfo::loadMessages()
+{
+	/* Формируем запрос на получение диалогов */
+	QList<QPair<QString, QString> > parametres;
+	parametres << QPair<QString, QString>("count", QString::number(MESSAGES_COUNT));
+	parametres << QPair<QString, QString>("user_id", QString::number(userId));
+	parametres << QPair<QString, QString>("v", "5.37");
+	parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
+	/* Посылаем запрос, получаем данные */
+	QByteArray messages = dataReceiver->sendRequest("messages.getHistory", parametres);
+
+	if (!messages.isEmpty())
+	{
+		parseMessages(messages);
+	}
+}
+
+void DialogInfo::parseMessages(const QByteArray &messages)
+{
+	QJsonObject dialogMessagessObject = QJsonDocument::fromJson(messages).object();
+	QJsonArray dialogMessagesArray = dialogMessagessObject.value("response").toObject()["items"].toArray();
+
+	for (auto msg : dialogMessagesArray)
+	{
+		bool out = msg.toObject()["out"].toInt();
+
+		AbstractMessage *message;
+		if (out)
+		{
+			/* Исходящее сообщение */
+			message = new UserTextMessage(msg.toObject()["body"].toString(), Session::getInstance().getPhoto());
+		}
+		else
+		{
+			/* Входящее сообщение */
+			message = new OpponentTextMessage(msg.toObject()["body"].toString(), this->photo);
+		}
+
+		userMessages << message;
+	}
+
+	for (auto &message : userMessages)
+	{
+		message->setDataToWidgets();
+		emit messageLoaded(message,username);
+	}
+}
+
 void DialogInfo::setConnections()
 {
 	// #TODO: Метод пуст!
+	
 }
 
 void DialogInfo::setDataToWidgets()
@@ -122,4 +174,21 @@ DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 	this->out = other.out;
 
 	return *this;
+}
+
+void DialogInfo::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton) 
+	{
+		clicked = true;
+	}
+}
+
+void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton && clicked) 
+	{
+		clicked = false;
+		loadMessages();
+	}
 }

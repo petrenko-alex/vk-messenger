@@ -15,6 +15,11 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	dialogsScrollWidget->setLayout(new QVBoxLayout);
 	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
 
+	ui.dialogArea->setWidgetResizable(true);
+	messagesScrollWidget = new QWidget;
+	messagesScrollWidget->setLayout(new QVBoxLayout);
+	ui.dialogArea->setWidget(messagesScrollWidget);
+
 	/* Если данные с файла успешно загружены и загруженный токен валиден */
 	if (loadData() && authorization->isTokenValid(Session::getInstance().get("accessToken")))
 	{
@@ -32,6 +37,9 @@ MessengerWindow::~MessengerWindow()
 {
 	delete authorization;
 	delete dataReceiver;
+	delete dialogsScrollWidget;
+	delete messagesScrollWidget;
+	delete userDialogs;
 }
 
 void MessengerWindow::setConnections()
@@ -66,6 +74,7 @@ void MessengerWindow::authorizationCompleted()
 	if (!photoData.isEmpty() && photo.loadFromData(photoData))
 	{
 		ui.userPhoto->setPixmap(photo);
+		Session::getInstance().setPhoto(photoData);
 	}
 	else
 	{
@@ -84,6 +93,7 @@ void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
 	connect(userDialogs, SIGNAL(dialogLoaded(DialogInfo *)), this, SLOT(dialogReceived(DialogInfo *)));
+	connect(userDialogs, SIGNAL(messageLoaded(AbstractMessage *, QString &)), this, SLOT(messageReceived(AbstractMessage *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(bool)), this, SLOT(dialogsLoaded(bool)));
 	userDialogs->loadDialogs();
 }
@@ -91,6 +101,13 @@ void MessengerWindow::loadDialogs()
 void MessengerWindow::dialogReceived(DialogInfo *dialogInfo)
 {
 	dialogsScrollWidget->layout()->addWidget(dialogInfo);
+}
+
+void MessengerWindow::messageReceived(AbstractMessage *message, QString &username)
+{
+	messagesScrollWidget->layout()->addWidget(message);
+	ui.currentOponent->setText(username);
+	
 }
 
 void MessengerWindow::dialogsLoaded(bool isSuccessful)

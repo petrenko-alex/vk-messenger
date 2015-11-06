@@ -18,12 +18,16 @@ class Dialogs : public QObject
 signals:
 	void dialogLoaded(DialogInfo *dialogInfo);
 	void dialogsLoaded(bool isSuccessful);
+	void messageLoaded(AbstractMessage *message,QString &username);
 
 public:
 	Dialogs();
 	~Dialogs();
 
 	void loadDialogs();
+
+private slots:
+	void messageReceived(AbstractMessage *message,QString &username);
 
 private:
 	void setConnections();
