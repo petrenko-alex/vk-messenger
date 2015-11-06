@@ -92,14 +92,18 @@ void MessengerWindow::authorizationFailed()
 void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
-	connect(userDialogs, SIGNAL(messageLoaded(AbstractMessage *, QString &)), this, SLOT(messageReceived(AbstractMessage *, QString &)));
+	connect(userDialogs, SIGNAL(messagesLoaded(QList<AbstractMessage *> *, QString &)), this, SLOT(messagesReceived(QList<AbstractMessage *> *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	userDialogs->loadDialogs();
 }
 
-void MessengerWindow::messageReceived(AbstractMessage *message, QString &username)
+void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, QString &username)
 {
-	messagesScrollWidget->layout()->addWidget(message);
+	for (auto message : *userMessages)
+	{
+		messagesScrollWidget->layout()->addWidget(message);
+	}
+
 	ui.currentOponent->setText(username);
 	
 }

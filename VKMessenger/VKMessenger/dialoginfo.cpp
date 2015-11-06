@@ -126,13 +126,10 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 		}
 
 		userMessages << message;
+		message->setDataToWidgets();
 	}
 
-	for (auto &message : userMessages)
-	{
-		message->setDataToWidgets();
-		emit messageLoaded(message,username);
-	}
+	emit messagesLoaded(&userMessages,username);
 }
 
 void DialogInfo::setConnections()

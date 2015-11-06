@@ -36,9 +36,9 @@ void Dialogs::loadDialogs()
 	}
 }
 
-void Dialogs::messageReceived(AbstractMessage *message, QString &username)
+void Dialogs::messagesReceived(QList<AbstractMessage *> *userMessages, QString &username)
 {
-	emit messageLoaded(message,username);
+	emit messagesLoaded(userMessages,username);
 }
 
 void Dialogs::parseDialogs(const QByteArray &userDialogsData)
@@ -54,7 +54,7 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 
-		connect(d, SIGNAL(messageLoaded(AbstractMessage *,QString &)), this, SLOT(messageReceived(AbstractMessage *,QString &)));
+		connect(d, SIGNAL(messagesLoaded(QList<AbstractMessage *> *, QString &)), this, SLOT(messagesReceived(QList<AbstractMessage *> *, QString &)));
 
 		userDialogs << d;
 		d->loadOpponentInfo();

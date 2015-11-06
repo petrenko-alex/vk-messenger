@@ -34,7 +34,7 @@ private slots:
 	void authorizationCompleted();
 	void authorizationFailed();
 	void loadDialogs();
-	void messageReceived(AbstractMessage *message,QString &username);
+	void messagesReceived(QList<AbstractMessage *> *userMessages, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	bool saveData();
 	bool loadData();

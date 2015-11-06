@@ -33,7 +33,7 @@ public:
 	void loadOpponentPhoto(QString photoUrl);
 
 signals:
-	void messageLoaded(AbstractMessage *message,QString &username);
+	void messagesLoaded(QList<AbstractMessage *> *userMessages, QString &username);
 
 private:
 	void loadMessages();
