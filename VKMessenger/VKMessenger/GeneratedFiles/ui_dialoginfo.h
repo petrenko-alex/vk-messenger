@@ -52,7 +52,7 @@ public:
         sizePolicy.setHeightForWidth(dialogInfo->sizePolicy().hasHeightForWidth());
         dialogInfo->setSizePolicy(sizePolicy);
         dialogInfo->setStyleSheet(QLatin1String("QWidget#dialogInfo {\n"
-"	border: 1px solid #567CA4;\n"
+"	border: 1px solid white;\n"
 "	border-radius: 10px;\n"
 "}"));
         gridLayout = new QGridLayout(dialogInfo);
@@ -72,7 +72,7 @@ public:
         font.setFamily(QStringLiteral("Verdana"));
         photo->setFont(font);
         photo->setStyleSheet(QLatin1String("QLabel {\n"
-"	border: 3px solid #567CA4;\n"
+"	border: 3px solid #b0c4de;\n"
 "	border-radius: 5px;\n"
 "\n"
 "}"));
@@ -84,7 +84,8 @@ public:
 
         line_2 = new QFrame(dialogInfo);
         line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setFrameShadow(QFrame::Raised);
+        line_2->setStyleSheet(QStringLiteral("QFrame#line_2 {color:white;}"));
+        line_2->setFrameShadow(QFrame::Plain);
         line_2->setFrameShape(QFrame::HLine);
 
         gridLayout->addWidget(line_2, 2, 0, 1, 3);
@@ -94,11 +95,21 @@ public:
         lastMessage->setMinimumSize(QSize(0, 30));
         lastMessage->setMaximumSize(QSize(16777215, 30));
         QPalette palette;
-        QBrush brush(QColor(240, 240, 240, 255));
+        QBrush brush(QColor(255, 255, 255, 255));
         brush.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Active, QPalette::Base, brush);
-        palette.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette.setBrush(QPalette::Disabled, QPalette::Base, brush);
+        palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        QBrush brush1(QColor(240, 240, 240, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        QBrush brush2(QColor(120, 120, 120, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
         lastMessage->setPalette(palette);
         QFont font1;
         font1.setFamily(QStringLiteral("Verdana"));
@@ -117,6 +128,11 @@ public:
         name->setObjectName(QStringLiteral("name"));
         sizePolicy1.setHeightForWidth(name->sizePolicy().hasHeightForWidth());
         name->setSizePolicy(sizePolicy1);
+        QPalette palette1;
+        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
+        name->setPalette(palette1);
         name->setFont(font1);
 
         gridLayout->addWidget(name, 0, 1, 1, 1);
@@ -125,12 +141,22 @@ public:
         lastMessageDateTime->setObjectName(QStringLiteral("lastMessageDateTime"));
         lastMessageDateTime->setMinimumSize(QSize(0, 10));
         lastMessageDateTime->setMaximumSize(QSize(45, 16777215));
-        QPalette palette1;
-        palette1.setBrush(QPalette::Active, QPalette::Base, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush);
-        lastMessageDateTime->setPalette(palette1);
+        QPalette palette2;
+        palette2.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette2.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette2.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette2.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette2.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette2.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette2.setBrush(QPalette::Disabled, QPalette::WindowText, brush);
+        palette2.setBrush(QPalette::Disabled, QPalette::Text, brush);
+        palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush);
+        palette2.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        lastMessageDateTime->setPalette(palette2);
         lastMessageDateTime->setFont(font1);
+        lastMessageDateTime->setStyleSheet(QStringLiteral("QDateTimeEdit {color: white;}"));
         lastMessageDateTime->setWrapping(false);
         lastMessageDateTime->setFrame(false);
         lastMessageDateTime->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);

@@ -80,6 +80,7 @@ public:
         font1.setFamily(QStringLiteral("Verdana"));
         font1.setStyleStrategy(QFont::PreferAntialias);
         message->setFont(font1);
+        message->setLayoutDirection(Qt::LeftToRight);
         message->setFrameShape(QFrame::NoFrame);
         message->setLineWidth(1);
         message->setUndoRedoEnabled(false);

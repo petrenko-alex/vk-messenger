@@ -26,10 +26,6 @@ QPushButton#newDialogB 					{  border: 0px; border-radius: 0px}
 QPushButton#newDialogB:pressed 	{  border: 0px solid black; color: black; font: 32px}
 
 
-QPushButton#sendMessageB 			{  border: 1px solid black; border-radius: 10px;}
-
-
-
 QPushButton 										{  border: 1px solid white; border-radius: 10px;}
 QPushButton:hover 							{  border: 1px solid black; color: black; }
 QPushButton:pressed 						{  border: 2px solid black; color: black; font:  bold ; }
@@ -38,6 +34,14 @@ QLineEdit#dialogSearch						{  border: 1px solid ; border-radius: 7px; }
 
 QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}
 
+
+
+QWidget#centralWidget,dialogFrame	{  background-color: rgb(176,196,222);}
+QScrollArea QWidget							{   background-color: rgb(176,196,222); }
+QScrollArea#dialogsInfoArea QWidget {background-color: rgb(86, 124, 164);}
+
+
+QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}
 
 
 </string>
@@ -1104,6 +1108,12 @@ QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
@@ -1181,6 +1191,12 @@ QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
@@ -1233,6 +1249,43 @@ QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}
          <width>81</width>
          <height>39</height>
         </size>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>120</red>
+             <green>120</green>
+             <blue>120</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
        </property>
        <property name="font">
         <font>

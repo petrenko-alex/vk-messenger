@@ -64,10 +64,6 @@ public:
 "QPushButton#newDialogB:pressed 	{  border: 0px solid black; color: black; font: 32px}\n"
 "\n"
 "\n"
-"QPushButton#sendMessageB 			{  border: 1px solid black; border-radius: 10px;}\n"
-"\n"
-"\n"
-"\n"
 "QPushButton 										{  border: 1px solid white; border-radius: 10px;}\n"
 "QPushButton:hover 							{  border: 1px solid black; color: black; }\n"
 "QPushButton:pressed 						{  border: 2px solid black; color: black; font:  bold ; }\n"
@@ -76,6 +72,14 @@ public:
 "\n"
 "QTextEdit#message							{  border: 4px solid  white; border-radius: 10px;}\n"
 "\n"
+"\n"
+"\n"
+"QWidget#centralWidget,dialogFrame	{  background-color: rgb(176,196,222);}\n"
+"QScrollArea QWidget							{   background-color: rgb(176,196,222); }\n"
+"QScrollArea#dialogsInfoArea QWidget {background-color: rgb(86, 124, 164);}\n"
+"\n"
+"\n"
+"QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}\n"
 "\n"
 "\n"
 ""));
@@ -246,6 +250,8 @@ public:
         dialogsInfoArea->setMinimumSize(QSize(269, 571));
         dialogsInfoArea->setMaximumSize(QSize(269, 571));
         dialogsInfoArea->setFrameShape(QFrame::NoFrame);
+        dialogsInfoArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        dialogsInfoArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         dialogsInfoArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
@@ -277,6 +283,8 @@ public:
         dialogArea->setMinimumSize(QSize(815, 551));
         dialogArea->setMaximumSize(QSize(16777215, 16777215));
         dialogArea->setLayoutDirection(Qt::LeftToRight);
+        dialogArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        dialogArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         dialogArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
@@ -297,6 +305,11 @@ public:
         sendMessageB->setObjectName(QStringLiteral("sendMessageB"));
         sendMessageB->setMinimumSize(QSize(81, 39));
         sendMessageB->setMaximumSize(QSize(81, 39));
+        QPalette palette7;
+        palette7.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
+        palette7.setBrush(QPalette::Inactive, QPalette::ButtonText, brush1);
+        palette7.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
+        sendMessageB->setPalette(palette7);
         sendMessageB->setFont(font);
 
         gridLayout_2->addWidget(sendMessageB, 1, 1, 1, 1);

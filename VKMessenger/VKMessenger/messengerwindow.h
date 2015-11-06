@@ -17,7 +17,7 @@
 #define DATA_FILENAME "./Data/data.vkmd"
 
 //gafk555@gmail.com
-// #TODO: Кэшировать фото
+// #TODO: Кэшировать сообщения
 
 class MessengerWindow : public QMainWindow
 {
