@@ -92,15 +92,9 @@ void MessengerWindow::authorizationFailed()
 void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
-	connect(userDialogs, SIGNAL(dialogLoaded(DialogInfo *)), this, SLOT(dialogReceived(DialogInfo *)));
 	connect(userDialogs, SIGNAL(messageLoaded(AbstractMessage *, QString &)), this, SLOT(messageReceived(AbstractMessage *, QString &)));
-	connect(userDialogs, SIGNAL(dialogsLoaded(bool)), this, SLOT(dialogsLoaded(bool)));
+	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	userDialogs->loadDialogs();
-}
-
-void MessengerWindow::dialogReceived(DialogInfo *dialogInfo)
-{
-	dialogsScrollWidget->layout()->addWidget(dialogInfo);
 }
 
 void MessengerWindow::messageReceived(AbstractMessage *message, QString &username)
@@ -110,16 +104,14 @@ void MessengerWindow::messageReceived(AbstractMessage *message, QString &usernam
 	
 }
 
-void MessengerWindow::dialogsLoaded(bool isSuccessful)
+void MessengerWindow::dialogsLoaded(QList<DialogInfo *> *userDialogs)
 {
-	if (isSuccessful)
+	for (auto dialog : *userDialogs)
 	{
-		this->show();
+		dialogsScrollWidget->layout()->addWidget(dialog);
 	}
-	else
-	{
-		// #TODO: Решить что делать здесь!
-	}
+
+	this->show();
 }
 
 bool MessengerWindow::saveData()

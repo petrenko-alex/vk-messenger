@@ -16,8 +16,7 @@ class Dialogs : public QObject
 	Q_OBJECT
 
 signals:
-	void dialogLoaded(DialogInfo *dialogInfo);
-	void dialogsLoaded(bool isSuccessful);
+	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void messageLoaded(AbstractMessage *message,QString &username);
 
 public:

@@ -3,7 +3,6 @@
 Dialogs::Dialogs()
 {
 	dataReceiver = new VKDataReceiver;
-
 	setConnections();
 }
 
@@ -58,14 +57,8 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		connect(d, SIGNAL(messageLoaded(AbstractMessage *,QString &)), this, SLOT(messageReceived(AbstractMessage *,QString &)));
 
 		userDialogs << d;
+		d->loadOpponentInfo();
 	}
 
-	for (auto dialog : userDialogs)
-	{
-		emit dialogLoaded(dialog);
-
-		dialog->loadOpponentInfo();
-	}
-
-	emit dialogsLoaded(true);
+	emit dialogsLoaded(&userDialogs);
 }
