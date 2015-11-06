@@ -16,6 +16,16 @@ void Session::add(const QString &key, const QString &value)
 	sessionData[key] = value;
 }
 
+void Session::setPhoto(const QByteArray &photo)
+{
+	this->photo = photo;
+}
+
+QByteArray & Session::getPhoto()
+{
+	return photo;
+}
+
 Session::Session()
 {
 }

@@ -18,6 +18,12 @@ public:
 	/* Добавить значене value с ключом key */
 	void add(const QString &key, const QString &value);
 
+	/* Запомнить фото пользователя */
+	void setPhoto(const QByteArray &photo);
+
+	/* Получить фото пользователя */
+	QByteArray & getPhoto();
+
 	/* Загрузить данные в поток */
 	friend QDataStream & operator<<(QDataStream &stream, const Session &session);
 
@@ -33,6 +39,7 @@ private:
 	void operator=(const Session &&) = delete;
 
 	QHash<QString, QString> sessionData;
+	QByteArray photo;
 };
 
 #endif // SESSION_H
