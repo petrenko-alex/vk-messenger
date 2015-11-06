@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "ui_abstractmessage.h"
 
+#define MIN_HEIGHT 86
+
 class AbstractMessage : public QWidget
 {
 	Q_OBJECT
@@ -12,10 +14,11 @@ public:
 	AbstractMessage(QString &message, QByteArray &photo);
 	virtual ~AbstractMessage();
 
+	virtual void setDataToWidgets() = 0;
+
 protected:
 	QByteArray photo;
 	QString message;
-	virtual void setDataToWidgets() = 0;
 
 private:
 	Ui::AbstractMessage ui;

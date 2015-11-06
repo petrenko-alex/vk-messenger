@@ -11,3 +11,4 @@ AbstractMessage::~AbstractMessage()
 {
 
 }
+
