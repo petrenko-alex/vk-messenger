@@ -54,7 +54,6 @@ private:
 	QByteArray photo;
 	bool out;
 	VKDataReceiver *dataReceiver;
-
 	QList<AbstractMessage *> userMessages;
 	bool clicked;
 };

@@ -188,6 +188,13 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 	if (event->button() == Qt::LeftButton && clicked) 
 	{
 		clicked = false;
-		loadMessages();
+		if (!userMessages.size())
+		{
+			loadMessages();
+		}
+		else
+		{
+			emit messagesLoaded(&userMessages, username);
+		}
 	}
 }
