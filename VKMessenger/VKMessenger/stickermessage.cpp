@@ -22,13 +22,30 @@ void StickerMessage::setDataToWidgets(bool out)
 {
 	QPixmap stickerPixMap;
 	QPixmap userPhoto;
+	QByteArray tmpPhoto;
 
+	/* Устанавливаем стикер */
 	if (!this->sticker.isEmpty() && stickerPixMap.loadFromData(sticker))
 	{
 		ui.sticker->setPixmap(stickerPixMap);
 	}
 
-	if (!photo.isEmpty() && userPhoto.loadFromData(photo))
+	/* Исходящее или входящее сообщение */
+	if (out)
+	{
+		this->setLayoutDirection(Qt::LeftToRight);
+		ui.frame->setLayoutDirection(Qt::RightToLeft);
+		tmpPhoto = Session::getInstance().getPhoto();
+	}
+	else
+	{
+		this->setLayoutDirection(Qt::RightToLeft);
+		ui.frame->setLayoutDirection(Qt::LeftToRight);
+		tmpPhoto = photo;
+	}
+
+	/* Устанавливаем фото */
+	if (!tmpPhoto.isEmpty() && userPhoto.loadFromData(tmpPhoto))
 	{
 		ui.photo->setPixmap(userPhoto);
 	}

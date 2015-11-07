@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "ui_abstractmessage.h"
+#include "session.h"
 
 #define MIN_HEIGHT 86
 
