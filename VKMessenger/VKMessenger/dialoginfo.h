@@ -13,6 +13,7 @@
 #include "abstractmessage.h"
 #include "usertextmessage.h"
 #include "opponenttextmessage.h"
+#include "stickermessage.h"
 
 #define WIDTH  260
 #define HEIGHT 100

@@ -113,22 +113,44 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 
 	for (auto msg : dialogMessagesArray)
 	{
+		AbstractMessage *message;
 		bool out = msg.toObject()["out"].toInt();
 
-		AbstractMessage *message;
-		if (out)
+		/* Если есть вложения */
+		if (msg.toObject().keys().contains("attachments"))
 		{
-			/* Исходящее сообщение */
-			message = new UserTextMessage(msg.toObject()["body"].toString(), Session::getInstance().getPhoto());
+			QJsonArray attachments = msg.toObject()["attachments"].toArray();
+
+			for (auto a : attachments)
+			{
+				if (a.toObject()["type"] == "sticker")
+				{
+					QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
+					QByteArray sticker = dataReceiver->loadPhoto(stickerUrl);
+
+					message = new StickerMessage(sticker, this->photo);
+				}
+			}
+
 		}
 		else
 		{
-			/* Входящее сообщение */
-			message = new OpponentTextMessage(msg.toObject()["body"].toString(), this->photo);
+
+
+			if (out)
+			{
+				/* Исходящее сообщение */
+				message = new UserTextMessage(msg.toObject()["body"].toString(), Session::getInstance().getPhoto());
+			}
+			else
+			{
+				/* Входящее сообщение */
+				message = new OpponentTextMessage(msg.toObject()["body"].toString(), this->photo);
+			}
 		}
 
 		userMessages << message;
-		message->setDataToWidgets();
+		message->setDataToWidgets(out);
 	}
 
 	emit messagesLoaded(&userMessages,username);
