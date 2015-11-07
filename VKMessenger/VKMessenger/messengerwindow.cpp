@@ -47,6 +47,7 @@ void MessengerWindow::setConnections()
 	connect(authorization, SIGNAL(authorizationCompleted()), this, SLOT(authorizationCompleted()));
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 	connect(this, SIGNAL(userInfoLoaded()), this, SLOT(loadDialogs()));
+	connect(ui.dialogArea->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(moveScrollBarToBotton(int,int)));
 }
 
 void MessengerWindow::closeEvent(QCloseEvent *event)
@@ -99,7 +100,7 @@ void MessengerWindow::loadDialogs()
 
 void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, QString &username)
 {
-
+	/* Очищаем предыдущее содержимое */
 	while (messagesScrollWidget->layout()->count())
 	{
 		QLayoutItem * item = messagesScrollWidget->layout()->itemAt(0);
@@ -111,13 +112,16 @@ void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, Q
 		messagesScrollWidget->layout()->update();
 	}
 
-	for (auto message : *userMessages)
+	auto it = userMessages->cend();
+	auto end = userMessages->cbegin();
+
+	while (it != end)
 	{
-		messagesScrollWidget->layout()->addWidget(message);
+		--it;
+		messagesScrollWidget->layout()->addWidget(*it);
 	}
 
 	ui.currentOponent->setText(username);
-	
 }
 
 void MessengerWindow::dialogsLoaded(QList<DialogInfo *> *userDialogs)
@@ -128,6 +132,12 @@ void MessengerWindow::dialogsLoaded(QList<DialogInfo *> *userDialogs)
 	}
 
 	this->show();
+}
+
+void MessengerWindow::moveScrollBarToBotton(int min, int max)
+{
+	Q_UNUSED(min);
+	ui.dialogArea->verticalScrollBar()->setValue(max);
 }
 
 bool MessengerWindow::saveData()

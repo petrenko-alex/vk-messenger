@@ -7,6 +7,7 @@
 #include <QDataStream>
 #include <QIODevice>
 #include <QCloseEvent>
+#include <QScrollBar>
 #include "ui_messengerwindow.h"
 #include "authorization.h"
 #include "dialoginfo.h"
@@ -18,6 +19,9 @@
 
 //gafk555@gmail.com
 // #TODO: Кэшировать сообщения
+// #TODO: Повторный клик на диалог вызывает ошибку
+// #TODO: Не всегда все подгружается
+// #TODO: Скорректировать механизм распознавания чата
 
 class MessengerWindow : public QMainWindow
 {
@@ -36,10 +40,11 @@ private slots:
 	void loadDialogs();
 	void messagesReceived(QList<AbstractMessage *> *userMessages, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
-	bool saveData();
-	bool loadData();
+	void moveScrollBarToBotton(int min, int max);
 
 private:
+	bool saveData();
+	bool loadData();
 	void setConnections();
 	void closeEvent(QCloseEvent *event);
 
