@@ -13,7 +13,7 @@ public:
 	UserTextMessage(const UserTextMessage &other);
 	~UserTextMessage();
 
-	virtual void setDataToWidgets();
+	virtual void setDataToWidgets(bool out);
 	virtual UserTextMessage * clone() const;
 
 private:

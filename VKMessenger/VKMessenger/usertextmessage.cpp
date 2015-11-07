@@ -18,7 +18,7 @@ UserTextMessage::~UserTextMessage()
 
 }
 
-void UserTextMessage::setDataToWidgets()
+void UserTextMessage::setDataToWidgets(bool out)
 {
 	ui.message->setText(message);
 

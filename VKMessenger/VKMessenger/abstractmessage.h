@@ -15,7 +15,7 @@ public:
 	AbstractMessage(const AbstractMessage &other);
 	virtual ~AbstractMessage();
 
-	virtual void setDataToWidgets() = 0;
+	virtual void setDataToWidgets(bool out) = 0;
 	virtual AbstractMessage * clone() const = 0;
 
 protected:

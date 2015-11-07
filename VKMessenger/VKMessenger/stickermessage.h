@@ -13,7 +13,7 @@ public:
 	StickerMessage(const StickerMessage &other);
 	~StickerMessage();
 
-	virtual void setDataToWidgets();
+	virtual void setDataToWidgets(bool out);
 	virtual StickerMessage * clone() const;
 
 private:

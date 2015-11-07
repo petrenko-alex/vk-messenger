@@ -18,7 +18,7 @@ OpponentTextMessage::~OpponentTextMessage()
 
 }
 
-void OpponentTextMessage::setDataToWidgets()
+void OpponentTextMessage::setDataToWidgets(bool out)
 {
 	ui.message->setText(message);
 

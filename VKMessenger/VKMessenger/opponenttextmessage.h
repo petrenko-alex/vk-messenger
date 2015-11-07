@@ -13,7 +13,7 @@ public:
 	OpponentTextMessage(const OpponentTextMessage &other);
 	~OpponentTextMessage();
 
-	virtual void setDataToWidgets();
+	virtual void setDataToWidgets(bool out);
 	virtual OpponentTextMessage * clone() const;
 
 private:

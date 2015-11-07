@@ -18,7 +18,7 @@ StickerMessage::~StickerMessage()
 
 }
 
-void StickerMessage::setDataToWidgets()
+void StickerMessage::setDataToWidgets(bool out)
 {
 	QPixmap stickerPixMap;
 	QPixmap userPhoto;
