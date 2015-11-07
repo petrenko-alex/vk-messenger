@@ -104,7 +104,6 @@ void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, Q
 	while (messagesScrollWidget->layout()->count())
 	{
 		QLayoutItem * item = messagesScrollWidget->layout()->itemAt(0);
-
 		messagesScrollWidget->layout()->removeItem(item);
 		messagesScrollWidget->layout()->removeWidget(item->widget());
 		delete item->widget();
