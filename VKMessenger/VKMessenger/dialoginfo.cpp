@@ -126,7 +126,7 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 				if (a.toObject()["type"] == "sticker")
 				{
 					QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
-					QByteArray sticker = dataReceiver->loadPhoto(stickerUrl);
+					QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
 
 					message = new StickerMessage(sticker, this->photo);
 				}

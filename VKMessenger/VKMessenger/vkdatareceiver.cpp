@@ -68,3 +68,23 @@ QByteArray VKDataReceiver::loadPhoto(const QUrl &photoUrl)
 	return photo;
 }
 
+QByteArray VKDataReceiver::loadSticker(const QUrl &stickerUrl)
+{
+	QByteArray sticker = loadPhoto(stickerUrl);
+	
+	QString tmpStr = stickerUrl.toString();
+	QString fileName = QString(STICKERS_PATH) + tmpStr.section('/', 5, 5) + ".png";
+
+	QPixmap toSave;
+	if (!sticker.isEmpty() && toSave.loadFromData(sticker))
+	{
+		QFile file(fileName);
+		if (file.open(QIODevice::WriteOnly))
+		{
+			toSave.save(&file, "PNG");
+			file.close();
+		}
+	}
+	return sticker;
+}
+
