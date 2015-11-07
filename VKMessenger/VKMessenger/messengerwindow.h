@@ -22,6 +22,11 @@
 // #TODO: Повторный клик на диалог вызывает ошибку
 // #TODO: Не всегда все подгружается
 // #TODO: Скорректировать механизм распознавания чата
+// #TODO: Переименовать sendRequest в VKDataReceiver
+// 
+// Хранить в dialogInfo - scrollWidget, там заполнять ее и уже сюда передавать?
+// или
+// Как то по другому очищать scrollArea тут
 
 class MessengerWindow : public QMainWindow
 {

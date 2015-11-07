@@ -11,7 +11,7 @@ class AbstractMessage : public QWidget
 	Q_OBJECT
 
 public:
-	AbstractMessage(QString &message, QByteArray &photo);
+	AbstractMessage(QByteArray &photo);
 	AbstractMessage(const AbstractMessage &other);
 	virtual ~AbstractMessage();
 
@@ -20,7 +20,6 @@ public:
 
 protected:
 	QByteArray photo;
-	QString message;
 
 private:
 	Ui::AbstractMessage ui;

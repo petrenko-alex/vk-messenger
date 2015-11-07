@@ -1,7 +1,7 @@
 #include "abstractmessage.h"
 
-AbstractMessage::AbstractMessage(QString &message, QByteArray &photo)
-	: message(message), photo(photo)
+AbstractMessage::AbstractMessage(QByteArray &photo)
+	:  photo(photo)
 
 {
 	ui.setupUi(this);
@@ -9,7 +9,6 @@ AbstractMessage::AbstractMessage(QString &message, QByteArray &photo)
 
 AbstractMessage::AbstractMessage(const AbstractMessage &other)
 {
-	this->message = other.message;
 	this->photo = other.photo;
 }
 

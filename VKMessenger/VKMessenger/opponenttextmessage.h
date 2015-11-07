@@ -18,6 +18,7 @@ public:
 
 private:
 	Ui::OpponentTextMessage ui;
+	QString message;
 };
 
 #endif // OPPONENTTEXTMESSAGE_H

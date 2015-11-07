@@ -1,14 +1,16 @@
 #include "opponenttextmessage.h"
 
 OpponentTextMessage::OpponentTextMessage(QString &message, QByteArray &photo) 
-	: AbstractMessage(message,photo)
+	: AbstractMessage(photo)
 {
 	ui.setupUi(this);
+	this->message = message;
 }
 
 OpponentTextMessage::OpponentTextMessage(const OpponentTextMessage &other) 
 	: AbstractMessage(other)
 {
+	this->message = other.message;
 }
 
 OpponentTextMessage::~OpponentTextMessage()

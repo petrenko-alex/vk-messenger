@@ -18,6 +18,7 @@ public:
 
 private:
 	Ui::UserTextMessage ui;
+	QString message;
 };
 
 #endif // USERTEXTMESSAGE_H

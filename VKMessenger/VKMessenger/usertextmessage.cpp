@@ -1,15 +1,16 @@
 #include "usertextmessage.h"
 
 UserTextMessage::UserTextMessage(QString &message, QByteArray &photo) 
-	: AbstractMessage(message,photo)
+	: AbstractMessage(photo)
 {
 	ui.setupUi(this);
+	this->message = message;
 }
 
 UserTextMessage::UserTextMessage(const UserTextMessage &other) 
 	: AbstractMessage(other)
 {
-
+	this->message = other.message;
 }
 
 UserTextMessage::~UserTextMessage()
