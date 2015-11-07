@@ -128,6 +128,15 @@
     <ClCompile Include="opponenttextmessage.cpp">
       <Filter>Messages\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_userstickermessage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_userstickermessage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="userstickermessage.cpp">
+      <Filter>Messages\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messengerwindow.h">
@@ -175,6 +184,12 @@
     <CustomBuild Include="opponenttextmessage.h">
       <Filter>Messages\Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="userstickermessage.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="userstickermessage.h">
+      <Filter>Messages\Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_messengerwindow.h">
@@ -190,6 +205,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_opponenttextmessage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_userstickermessage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
