@@ -1,24 +1,24 @@
-#include "userstickermessage.h"
+#include "stickermessage.h"
 
-UserStickerMessage::UserStickerMessage(QByteArray &sticker, QByteArray &photo)
+StickerMessage::StickerMessage(QByteArray &sticker, QByteArray &photo)
 	: AbstractMessage(photo)
 {
 	ui.setupUi(this);
 	this->sticker = sticker;
 }
 
-UserStickerMessage::UserStickerMessage(const UserStickerMessage &other)
+StickerMessage::StickerMessage(const StickerMessage &other)
 	: AbstractMessage(other)
 {
 	this->sticker = sticker;
 }
 
-UserStickerMessage::~UserStickerMessage()
+StickerMessage::~StickerMessage()
 {
 
 }
 
-void UserStickerMessage::setDataToWidgets()
+void StickerMessage::setDataToWidgets()
 {
 	QPixmap stickerPixMap;
 	QPixmap userPhoto;
@@ -34,7 +34,7 @@ void UserStickerMessage::setDataToWidgets()
 	}
 }
 
-UserStickerMessage * UserStickerMessage::clone() const
+StickerMessage * StickerMessage::clone() const
 {
-	return (new UserStickerMessage(*this));
+	return (new StickerMessage(*this));
 }

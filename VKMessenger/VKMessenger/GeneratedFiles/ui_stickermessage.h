@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'userstickermessage.ui'
+** Form generated from reading UI file 'stickermessage.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_USERSTICKERMESSAGE_H
-#define UI_USERSTICKERMESSAGE_H
+#ifndef UI_STICKERMESSAGE_H
+#define UI_STICKERMESSAGE_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -107,4 +107,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_USERSTICKERMESSAGE_H
+#endif // UI_STICKERMESSAGE_H
