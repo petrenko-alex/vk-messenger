@@ -10,9 +10,11 @@ class UserTextMessage : public AbstractMessage
 
 public:
 	UserTextMessage(QString &message, QByteArray &photo);
+	UserTextMessage(const UserTextMessage &other);
 	~UserTextMessage();
 
 	virtual void setDataToWidgets();
+	virtual UserTextMessage * clone() const;
 
 private:
 	Ui::UserTextMessage ui;

@@ -10,9 +10,11 @@ class OpponentTextMessage : public AbstractMessage
 
 public:
 	OpponentTextMessage(QString &message, QByteArray &photo);
+	OpponentTextMessage(const OpponentTextMessage &other);
 	~OpponentTextMessage();
 
 	virtual void setDataToWidgets();
+	virtual OpponentTextMessage * clone() const;
 
 private:
 	Ui::OpponentTextMessage ui;

@@ -12,9 +12,11 @@ class AbstractMessage : public QWidget
 
 public:
 	AbstractMessage(QString &message, QByteArray &photo);
+	AbstractMessage(const AbstractMessage &other);
 	virtual ~AbstractMessage();
 
 	virtual void setDataToWidgets() = 0;
+	virtual AbstractMessage * clone() const = 0;
 
 protected:
 	QByteArray photo;

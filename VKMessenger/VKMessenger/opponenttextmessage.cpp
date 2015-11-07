@@ -6,6 +6,11 @@ OpponentTextMessage::OpponentTextMessage(QString &message, QByteArray &photo)
 	ui.setupUi(this);
 }
 
+OpponentTextMessage::OpponentTextMessage(const OpponentTextMessage &other) 
+	: AbstractMessage(other)
+{
+}
+
 OpponentTextMessage::~OpponentTextMessage()
 {
 
@@ -21,4 +26,9 @@ void OpponentTextMessage::setDataToWidgets()
 	{
 		ui.photo->setPixmap(userPhoto);
 	}
+}
+
+OpponentTextMessage * OpponentTextMessage::clone() const
+{
+	return (new OpponentTextMessage(*this));
 }

@@ -7,6 +7,12 @@ AbstractMessage::AbstractMessage(QString &message, QByteArray &photo)
 	ui.setupUi(this);
 }
 
+AbstractMessage::AbstractMessage(const AbstractMessage &other)
+{
+	this->message = other.message;
+	this->photo = other.photo;
+}
+
 AbstractMessage::~AbstractMessage()
 {
 

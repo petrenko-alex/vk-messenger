@@ -6,6 +6,12 @@ UserTextMessage::UserTextMessage(QString &message, QByteArray &photo)
 	ui.setupUi(this);
 }
 
+UserTextMessage::UserTextMessage(const UserTextMessage &other) 
+	: AbstractMessage(other)
+{
+
+}
+
 UserTextMessage::~UserTextMessage()
 {
 
@@ -21,4 +27,9 @@ void UserTextMessage::setDataToWidgets()
 	{
 		ui.photo->setPixmap(userPhoto);
 	}
+}
+
+UserTextMessage * UserTextMessage::clone() const
+{
+	return (new UserTextMessage(*this));
 }
