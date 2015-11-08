@@ -8,7 +8,7 @@ VKDataReceiver::~VKDataReceiver()
 {
 }
 
-QByteArray VKDataReceiver::sendRequest(const QString &methodName, const QList<QPair<QString, QString> > &parametres)
+QByteArray VKDataReceiver::loadData(const QString &methodName, const QList<QPair<QString, QString> > &parametres)
 {
 	QByteArray data;
 

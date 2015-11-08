@@ -38,7 +38,7 @@ void DialogInfo::loadOpponentInfo()
 		parametres << QPair<QString, QString>("v", "5.37");
 		parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
 
-		QByteArray userInfo = dataReceiver->sendRequest("users.get", parametres);
+		QByteArray userInfo = dataReceiver->loadData("users.get", parametres);
 		if (!userInfo.isEmpty())
 		{
 			/* Получаем информацию о пользователе */
@@ -98,7 +98,7 @@ void DialogInfo::loadMessages()
 	parametres << QPair<QString, QString>("v", "5.37");
 	parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
 	/* Посылаем запрос, получаем данные */
-	QByteArray messages = dataReceiver->sendRequest("messages.getHistory", parametres);
+	QByteArray messages = dataReceiver->loadData("messages.getHistory", parametres);
 
 	if (!messages.isEmpty())
 	{

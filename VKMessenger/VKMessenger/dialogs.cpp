@@ -24,7 +24,7 @@ void Dialogs::loadDialogs()
 	parametres << QPair<QString, QString>("v", "5.37");
 	parametres << QPair<QString, QString>("access_token", QString(Session::getInstance ().get ("accessToken")));
 	/* Посылаем запрос, получаем данные */
-	QByteArray dialogs = dataReceiver->sendRequest("messages.getDialogs", parametres);
+	QByteArray dialogs = dataReceiver->loadData("messages.getDialogs", parametres);
 
 	if (!dialogs.isEmpty())
 	{

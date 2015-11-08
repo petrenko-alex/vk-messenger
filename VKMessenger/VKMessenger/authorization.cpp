@@ -96,7 +96,7 @@ bool Authorization::isTokenValid(const QString &accessToken) const
 	parametres << QPair<QString, QString>("access_token", accessToken);
 
 	/* Посылаем запрос - получаем ответ */
-	QByteArray test = dataReceiver->sendRequest("users.search", parametres);
+	QByteArray test = dataReceiver->loadData("users.search", parametres);
 
 	return test.contains("error") ? false : true;
 }
@@ -117,7 +117,7 @@ void Authorization::loadUserInfo()
 	parametres << QPair<QString, QString>("access_token", Session::getInstance ().get ("accessToken"));
 
 	/* Посылаем запрос - получаем ответ */
-	QByteArray userInfo = dataReceiver->sendRequest("users.get", parametres);
+	QByteArray userInfo = dataReceiver->loadData("users.get", parametres);
 
 	if (!userInfo.isEmpty())
 	{
