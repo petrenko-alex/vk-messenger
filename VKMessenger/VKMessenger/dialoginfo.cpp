@@ -26,6 +26,7 @@ DialogInfo::DialogInfo(unsigned int userId, unsigned int messageId, QString &tit
 DialogInfo::~DialogInfo()
 {
 	delete dataReceiver;
+	delete messagesScrollWidget;
 }
 
 void DialogInfo::loadOpponentInfo()

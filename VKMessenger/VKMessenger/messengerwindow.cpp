@@ -11,14 +11,11 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	setConnections();
 
 	ui.dialogsInfoArea->setWidgetResizable(true);
+	ui.dialogArea->setWidgetResizable(true);
 	dialogsScrollWidget = new QWidget;
 	dialogsScrollWidget->setLayout(new QVBoxLayout);
 	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
 
-	ui.dialogArea->setWidgetResizable(true);
-	//messagesScrollWidget = new QWidget;
-	//messagesScrollWidget->setLayout(new QVBoxLayout);
-	//ui.dialogArea->setWidget(messagesScrollWidget);
 
 	/* Если данные с файла успешно загружены и загруженный токен валиден */
 	if (loadData() && authorization->isTokenValid(Session::getInstance().get("accessToken")))
@@ -38,7 +35,6 @@ MessengerWindow::~MessengerWindow()
 	delete authorization;
 	delete dataReceiver;
 	delete dialogsScrollWidget;
-	//delete messagesScrollWidget;
 	delete userDialogs;
 }
 
@@ -100,27 +96,6 @@ void MessengerWindow::loadDialogs()
 
 void MessengerWindow::messagesReceived(QWidget *scrollWidget, QString &username)
 {
-	/* Очищаем предыдущее содержимое */
-/*
-	while (messagesScrollWidget->layout()->count())
-	{
-		QLayoutItem * item = messagesScrollWidget->layout()->itemAt(0);
-		messagesScrollWidget->layout()->removeItem(item);
-		messagesScrollWidget->layout()->removeWidget(item->widget());
-		delete item->widget();
-		delete item;
-		messagesScrollWidget->layout()->update();
-	}
-
-	auto it = userMessages->cend();
-	auto end = userMessages->cbegin();
-
-	while (it != end)
-	{
-		--it;
-		messagesScrollWidget->layout()->addWidget(*it);
-	}*/
-
 	if (ui.dialogArea->widget())
 	{
 		ui.dialogArea->takeWidget();
