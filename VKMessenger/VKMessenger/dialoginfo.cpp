@@ -133,7 +133,8 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 
 	for (auto msg : dialogMessagesArray)
 	{
-		AbstractMessage *message;
+		AbstractMessage *message = nullptr;
+		QString messageAttachments = "Вложения: ";
 		bool out = msg.toObject()["out"].toInt();
 
 		if (msg.toObject()["body"].toString().isEmpty())
@@ -154,15 +155,20 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 					}
 					else
 					{
-
+						messageAttachments += a.toObject()["type"].toString() + ", ";
 					}
 				}
-
+				messageAttachments.remove(messageAttachments.size() - 2,2);
 			}
 		}
 		else
 		{
 			message = new TextMessage(msg.toObject()["body"].toString(), this->photo);
+		}
+
+		if (message == nullptr)
+		{
+			message = new TextMessage(messageAttachments, this->photo);
 		}
 
 		userMessages << message;

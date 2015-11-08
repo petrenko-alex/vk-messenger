@@ -20,6 +20,7 @@
 //gafk555@gmail.com
 // #TODO: Кэшировать сообщения
 // #TODO: Добавить загрузку фото собеседников чата
+// #TODO: Обработка пересланных сообщений
 
 
 class MessengerWindow : public QMainWindow
