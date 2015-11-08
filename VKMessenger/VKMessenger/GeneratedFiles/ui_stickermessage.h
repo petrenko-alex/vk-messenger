@@ -78,8 +78,8 @@ public:
 
         sticker = new QLabel(frame);
         sticker->setObjectName(QStringLiteral("sticker"));
-        sticker->setMinimumSize(QSize(120, 128));
-        sticker->setMaximumSize(QSize(120, 128));
+        sticker->setMinimumSize(QSize(130, 128));
+        sticker->setMaximumSize(QSize(130, 128));
 
         horizontalLayout->addWidget(sticker);
 

@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QPixmap>
+#include <QIODevice>
 #include <QUrlQuery>
 #include <QUrl>
 #include <QNetworkAccessManager>
