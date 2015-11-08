@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'usertextmessage.ui'
+** Form generated from reading UI file 'textmessage.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_USERTEXTMESSAGE_H
-#define UI_USERTEXTMESSAGE_H
+#ifndef UI_TEXTMESSAGE_H
+#define UI_TEXTMESSAGE_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -132,4 +132,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_USERTEXTMESSAGE_H
+#endif // UI_TEXTMESSAGE_H

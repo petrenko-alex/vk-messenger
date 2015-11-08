@@ -110,15 +110,6 @@
     <ClCompile Include="abstractmessage.cpp">
       <Filter>Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_usertextmessage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_usertextmessage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="usertextmessage.cpp">
-      <Filter>Messages\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_stickermessage.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -127,6 +118,15 @@
     </ClCompile>
     <ClCompile Include="stickermessage.cpp">
       <Filter>Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="textmessage.cpp">
+      <Filter>Messages\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_textmessage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_textmessage.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,16 +163,16 @@
     <CustomBuild Include="abstractmessage.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="usertextmessage.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="usertextmessage.h">
-      <Filter>Messages\Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="stickermessage.h">
       <Filter>Messages\Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="stickermessage.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="textmessage.h">
+      <Filter>Messages\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="textmessage.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -186,10 +186,10 @@
     <ClInclude Include="GeneratedFiles\ui_abstractmessage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_usertextmessage.h">
+    <ClInclude Include="GeneratedFiles\ui_stickermessage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_stickermessage.h">
+    <ClInclude Include="GeneratedFiles\ui_textmessage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

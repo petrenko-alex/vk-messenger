@@ -1,7 +1,7 @@
 #ifndef USERTEXTMESSAGE_H
 #define USERTEXTMESSAGE_H
 
-#include "ui_usertextmessage.h"
+#include "ui_textmessage.h"
 #include "abstractmessage.h"
 
 class TextMessage : public AbstractMessage

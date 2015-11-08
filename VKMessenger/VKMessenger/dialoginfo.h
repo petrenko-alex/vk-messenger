@@ -11,7 +11,7 @@
 #include <windows.h>
 #include "vkdatareceiver.h"
 #include "abstractmessage.h"
-#include "usertextmessage.h"
+#include "textmessage.h"
 #include "stickermessage.h"
 
 #define WIDTH  260

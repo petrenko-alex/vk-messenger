@@ -1,4 +1,4 @@
-#include "usertextmessage.h"
+#include "textmessage.h"
 
 TextMessage::TextMessage(QString &message, QByteArray &photo) 
 	: AbstractMessage(photo)
