@@ -65,9 +65,16 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 			idKey = "user_id";
 		}
 
+		QString lastMessage = dialogInfo["body"].toString();
+		if (lastMessage.isEmpty())
+		{
+			lastMessage = "Вложение: ";
+			lastMessage += dialogInfo["attachments"].toArray()[0].toObject()["type"].toString();
+		}
+
 		DialogInfo *d = new DialogInfo( dialogType,
 										dialogInfo[idKey].toInt(), dialogInfo["id"].toInt(),
-										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
+										dialogInfo["title"].toString(), lastMessage,
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 
 		connect(d, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
@@ -77,6 +84,7 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 	}
 
 	emit dialogsLoaded(&userDialogs);
+
 	/* Последний диалог как текущий */
 	userDialogs[0]->loadMessages();
 }
