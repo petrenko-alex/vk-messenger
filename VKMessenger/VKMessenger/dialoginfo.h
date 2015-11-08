@@ -36,7 +36,7 @@ public:
 	void loadMessages();
 
 signals:
-	void messagesLoaded(QList<AbstractMessage *> *userMessages, QString &username);
+	void messagesLoaded(QWidget *scrollWidget, QString &username);
 
 private:
 	void setConnections();
@@ -54,9 +54,11 @@ private:
 	QDateTime lastMessageDateTime;
 	QByteArray photo;
 	bool out;
+	bool clicked;
+
 	VKDataReceiver *dataReceiver;
 	QList<AbstractMessage *> userMessages;
-	bool clicked;
+	QWidget *messagesScrollWidget;
 };
 
 #endif // DIALOGINFO_H

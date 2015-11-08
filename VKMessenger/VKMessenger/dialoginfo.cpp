@@ -4,6 +4,8 @@ DialogInfo::DialogInfo(unsigned int userId, unsigned int messageId, QString &tit
 {
 	ui.setupUi(this);
 	dataReceiver = new VKDataReceiver;
+	messagesScrollWidget = new QWidget;
+	messagesScrollWidget->setLayout(new QVBoxLayout);
 	setConnections();
 
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -104,6 +106,16 @@ void DialogInfo::loadMessages()
 	{
 		parseMessages(messages);
 	}
+	
+	auto it = userMessages.cend();
+	auto end = userMessages.cbegin();
+	while (it != end)
+	{
+		--it;
+		messagesScrollWidget->layout()->addWidget(*it);
+	}
+
+	emit messagesLoaded(messagesScrollWidget, username);
 }
 
 void DialogInfo::parseMessages(const QByteArray &messages)
@@ -152,8 +164,6 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 		userMessages << message;
 		message->setDataToWidgets(out);
 	}
-
-	emit messagesLoaded(&userMessages,username);
 }
 
 void DialogInfo::setConnections()
@@ -216,7 +226,7 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 		}
 		else
 		{
-			emit messagesLoaded(&userMessages, username);
+			emit messagesLoaded(messagesScrollWidget, username);
 		}
 	}
 }

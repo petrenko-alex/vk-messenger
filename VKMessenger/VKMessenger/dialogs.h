@@ -17,7 +17,7 @@ class Dialogs : public QObject
 
 signals:
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
-	void messagesLoaded(QList<AbstractMessage *> *userMessages, QString &username);
+	void messagesLoaded(QWidget *scrollWidget, QString &username);
 
 public:
 	Dialogs();
@@ -26,7 +26,7 @@ public:
 	void loadDialogs();
 
 private slots:
-	void messagesReceived(QList<AbstractMessage *> *userMessages, QString &username);
+	void messagesReceived(QWidget *scrollWidget, QString &username);
 
 private:
 	void setConnections();

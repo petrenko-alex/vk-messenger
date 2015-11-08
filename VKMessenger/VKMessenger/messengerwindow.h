@@ -20,9 +20,7 @@
 //gafk555@gmail.com
 // #TODO: Кэшировать сообщения
 // #TODO: Повторный клик на диалог вызывает ошибку
-// #TODO: Не всегда все подгружается
 // #TODO: Скорректировать механизм распознавания чата
-// #TODO: Переименовать sendRequest в VKDataReceiver
 // 
 // 
 // Хранить в dialogInfo - scrollWidget, там заполнять ее и уже сюда передавать?
@@ -44,7 +42,7 @@ private slots:
 	void authorizationCompleted();
 	void authorizationFailed();
 	void loadDialogs();
-	void messagesReceived(QList<AbstractMessage *> *userMessages, QString &username);
+	void messagesReceived(QWidget *scrollWidget, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void moveScrollBarToBotton(int min, int max);
 
@@ -60,7 +58,7 @@ private:
 	VKDataReceiver *dataReceiver;
 
 	QWidget *dialogsScrollWidget;
-	QWidget *messagesScrollWidget;
+	//QWidget *messagesScrollWidget;
 };
 
 #endif // MESSENGERWINDOW_H

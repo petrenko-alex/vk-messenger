@@ -16,9 +16,9 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
 
 	ui.dialogArea->setWidgetResizable(true);
-	messagesScrollWidget = new QWidget;
-	messagesScrollWidget->setLayout(new QVBoxLayout);
-	ui.dialogArea->setWidget(messagesScrollWidget);
+	//messagesScrollWidget = new QWidget;
+	//messagesScrollWidget->setLayout(new QVBoxLayout);
+	//ui.dialogArea->setWidget(messagesScrollWidget);
 
 	/* Если данные с файла успешно загружены и загруженный токен валиден */
 	if (loadData() && authorization->isTokenValid(Session::getInstance().get("accessToken")))
@@ -38,7 +38,7 @@ MessengerWindow::~MessengerWindow()
 	delete authorization;
 	delete dataReceiver;
 	delete dialogsScrollWidget;
-	delete messagesScrollWidget;
+	//delete messagesScrollWidget;
 	delete userDialogs;
 }
 
@@ -93,14 +93,15 @@ void MessengerWindow::authorizationFailed()
 void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
-	connect(userDialogs, SIGNAL(messagesLoaded(QList<AbstractMessage *> *, QString &)), this, SLOT(messagesReceived(QList<AbstractMessage *> *, QString &)));
+	connect(userDialogs, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	userDialogs->loadDialogs();
 }
 
-void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, QString &username)
+void MessengerWindow::messagesReceived(QWidget *scrollWidget, QString &username)
 {
 	/* Очищаем предыдущее содержимое */
+/*
 	while (messagesScrollWidget->layout()->count())
 	{
 		QLayoutItem * item = messagesScrollWidget->layout()->itemAt(0);
@@ -118,8 +119,13 @@ void MessengerWindow::messagesReceived(QList<AbstractMessage *> *userMessages, Q
 	{
 		--it;
 		messagesScrollWidget->layout()->addWidget(*it);
-	}
+	}*/
 
+	if (ui.dialogArea->widget())
+	{
+		ui.dialogArea->takeWidget();
+	}
+	ui.dialogArea->setWidget(scrollWidget);
 	ui.currentOponent->setText(username);
 }
 
