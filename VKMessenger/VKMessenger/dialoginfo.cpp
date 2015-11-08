@@ -1,6 +1,6 @@
 #include "dialoginfo.h"
 
-DialogInfo::DialogInfo(unsigned int userId, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
+DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
 {
 	ui.setupUi(this);
 	dataReceiver = new VKDataReceiver;
@@ -11,8 +11,8 @@ DialogInfo::DialogInfo(unsigned int userId, unsigned int messageId, QString &tit
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	this->setMinimumSize(WIDTH, HEIGHT);
 
-
-	this->userId = userId;
+	this->dialogType = type;
+	this->id = id;
 	this->messageId = messageId;
 	this->title = title;
 	this->lastMessage = lastMessage;
@@ -31,11 +31,11 @@ DialogInfo::~DialogInfo()
 
 void DialogInfo::loadOpponentInfo()
 {
-	if (title == " ... ")
+	if (dialogType == DialogType::PERSONAL)
 	{
 		/* Загружаем информацию о собеседнике */
 		QList<QPair<QString, QString> > parametres;
-		parametres << QPair<QString, QString>("user_ids", QString::number(userId));
+		parametres << QPair<QString, QString>("user_ids", QString::number(id));
 		parametres << QPair<QString, QString>("fields", "photo_50");
 		parametres << QPair<QString, QString>("name_case", "Nom");
 		parametres << QPair<QString, QString>("v", "5.37");
@@ -97,7 +97,14 @@ void DialogInfo::loadMessages()
 	/* Формируем запрос на получение диалогов */
 	QList<QPair<QString, QString> > parametres;
 	parametres << QPair<QString, QString>("count", QString::number(MESSAGES_COUNT));
-	parametres << QPair<QString, QString>("user_id", QString::number(userId));
+	if (dialogType == DialogType::PERSONAL)
+	{
+		parametres << QPair<QString, QString>("user_id", QString::number(id));
+	}
+	else
+	{
+		parametres << QPair<QString, QString>("chat_id", QString::number(id));
+	}
 	parametres << QPair<QString, QString>("v", "5.37");
 	parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
 	/* Посылаем запрос, получаем данные */
@@ -197,7 +204,7 @@ void DialogInfo::setDataToWidgets()
 
 DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 {
-	this->userId = other.userId;
+	this->id = other.id;
 	this->messageId = other.messageId;
 	this->title = other.title;
 	this->lastMessage = other.lastMessage;

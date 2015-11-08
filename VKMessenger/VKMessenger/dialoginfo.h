@@ -20,12 +20,16 @@
 #define MESSAGES_COUNT 100
 #define GROUP_AVATAR_PATH "./Application Resources/group_avatar.png"
 
+enum DialogType { PERSONAL, CHAT };
+
+
 class DialogInfo : public QWidget
 {
 	Q_OBJECT
 
 public:
-	DialogInfo( unsigned int userId,unsigned int messageId,
+	DialogInfo(	DialogType type, 
+				unsigned int id, unsigned int messageId,
 				QString &title,QString &lastMessage,
 				QDateTime &lastMessageDateTime, bool out);
 	~DialogInfo();
@@ -46,7 +50,7 @@ private:
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 	Ui::DialogInfo ui;
-	unsigned int userId;
+	unsigned int id;
 	unsigned int messageId;
 	QString title;
 	QString username;
@@ -56,6 +60,7 @@ private:
 	bool out;
 	bool clicked;
 
+	DialogType dialogType;
 	VKDataReceiver *dataReceiver;
 	QList<AbstractMessage *> userMessages;
 	QWidget *messagesScrollWidget;

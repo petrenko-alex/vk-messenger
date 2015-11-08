@@ -19,7 +19,7 @@
 
 //gafk555@gmail.com
 // #TODO: Кэшировать сообщения
-// #TODO: Скорректировать механизм распознавания чата
+// #TODO: Добавить загрузку фото собеседников чата
 
 
 class MessengerWindow : public QMainWindow

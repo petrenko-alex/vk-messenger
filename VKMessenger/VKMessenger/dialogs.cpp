@@ -43,6 +43,8 @@ void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
 
 void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 {
+	DialogType dialogType;
+	QString idKey;
 	QJsonObject userDialogsObject = QJsonDocument::fromJson(userDialogsData).object();
 	QJsonArray userDialogsArray =  userDialogsObject.value("response").toObject()["items"].toArray ();
 	
@@ -50,7 +52,21 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 	{
 		QJsonObject dialogInfo = dialog.toObject()["message"].toObject();
 
-		DialogInfo *d = new DialogInfo( dialogInfo["user_id"].toInt(), dialogInfo["id"].toInt(),
+		if (dialogInfo.contains("chat_id"))
+		{
+			/* Если диалог принадлежит чату */
+			dialogType = DialogType::CHAT;
+			idKey = "chat_id";
+		}
+		else
+		{
+			/* Если диалог персональный */
+			dialogType = DialogType::PERSONAL;
+			idKey = "user_id";
+		}
+
+		DialogInfo *d = new DialogInfo( dialogType,
+										dialogInfo[idKey].toInt(), dialogInfo["id"].toInt(),
 										dialogInfo["title"].toString(), dialogInfo["body"].toString(),
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 
