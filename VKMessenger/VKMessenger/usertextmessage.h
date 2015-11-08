@@ -4,17 +4,17 @@
 #include "ui_usertextmessage.h"
 #include "abstractmessage.h"
 
-class UserTextMessage : public AbstractMessage
+class TextMessage : public AbstractMessage
 {
 	Q_OBJECT
 
 public:
-	UserTextMessage(QString &message, QByteArray &photo);
-	UserTextMessage(const UserTextMessage &other);
-	~UserTextMessage();
+	TextMessage(QString &message, QByteArray &photo);
+	TextMessage(const TextMessage &other);
+	~TextMessage();
 
 	virtual void setDataToWidgets(bool out);
-	virtual UserTextMessage * clone() const;
+	virtual TextMessage * clone() const;
 
 private:
 	Ui::UserTextMessage ui;

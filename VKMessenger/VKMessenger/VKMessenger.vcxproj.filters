@@ -119,15 +119,6 @@
     <ClCompile Include="usertextmessage.cpp">
       <Filter>Messages\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_opponenttextmessage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_opponenttextmessage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="opponenttextmessage.cpp">
-      <Filter>Messages\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_stickermessage.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -178,12 +169,6 @@
     <CustomBuild Include="usertextmessage.h">
       <Filter>Messages\Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="opponenttextmessage.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="opponenttextmessage.h">
-      <Filter>Messages\Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="stickermessage.h">
       <Filter>Messages\Header Files</Filter>
     </CustomBuild>
@@ -202,9 +187,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_usertextmessage.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_opponenttextmessage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_stickermessage.h">

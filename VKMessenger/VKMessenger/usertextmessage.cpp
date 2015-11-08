@@ -1,36 +1,51 @@
 #include "usertextmessage.h"
 
-UserTextMessage::UserTextMessage(QString &message, QByteArray &photo) 
+TextMessage::TextMessage(QString &message, QByteArray &photo) 
 	: AbstractMessage(photo)
 {
 	ui.setupUi(this);
 	this->message = message;
 }
 
-UserTextMessage::UserTextMessage(const UserTextMessage &other) 
+TextMessage::TextMessage(const TextMessage &other) 
 	: AbstractMessage(other)
 {
 	this->message = other.message;
 }
 
-UserTextMessage::~UserTextMessage()
+TextMessage::~TextMessage()
 {
 
 }
 
-void UserTextMessage::setDataToWidgets(bool out)
+void TextMessage::setDataToWidgets(bool out)
 {
+	QPixmap userPhoto;
+	QByteArray tmpPhoto;
+
+	/* Устанавливаем текст */
 	ui.message->setText(message);
 
-	QPixmap userPhoto;
+	/* Исходящее или входящее сообщение */
+	if (out)
+	{
+		this->setLayoutDirection(Qt::LeftToRight);
+		tmpPhoto = Session::getInstance().getPhoto();
+	}
+	else
+	{
+		this->setLayoutDirection(Qt::RightToLeft);
+		tmpPhoto = photo;
+	}
 
-	if (!photo.isEmpty() && userPhoto.loadFromData(photo))
+	/* Устанавливаем фото */
+	if (!tmpPhoto.isEmpty() && userPhoto.loadFromData(tmpPhoto))
 	{
 		ui.photo->setPixmap(userPhoto);
 	}
 }
 
-UserTextMessage * UserTextMessage::clone() const
+TextMessage * TextMessage::clone() const
 {
-	return (new UserTextMessage(*this));
+	return (new TextMessage(*this));
 }

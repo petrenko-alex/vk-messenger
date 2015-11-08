@@ -136,37 +136,33 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 		AbstractMessage *message;
 		bool out = msg.toObject()["out"].toInt();
 
-		/* Если есть вложения */
-		if (msg.toObject().keys().contains("attachments"))
+		if (msg.toObject()["body"].toString().isEmpty())
 		{
-			QJsonArray attachments = msg.toObject()["attachments"].toArray();
-
-			for (auto a : attachments)
+			/* Если есть вложения */
+			if (msg.toObject().keys().contains("attachments"))
 			{
-				if (a.toObject()["type"] == "sticker")
+				QJsonArray attachments = msg.toObject()["attachments"].toArray();
+
+				for (auto a : attachments)
 				{
-					QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
-					QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
+					if (a.toObject()["type"] == "sticker")
+					{
+						QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
+						QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
 
-					message = new StickerMessage(sticker, this->photo);
+						message = new StickerMessage(sticker, this->photo);
+					}
+					else
+					{
+
+					}
 				}
-			}
 
+			}
 		}
 		else
 		{
-
-
-			if (out)
-			{
-				/* Исходящее сообщение */
-				message = new UserTextMessage(msg.toObject()["body"].toString(), Session::getInstance().getPhoto());
-			}
-			else
-			{
-				/* Входящее сообщение */
-				message = new OpponentTextMessage(msg.toObject()["body"].toString(), this->photo);
-			}
+			message = new TextMessage(msg.toObject()["body"].toString(), this->photo);
 		}
 
 		userMessages << message;
