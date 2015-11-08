@@ -39,6 +39,7 @@ QByteArray VKDataReceiver::loadData(const QString &methodName, const QList<QPair
 		/* Получаем ответ */
 		data = reply->readAll();
 		reply->deleteLater();
+		networkManager->disconnect(networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
 	}
 
 	return data;
@@ -63,6 +64,7 @@ QByteArray VKDataReceiver::loadPhoto(const QUrl &photoUrl)
 		/* Получаем ответ */
 		photo = reply->readAll();
 		reply->deleteLater();
+		networkManager->disconnect(networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
 	}
 
 	return photo;
@@ -76,6 +78,7 @@ QByteArray VKDataReceiver::loadSticker(const QUrl &stickerUrl)
 	QByteArray sticker;
 	QFile file(fileName);
 	
+	/* Если стикер есть на диске - загружаем с диска */
 	if (file.exists())
 	{
 		if (file.open(QIODevice::ReadOnly))
