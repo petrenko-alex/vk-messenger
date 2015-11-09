@@ -3,12 +3,14 @@
 Dialogs::Dialogs()
 {
 	dataReceiver = new VKDataReceiver;
+	longPollConnection = new VKLongPoll(this);
 	setConnections();
 }
 
 Dialogs::~Dialogs()
 {
 	delete dataReceiver;
+	delete longPollConnection;
 }
 
 void Dialogs::setConnections()
@@ -34,6 +36,15 @@ void Dialogs::loadDialogs()
 	{
 		QMessageBox::critical(0, "Ошибка соединения", "Не удалось получить список диалогов. Пожалуйста, проверьте интернет соединение.");
 	}
+
+	emit dialogsLoaded(&userDialogs);
+
+	/* Последний диалог как текущий */
+	userDialogs[0]->loadMessages();
+
+	/* Устанавливаем Long Poll соединение */
+	longPollConnection->getLongPollServer();
+	longPollConnection->trace();
 }
 
 void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
@@ -82,9 +93,4 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		userDialogs << d;
 		d->loadOpponentInfo();
 	}
-
-	emit dialogsLoaded(&userDialogs);
-
-	/* Последний диалог как текущий */
-	userDialogs[0]->loadMessages();
 }

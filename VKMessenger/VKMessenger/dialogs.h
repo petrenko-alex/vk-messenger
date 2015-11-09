@@ -8,6 +8,7 @@
 #include "session.h"
 #include "vkdatareceiver.h"
 #include "dialoginfo.h"
+#include "vklongpoll.h"
 
 #define DIALOGS_COUNT 20
 
@@ -33,6 +34,7 @@ private:
 	void parseDialogs(const QByteArray &userDialogsData);
 
 	VKDataReceiver *dataReceiver;
+	VKLongPoll *longPollConnection;
 	QList<DialogInfo *> userDialogs;
 };
 
