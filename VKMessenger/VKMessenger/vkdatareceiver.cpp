@@ -45,6 +45,37 @@ QByteArray VKDataReceiver::loadData(const QString &methodName, const QList<QPair
 	return data;
 }
 
+QByteArray VKDataReceiver::longPollRequest(const QString &path, const QList<QPair<QString, QString> > &parametres)
+{
+	QByteArray data;
+
+	if (!path.isEmpty() && !parametres.isEmpty())
+	{
+		/* Создаем URL */
+		QUrl url(path);
+		/* Добавляем параметры запроса в URL */
+		QUrlQuery query;
+		for (auto param : parametres)
+		{
+			query.addQueryItem(param.first, param.second);
+		}
+		url.setQuery(query);
+		/* Посылаем запрос */
+		QNetworkAccessManager networkManager;
+		QNetworkRequest request(url);
+		QNetworkReply *reply = networkManager.get(request);
+		/* Ожидаем ответ */
+		QEventLoop waitForAnswer;
+		connect(&networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
+		QTimer::singleShot(LONG_POLL_ANSWER_TIME, &waitForAnswer, SLOT(quit()));
+		waitForAnswer.exec();
+		/* Получаем ответ */
+		data = reply->readAll();
+		reply->deleteLater();
+	}
+	return data;
+}
+
 QByteArray VKDataReceiver::loadPhoto(const QUrl &photoUrl)
 {
 	QByteArray photo;

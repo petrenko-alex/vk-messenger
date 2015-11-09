@@ -17,6 +17,7 @@
 #include <QEventLoop>
 
 #define  WAIT_FOR_ANSWER_TIME 10000
+#define  LONG_POLL_ANSWER_TIME 30000
 #define  STICKERS_PATH "./Application Resources/Stickers/"
 
 class VKDataReceiver : public QObject
@@ -27,9 +28,10 @@ public:
 	VKDataReceiver();
 	~VKDataReceiver();
 
-	QByteArray loadData(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
 	QByteArray loadPhoto(const QUrl &photoUrl);
 	QByteArray loadSticker(const QUrl &stickerUrl);
+	QByteArray loadData(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
+	QByteArray longPollRequest(const QString &path, const QList<QPair<QString, QString> > &parametres);
 
 };
 
