@@ -9,7 +9,7 @@ class StickerMessage : public AbstractMessage
 	Q_OBJECT
 
 public:
-	StickerMessage(QByteArray &sticker, QByteArray &photo);
+	StickerMessage(const QByteArray &sticker, const QByteArray &photo);
 	StickerMessage(const StickerMessage &other);
 	~StickerMessage();
 

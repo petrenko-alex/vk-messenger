@@ -1,6 +1,6 @@
 #include "textmessage.h"
 
-TextMessage::TextMessage(QString &message, QByteArray &photo) 
+TextMessage::TextMessage(const QString &message, const QByteArray &photo) 
 	: AbstractMessage(photo)
 {
 	ui.setupUi(this);

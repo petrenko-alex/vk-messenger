@@ -1,6 +1,6 @@
 #include "stickermessage.h"
 
-StickerMessage::StickerMessage(QByteArray &sticker, QByteArray &photo)
+StickerMessage::StickerMessage(const QByteArray &sticker, const QByteArray &photo)
 	: AbstractMessage(photo)
 {
 	ui.setupUi(this);

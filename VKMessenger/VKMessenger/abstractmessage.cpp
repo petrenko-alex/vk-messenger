@@ -1,6 +1,6 @@
 #include "abstractmessage.h"
 
-AbstractMessage::AbstractMessage(QByteArray &photo)
+AbstractMessage::AbstractMessage(const QByteArray &photo)
 	:  photo(photo)
 
 {

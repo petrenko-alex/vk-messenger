@@ -9,7 +9,7 @@ class TextMessage : public AbstractMessage
 	Q_OBJECT
 
 public:
-	TextMessage(QString &message, QByteArray &photo);
+	TextMessage(const QString &message, const QByteArray &photo);
 	TextMessage(const TextMessage &other);
 	~TextMessage();
 
