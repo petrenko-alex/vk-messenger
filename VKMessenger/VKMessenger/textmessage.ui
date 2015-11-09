@@ -109,6 +109,8 @@
         <property name="font">
          <font>
           <family>Verdana</family>
+          <weight>50</weight>
+          <bold>false</bold>
           <stylestrategy>PreferAntialias</stylestrategy>
          </font>
         </property>

@@ -78,6 +78,8 @@ public:
         message->setPalette(palette);
         QFont font1;
         font1.setFamily(QStringLiteral("Verdana"));
+        font1.setBold(false);
+        font1.setWeight(50);
         font1.setStyleStrategy(QFont::PreferAntialias);
         message->setFont(font1);
         message->setLayoutDirection(Qt::LeftToRight);
