@@ -24,6 +24,12 @@ public:
 	/* Получить фото пользователя */
 	QByteArray & getPhoto();
 
+	/* Установить текущего собеседника */
+	void setCurrentOpponent(const unsigned int id);
+
+	/* Получить id текущего собеседника */
+	unsigned int getCurrentOpponent();
+
 	/* Загрузить данные в поток */
 	friend QDataStream & operator<<(QDataStream &stream, const Session &session);
 
@@ -40,6 +46,7 @@ private:
 
 	QHash<QString, QString> sessionData;
 	QByteArray photo;
+	unsigned int currentOpponentId;
 };
 
 #endif // SESSION_H

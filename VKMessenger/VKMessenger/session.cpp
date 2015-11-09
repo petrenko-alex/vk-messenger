@@ -26,6 +26,16 @@ QByteArray & Session::getPhoto()
 	return photo;
 }
 
+void Session::setCurrentOpponent(const unsigned int id)
+{
+	this->currentOpponentId = id;
+}
+
+unsigned int Session::getCurrentOpponent()
+{
+	return this->currentOpponentId;
+}
+
 Session::Session()
 {
 }
