@@ -21,6 +21,7 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, 
 
 	setDataToWidgets();
 	clicked = false;
+	initialized = false;
 }
 
 DialogInfo::~DialogInfo()
@@ -94,7 +95,7 @@ void DialogInfo::loadOpponentPhoto(QString photoUrl)
 
 void DialogInfo::loadMessages()
 {
-	/* Формируем запрос на получение диалогов */
+	/* Формируем запрос на получение сообщений */
 	QList<QPair<QString, QString> > parametres;
 	parametres << QPair<QString, QString>("count", QString::number(MESSAGES_COUNT));
 	if (dialogType == DialogType::PERSONAL)
@@ -124,6 +125,30 @@ void DialogInfo::loadMessages()
 	}
 
 	emit messagesLoaded(messagesScrollWidget, username);
+	initialized = true;
+}
+
+
+void DialogInfo::addMessage(const QString &fromId, const QString &text)
+{
+	bool out;
+	AbstractMessage *message = new TextMessage(text, photo);
+	userMessages.push_front (message);
+	message->setDataToWidgets(out);
+	messagesScrollWidget->layout()->addWidget (message);
+	paintFrameRed();
+}
+
+QString DialogInfo::getId() const
+{
+	return QString::number(this->id);
+}
+
+void DialogInfo::setLastMessage(const QString &text)
+{
+	ui.lastMessage->setText(text);
+	ui.lastMessageDateTime->setTime(QTime::currentTime());
+	ui.lastMessageDateTime->setDisplayFormat("H:mm");
 }
 
 void DialogInfo::parseMessages(const QByteArray &messages)
@@ -176,6 +201,14 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 	}
 }
 
+void DialogInfo::paintFrameRed()
+{
+	if (Session::getInstance().getCurrentOpponent() != id)
+	{
+		this->setStyleSheet("QWidget#dialogInfo {border: 1px solid red;border-radius: 10px;}");
+	}
+}
+
 void DialogInfo::setConnections()
 {
 	// #TODO: Метод пуст!
@@ -217,6 +250,11 @@ DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 	return *this;
 }
 
+void DialogInfo::paintFrameWhite()
+{
+	this->setStyleSheet("QWidget#dialogInfo {border: 1px solid white;border-radius: 10px;}");
+}
+
 void DialogInfo::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton) 
@@ -229,8 +267,10 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton && clicked) 
 	{
+		paintFrameWhite();
+		Session::getInstance().setCurrentOpponent(id);
 		clicked = false;
-		if (!userMessages.size())
+		if (!initialized)
 		{
 			loadMessages();
 		}

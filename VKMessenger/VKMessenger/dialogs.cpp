@@ -16,7 +16,7 @@ Dialogs::~Dialogs()
 void Dialogs::setConnections()
 {
 	connect(longPollConnection, SIGNAL(tracingStopped()), this, SLOT(tracingStopped()));
-	connect(longPollConnection, SIGNAL(messagesReceived(const QString &, const QString &)), this, SLOT(addMessage(const QString &, const QString &)));
+	connect(longPollConnection, SIGNAL(messageReceived(const QString &, const QString &)), this, SLOT(addMessage(const QString &, const QString &)));
 }
 
 void Dialogs::loadDialogs()
@@ -42,6 +42,7 @@ void Dialogs::loadDialogs()
 
 	/* Последний диалог как текущий */
 	userDialogs[0]->loadMessages();
+	Session::getInstance().setCurrentOpponent(userDialogs[0]->getId().toInt ());
 
 	/* Устанавливаем Long Poll соединение */
 	longPollConnection->getLongPollServer();
@@ -55,6 +56,25 @@ void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
 
 void Dialogs::addMessage(const QString &fromId, const QString &text)
 {
+	bool dialogExist = false;
+
+	/* Найти диалог */
+	for (auto dialog : userDialogs)
+	{
+		if ((*dialog).getId() == fromId)
+		{
+			dialogExist = true;
+			(*dialog).addMessage(fromId, text);
+			(*dialog).setLastMessage(text);
+			/* Пролистать до диалога */
+		}
+	}
+
+	/* Если не найден - создать новый */
+	if (!dialogExist)
+	{
+		/* Проверить тип диалога - чат или персональный - запрос getChat */
+	}
 
 }
 

@@ -29,6 +29,7 @@ public:
 
 private slots:
 	void messagesReceived(QWidget *scrollWidget, QString &username);
+	void addMessage(const QString &fromId, const QString &text);
 	void stopTracing();
 	void tracingStopped();
 
