@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>DialogInfo</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#dialogInfo {
+	border: 1px solid white;
+	border-radius: 10px;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <widget class="QWidget" name="dialogInfo" native="true">
@@ -23,10 +29,7 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">QWidget#dialogInfo {
-	border: 1px solid white;
-	border-radius: 10px;
-}</string>
+      <string notr="true"/>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0" rowspan="2">

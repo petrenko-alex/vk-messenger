@@ -40,6 +40,10 @@ public:
         if (DialogInfo->objectName().isEmpty())
             DialogInfo->setObjectName(QStringLiteral("DialogInfo"));
         DialogInfo->resize(250, 100);
+        DialogInfo->setStyleSheet(QLatin1String("QWidget#dialogInfo {\n"
+"	border: 1px solid white;\n"
+"	border-radius: 10px;\n"
+"}"));
         gridLayout_2 = new QGridLayout(DialogInfo);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -51,10 +55,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(dialogInfo->sizePolicy().hasHeightForWidth());
         dialogInfo->setSizePolicy(sizePolicy);
-        dialogInfo->setStyleSheet(QLatin1String("QWidget#dialogInfo {\n"
-"	border: 1px solid white;\n"
-"	border-radius: 10px;\n"
-"}"));
+        dialogInfo->setStyleSheet(QStringLiteral(""));
         gridLayout = new QGridLayout(dialogInfo);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
