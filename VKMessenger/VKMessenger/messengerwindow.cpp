@@ -89,6 +89,7 @@ void MessengerWindow::loadDialogs()
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	connect(this, SIGNAL(stopTracing()), userDialogs, SLOT(stopTracing ()));
 	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
+	connect(userDialogs, SIGNAL(scrollToWidget(QWidget *)), this, SLOT(scrollToWidget(QWidget *)));
 	userDialogs->loadDialogs();
 }
 
@@ -116,6 +117,11 @@ void MessengerWindow::moveScrollBarToBotton(int min, int max)
 {
 	Q_UNUSED(min);
 	ui.dialogArea->verticalScrollBar()->setValue(max);
+}
+
+void MessengerWindow::scrollToWidget(QWidget *dialog)
+{
+	ui.dialogsInfoArea->ensureWidgetVisible(dialog);
 }
 
 void MessengerWindow::closeProgram()

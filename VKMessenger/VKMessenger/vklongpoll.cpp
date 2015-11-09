@@ -83,7 +83,8 @@ void VKLongPoll::startTracing()
 							QString fromId = QString::number(u[3].toInt());
 							QString text = u[6].toString();
 
-							// Обработать attachments 
+							// Обработать attachments
+							// Обработать пересланные сообщения
 
 							emit messageReceived(fromId, text);
 						}

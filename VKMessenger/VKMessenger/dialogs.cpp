@@ -66,7 +66,8 @@ void Dialogs::addMessage(const QString &fromId, const QString &text)
 			dialogExist = true;
 			(*dialog).addMessage(fromId, text);
 			(*dialog).setLastMessage(text);
-			/* Пролистать до диалога */
+			emit scrollToWidget(dialog);
+			// #TODO: Проиграть звук
 		}
 	}
 

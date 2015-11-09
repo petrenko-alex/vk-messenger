@@ -17,6 +17,7 @@ class Dialogs : public QObject
 	Q_OBJECT
 
 signals:
+	void scrollToWidget(QWidget *widget);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
 	void canExit();

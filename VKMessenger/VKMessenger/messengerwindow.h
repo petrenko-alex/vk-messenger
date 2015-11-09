@@ -43,6 +43,7 @@ private slots:
 	void messagesReceived(QWidget *scrollWidget, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void moveScrollBarToBotton(int min, int max);
+	void scrollToWidget(QWidget *dialog);
 	void closeProgram();
 
 private:
