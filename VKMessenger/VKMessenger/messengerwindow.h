@@ -33,6 +33,7 @@ public:
 
 signals:
 	void userInfoLoaded();
+	void stopTracing();
 
 private slots:
 	void authorizationCompleted();
@@ -41,6 +42,7 @@ private slots:
 	void messagesReceived(QWidget *scrollWidget, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void moveScrollBarToBotton(int min, int max);
+	void closeProgram();
 
 private:
 	bool saveData();

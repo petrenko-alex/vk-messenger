@@ -51,12 +51,8 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 	event->ignore();
 	if (saveData())
 	{
+		emit stopTracing();
 		event->accept();
-	}
-	else
-	{
-		event->ignore();
-		// #TODO: попытаться еще раз?
 	}
 }
 
@@ -91,6 +87,8 @@ void MessengerWindow::loadDialogs()
 	userDialogs = new Dialogs();
 	connect(userDialogs, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
+	connect(this, SIGNAL(stopTracing()), userDialogs, SLOT(stopTracing ()));
+	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
 	userDialogs->loadDialogs();
 }
 
@@ -118,6 +116,11 @@ void MessengerWindow::moveScrollBarToBotton(int min, int max)
 {
 	Q_UNUSED(min);
 	ui.dialogArea->verticalScrollBar()->setValue(max);
+}
+
+void MessengerWindow::closeProgram()
+{
+	exit(0);
 }
 
 bool MessengerWindow::saveData()

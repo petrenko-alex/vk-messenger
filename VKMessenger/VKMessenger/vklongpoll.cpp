@@ -7,6 +7,7 @@ VKLongPoll::VKLongPoll(QObject *parent)
 	key = "";
 	pts = "";
 	server = "";
+	stopConnection = false;
 }
 
 VKLongPoll::~VKLongPoll()
@@ -36,9 +37,14 @@ void VKLongPoll::getLongPollServer()
 	}
 }
 
-void VKLongPoll::trace()
+void VKLongPoll::stopTracing()
 {
-	while (true)
+	stopConnection = true;
+}
+
+void VKLongPoll::startTracing()
+{
+	while (!stopConnection)
 	{
 		qDebug() << "Tracing Long Poll server ...";
 
@@ -86,4 +92,5 @@ void VKLongPoll::trace()
 			}
 		}
 	}
+	emit tracingStopped();
 }

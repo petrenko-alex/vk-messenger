@@ -19,6 +19,7 @@ class Dialogs : public QObject
 signals:
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
+	void canExit();
 
 public:
 	Dialogs();
@@ -28,6 +29,8 @@ public:
 
 private slots:
 	void messagesReceived(QWidget *scrollWidget, QString &username);
+	void stopTracing();
+	void tracingStopped();
 
 private:
 	void setConnections();

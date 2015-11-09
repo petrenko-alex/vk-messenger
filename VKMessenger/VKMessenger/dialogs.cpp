@@ -15,7 +15,8 @@ Dialogs::~Dialogs()
 
 void Dialogs::setConnections()
 {
-	// #TODO: Метод пуст!
+	connect(longPollConnection, SIGNAL(tracingStopped()), this, SLOT(tracingStopped()));
+	connect(longPollConnection, SIGNAL(messagesReceived(const QString &, const QString &)), this, SLOT(addMessage(const QString &, const QString &)));
 }
 
 void Dialogs::loadDialogs()
@@ -44,12 +45,27 @@ void Dialogs::loadDialogs()
 
 	/* Устанавливаем Long Poll соединение */
 	longPollConnection->getLongPollServer();
-	longPollConnection->trace();
+	longPollConnection->startTracing();
 }
 
 void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
 {
 	emit messagesLoaded(scrollWidget,username);
+}
+
+void Dialogs::addMessage(const QString &fromId, const QString &text)
+{
+
+}
+
+void Dialogs::stopTracing()
+{
+	longPollConnection->stopTracing();
+}
+
+void Dialogs::tracingStopped()
+{
+	emit canExit();
 }
 
 void Dialogs::parseDialogs(const QByteArray &userDialogsData)

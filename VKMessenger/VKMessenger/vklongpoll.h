@@ -17,11 +17,14 @@ public:
 	/* Получить данные для подключения к Long Poll серверу */
 	void getLongPollServer();
 	/* Подключиться к Long Poll и получать новые события */
-	void trace();
+	void startTracing();
+	/* Остановить работу с Long Poll сервером */
+	void stopTracing();
 
 signals:
 	/* Сигнал - сообщение получено */
 	void messageReceived(const QString &fromId, const QString &text);
+	void tracingStopped();
 
 private:
 	/* Данные для подключения к Long Poll серверу */
@@ -34,6 +37,7 @@ private:
 	{
 		NEW_MESSAGE = 4
 	};
+	bool stopConnection;
 };
 
 #endif // VKLONGPOLL_H
