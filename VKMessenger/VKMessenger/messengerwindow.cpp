@@ -44,8 +44,8 @@ void MessengerWindow::setConnections()
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 	connect(this, SIGNAL(userInfoLoaded()), this, SLOT(loadDialogs()));
 	connect(ui.dialogArea->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(moveScrollBarToBotton(int,int)));
-	bool isOk = connect(ui.logoutB, SIGNAL(clicked()), this, SLOT(logout()));
-	isOk = connect(ui.sendMessageB, SIGNAL(clicked()), this, SLOT(sendMessage()));
+	connect(ui.logoutB, SIGNAL(clicked()), this, SLOT(logout()));
+	connect(ui.sendMessageB, SIGNAL(clicked()), this, SLOT(sendMessage()));
 }
 
 void MessengerWindow::closeEvent(QCloseEvent *event)
@@ -136,6 +136,10 @@ void MessengerWindow::sendMessage()
 
 void MessengerWindow::logout()
 {
+	emit stopTracing();
+	Session::getInstance().deleteSession();
+	QFile dataFile(DATA_FILENAME);
+	dataFile.remove();
 
 }
 

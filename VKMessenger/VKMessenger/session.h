@@ -30,6 +30,9 @@ public:
 	/* Получить id текущего собеседника */
 	unsigned int getCurrentOpponent();
 
+	/* Удалить данные сессии */
+	void deleteSession();
+
 	/* Загрузить данные в поток */
 	friend QDataStream & operator<<(QDataStream &stream, const Session &session);
 

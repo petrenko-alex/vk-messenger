@@ -48,6 +48,8 @@ private slots:
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void moveScrollBarToBotton(int min, int max);
 	void changeDialogPosition(QWidget *dialog);
+	void sendMessage();
+	void logout();
 	void closeProgram();
 
 private:
@@ -62,7 +64,6 @@ private:
 	VKDataReceiver *dataReceiver;
 
 	QWidget *dialogsScrollWidget;
-	//QWidget *messagesScrollWidget;
 };
 
 #endif // MESSENGERWINDOW_H

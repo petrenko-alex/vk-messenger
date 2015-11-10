@@ -36,6 +36,13 @@ unsigned int Session::getCurrentOpponent()
 	return this->currentOpponentId;
 }
 
+void Session::deleteSession()
+{
+	sessionData.clear();
+	photo.clear();
+	currentOpponentId = 0;
+}
+
 Session::Session()
 {
 }
