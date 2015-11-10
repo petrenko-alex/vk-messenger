@@ -129,12 +129,22 @@ void DialogInfo::loadMessages()
 }
 
 
-void DialogInfo::addMessage(const QString &fromId, const QString &text)
+void DialogInfo::addMessage(MessageType type, const QString &fromId, const QString &text)
 {
-	bool out;
-	AbstractMessage *message = new TextMessage(text, photo);
+	AbstractMessage *message;
+	if (type == MessageType::TEXT_MESSAGE)
+	{
+		message = new TextMessage(text, photo);
+
+	}
+	else if (type == MessageType::STICKER_MESSAGE)
+	{
+		QUrl stickerUrl("http://vk.com/images/stickers/" + text + "/128b.png");
+		QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
+		message = new StickerMessage(sticker, photo);
+	}
 	userMessages.push_front (message);
-	message->setDataToWidgets(out);
+	message->setDataToWidgets(false);
 	messagesScrollWidget->layout()->addWidget (message);
 	paintFrameRed();
 }

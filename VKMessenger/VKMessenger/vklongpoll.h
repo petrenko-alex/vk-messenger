@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "session.h"
 #include "vkdatareceiver.h"
+#include "abstractmessage.h"
 
 class VKLongPoll : public QObject
 {
@@ -23,10 +24,13 @@ public:
 
 signals:
 	/* Сигнал - сообщение получено */
-	void messageReceived(const QString &fromId, const QString &text);
+	void messageReceived(MessageType type, const QString &fromId, const QString &text);
 	void tracingStopped();
 
 private:
+	/* Получить строку с типами прикреплений полученного сообщения */
+	QString getAttachmentsString(QJsonObject &attachments);
+
 	/* Данные для подключения к Long Poll серверу */
 	QString ts;
 	QString pts;

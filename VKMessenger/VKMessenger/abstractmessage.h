@@ -7,6 +7,12 @@
 
 #define MIN_HEIGHT 86
 
+enum MessageType
+{
+	TEXT_MESSAGE,
+	STICKER_MESSAGE
+};
+
 class AbstractMessage : public QWidget
 {
 	Q_OBJECT

@@ -16,16 +16,16 @@ Dialogs::~Dialogs()
 void Dialogs::setConnections()
 {
 	connect(longPollConnection, SIGNAL(tracingStopped()), this, SLOT(tracingStopped()));
-	connect(longPollConnection, SIGNAL(messageReceived(const QString &, const QString &)), this, SLOT(addMessage(const QString &, const QString &)));
+	connect(longPollConnection, SIGNAL(messageReceived(MessageType,const QString &, const QString &)), this, SLOT(addMessage(MessageType,const QString &, const QString &)));
 }
 
-void Dialogs::loadDialogs()
+bool Dialogs::getDialogs(unsigned int count)
 {
 	/* Формируем запрос на получение диалогов */
 	QList<QPair<QString, QString> > parametres;
-	parametres << QPair<QString, QString>("count", QString::number(DIALOGS_COUNT));
+	parametres << QPair<QString, QString>("count", QString::number(count));
 	parametres << QPair<QString, QString>("v", "5.37");
-	parametres << QPair<QString, QString>("access_token", QString(Session::getInstance ().get ("accessToken")));
+	parametres << QPair<QString, QString>("access_token", QString(Session::getInstance().get("accessToken")));
 	/* Посылаем запрос, получаем данные */
 	QByteArray dialogs = dataReceiver->loadData("messages.getDialogs", parametres);
 
@@ -36,17 +36,25 @@ void Dialogs::loadDialogs()
 	else
 	{
 		QMessageBox::critical(0, "Ошибка соединения", "Не удалось получить список диалогов. Пожалуйста, проверьте интернет соединение.");
+		return false;
 	}
+	return true;
+}
 
-	emit dialogsLoaded(&userDialogs);
+void Dialogs::loadDialogs()
+{
+	if (getDialogs(DIALOGS_COUNT))
+	{
+		emit dialogsLoaded(&userDialogs);
 
-	/* Последний диалог как текущий */
-	userDialogs[0]->loadMessages();
-	Session::getInstance().setCurrentOpponent(userDialogs[0]->getId().toInt ());
+		/* Последний диалог как текущий */
+		userDialogs[0]->loadMessages();
+		Session::getInstance().setCurrentOpponent(userDialogs[0]->getId().toInt ());
 
-	/* Устанавливаем Long Poll соединение */
-	longPollConnection->getLongPollServer();
-	longPollConnection->startTracing();
+		/* Устанавливаем Long Poll соединение */
+		longPollConnection->getLongPollServer();
+		longPollConnection->startTracing();
+	}
 }
 
 void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
@@ -54,7 +62,7 @@ void Dialogs::messagesReceived(QWidget *scrollWidget, QString &username)
 	emit messagesLoaded(scrollWidget,username);
 }
 
-void Dialogs::addMessage(const QString &fromId, const QString &text)
+void Dialogs::addMessage(MessageType type, const QString &fromId, const QString &text)
 {
 	bool dialogExist = false;
 
@@ -64,19 +72,39 @@ void Dialogs::addMessage(const QString &fromId, const QString &text)
 		if ((*dialog).getId() == fromId)
 		{
 			dialogExist = true;
-			(*dialog).addMessage(fromId, text);
-			(*dialog).setLastMessage(text);
-			emit scrollToWidget(dialog);
-			// #TODO: Проиграть звук
+			(*dialog).addMessage(type,fromId, text);
+
+			if (type == MessageType::STICKER_MESSAGE)
+			{
+				(*dialog).setLastMessage("Вложение: sticker");
+			}
+			else if (type == MessageType::TEXT_MESSAGE)
+			{
+				(*dialog).setLastMessage(text);
+			}
+			
+			emit changeDialogPosition(dialog);
+			QSound::play(NOTIFICATION_SOUND_PATH);
 		}
 	}
 
 	/* Если не найден - создать новый */
 	if (!dialogExist)
 	{
-		/* Проверить тип диалога - чат или персональный - запрос getChat */
+		QString idKey;
+		if (isChat(fromId))
+		{
+			// #TODO: Создать новый чат
+		}
+		else
+		{
+			if (getDialogs(1))
+			{
+				userDialogs.last()->paintFrameRed();
+				changeDialogPosition(userDialogs.last());
+			}
+		}
 	}
-
 }
 
 void Dialogs::stopTracing()
@@ -130,4 +158,27 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		userDialogs << d;
 		d->loadOpponentInfo();
 	}
+}
+
+bool Dialogs::isChat(const QString &id)
+{
+	QList<QPair<QString, QString> > parametres;
+	parametres << QPair<QString, QString>("chat_id", id);
+	parametres << QPair<QString, QString>("v", "5.40");
+	parametres << QPair<QString, QString>("access_token", QString(Session::getInstance().get("accessToken")));
+	QByteArray response = dataReceiver->loadData("messages.getChat", parametres);
+	if (!response.isEmpty())
+	{
+		QJsonObject dialog = QJsonDocument::fromJson(response).object();
+		
+		if (dialog.contains("error"))
+		{
+			return false;
+		}
+		else if (dialog.contains("response"))
+		{
+			return true;
+		}
+	}
+	return false;
 }

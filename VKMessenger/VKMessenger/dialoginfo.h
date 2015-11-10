@@ -37,10 +37,11 @@ public:
 	void loadOpponentInfo();
 	void loadOpponentPhoto(QString photoUrl);
 	void loadMessages();
-	void addMessage(const QString &fromId, const QString &text);
+	void addMessage(MessageType type,const QString &fromId, const QString &text);
 
 	QString getId() const;
 	void setLastMessage(const QString &text);
+	void paintFrameRed();
 
 signals:
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
@@ -49,7 +50,6 @@ private:
 	void setConnections();
 	void setDataToWidgets();
 	void parseMessages(const QByteArray &messages);
-	void paintFrameRed();
 	void paintFrameWhite();
 	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

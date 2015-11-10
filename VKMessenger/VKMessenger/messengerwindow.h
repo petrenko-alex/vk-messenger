@@ -7,6 +7,8 @@
 #include <QDataStream>
 #include <QIODevice>
 #include <QCloseEvent>
+#include <QLayout>
+#include <QBoxLayout>
 #include <QScrollBar>
 #include "ui_messengerwindow.h"
 #include "authorization.h"
@@ -43,7 +45,7 @@ private slots:
 	void messagesReceived(QWidget *scrollWidget, QString &username);
 	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
 	void moveScrollBarToBotton(int min, int max);
-	void scrollToWidget(QWidget *dialog);
+	void changeDialogPosition(QWidget *dialog);
 	void closeProgram();
 
 private:

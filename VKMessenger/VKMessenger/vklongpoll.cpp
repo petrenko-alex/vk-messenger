@@ -42,6 +42,28 @@ void VKLongPoll::stopTracing()
 	stopConnection = true;
 }
 
+QString VKLongPoll::getAttachmentsString(QJsonObject &attachments)
+{
+	int i = 1;
+	QString attachmentsStr = "";
+	QString next = "attach" + QString::number(i) + "_type";
+
+	while (!attachments[next].toString().isEmpty())
+	{
+		attachmentsStr += attachments[next].toString() + ", ";
+		++i;
+		next = "attach" + QString::number(i) + "_type";
+	}
+
+	if (!attachmentsStr.isEmpty())
+	{
+		attachmentsStr.prepend("Вложения: ");
+		attachmentsStr.remove(attachmentsStr.size() - 2, 2);
+	}
+
+	return attachmentsStr;
+}
+
 void VKLongPoll::startTracing()
 {
 	while (!stopConnection)
@@ -74,19 +96,47 @@ void VKLongPoll::startTracing()
 				{
 					auto u = update.toArray();
 					if (u[0].toInt() == EventType::NEW_MESSAGE)
-					{
+					{						
 						int flags = u[2].toInt();
 						int result = !(flags & 2);
 
 						if (result)
 						{
+							MessageType type = MessageType::TEXT_MESSAGE;
 							QString fromId = QString::number(u[3].toInt());
 							QString text = u[6].toString();
 
-							// Обработать attachments
-							// Обработать пересланные сообщения
+							/* Обработка прикреплений */ 
+							QString attachments = "";
+							if (u[7].isObject())
+							{
+								QJsonObject attachment = u[7].toObject();
+								if (text.isEmpty() && (attachment["attach1_type"].toString() == "sticker"))
+								{
+									type = MessageType::STICKER_MESSAGE;
+									text = attachment["attach1"].toString();
+								}
+								else if (! attachment["attach1_type"].toString().isEmpty())
+								{
+									attachments = getAttachmentsString(u[7].toObject());
+								}
+								
+								if (! attachment["fwd"].toString().isEmpty())
+								{
+									attachments += "\nПересланные сообщения";
+								}
+							}
 
-							emit messageReceived(fromId, text);
+							if (!attachments.isEmpty())
+							{
+								if (! text.isEmpty())
+								{
+									attachments.prepend("\n");
+								}
+								text += attachments;
+							}
+
+							emit messageReceived(type, fromId, text);
 						}
 					}
 				}
