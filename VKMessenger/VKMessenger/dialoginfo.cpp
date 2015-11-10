@@ -226,9 +226,13 @@ void DialogInfo::paintFrameRed()
 	}
 }
 
+void DialogInfo::sendMessage()
+{
+
+}
+
 void DialogInfo::setConnections()
 {
-	// #TODO: Метод пуст!
 	
 }
 

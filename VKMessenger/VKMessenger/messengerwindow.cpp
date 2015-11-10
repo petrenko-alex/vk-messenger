@@ -44,6 +44,8 @@ void MessengerWindow::setConnections()
 	connect(authorization, SIGNAL(authorizationFailed()), this, SLOT(authorizationFailed()));
 	connect(this, SIGNAL(userInfoLoaded()), this, SLOT(loadDialogs()));
 	connect(ui.dialogArea->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(moveScrollBarToBotton(int,int)));
+	bool isOk = connect(ui.logoutB, SIGNAL(clicked()), this, SLOT(logout()));
+	isOk = connect(ui.sendMessageB, SIGNAL(clicked()), this, SLOT(sendMessage()));
 }
 
 void MessengerWindow::closeEvent(QCloseEvent *event)
@@ -125,6 +127,16 @@ void MessengerWindow::changeDialogPosition(QWidget *dialog)
 	QVBoxLayout *layout = qobject_cast<QVBoxLayout*>(ui.dialogsInfoArea->widget()->layout());
 	layout->removeWidget(dialog);
 	layout->insertWidget(0, dialog);
+}
+
+void MessengerWindow::sendMessage()
+{
+	
+}
+
+void MessengerWindow::logout()
+{
+
 }
 
 void MessengerWindow::closeProgram()

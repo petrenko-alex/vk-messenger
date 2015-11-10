@@ -46,6 +46,9 @@ public:
 signals:
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
 
+private slots:
+	void sendMessage();
+
 private:
 	void setConnections();
 	void setDataToWidgets();
