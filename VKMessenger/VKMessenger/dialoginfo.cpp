@@ -169,41 +169,48 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 	for (auto msg : dialogMessagesArray)
 	{
 		AbstractMessage *message = nullptr;
-		QString messageAttachments = "Вложения: ";
+		QString messageAttachments = "";
 		bool out = msg.toObject()["out"].toInt();
 
-		if (msg.toObject()["body"].toString().isEmpty())
+		/* Если есть вложения */
+		if (msg.toObject().keys().contains("attachments"))
 		{
-			/* Если есть вложения */
-			if (msg.toObject().keys().contains("attachments"))
+			QJsonArray attachments = msg.toObject()["attachments"].toArray();
+
+			for (auto a : attachments)
 			{
-				QJsonArray attachments = msg.toObject()["attachments"].toArray();
-
-				for (auto a : attachments)
+				if (a.toObject()["type"] == "sticker")
 				{
-					if (a.toObject()["type"] == "sticker")
-					{
-						QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
-						QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
+					QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
+					QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
 
-						message = new StickerMessage(sticker, this->photo);
-					}
-					else
-					{
-						messageAttachments += a.toObject()["type"].toString() + ", ";
-					}
+					message = new StickerMessage(sticker, this->photo);
 				}
-				messageAttachments.remove(messageAttachments.size() - 2,2);
+				else
+				{
+					messageAttachments += a.toObject()["type"].toString() + ", ";
+				}
 			}
+			messageAttachments.prepend("Вложения: ");
+			messageAttachments.remove(messageAttachments.size() - 2, 2);
 		}
-		else
+		
+		/* Если есть пересланные сообщения */
+		if (msg.toObject().keys().contains("fwd_messages"))
 		{
-			message = new TextMessage(msg.toObject()["body"].toString(), this->photo);
+			messageAttachments += "\nПересланные сообщения";
 		}
+
 
 		if (message == nullptr)
 		{
-			message = new TextMessage(messageAttachments, this->photo);
+			QString messageText = msg.toObject()["body"].toString();
+			if (! messageText.isEmpty())
+			{
+				messageAttachments.prepend("\n");
+			}
+
+			message = new TextMessage(messageText + messageAttachments, this->photo);
 		}
 
 		userMessages << message;

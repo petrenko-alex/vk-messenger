@@ -142,9 +142,9 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		}
 
 		QString lastMessage = dialogInfo["body"].toString();
-		if (lastMessage.isEmpty())
+		if (dialogInfo["attachments"].isArray() && dialogInfo["attachments"].toArray()[0].isObject())
 		{
-			lastMessage = "Вложение: ";
+			lastMessage += "\nВложения: ";
 			lastMessage += dialogInfo["attachments"].toArray()[0].toObject()["type"].toString();
 		}
 

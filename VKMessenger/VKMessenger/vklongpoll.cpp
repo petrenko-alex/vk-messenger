@@ -102,9 +102,9 @@ void VKLongPoll::startTracing()
 
 						if (result)
 						{
-							MessageType type = MessageType::TEXT_MESSAGE;
-							QString fromId = QString::number(u[3].toInt());
 							QString text = u[6].toString();
+							QString fromId = QString::number(u[3].toInt());
+							MessageType type = MessageType::TEXT_MESSAGE;
 
 							/* Обработка прикреплений */ 
 							QString attachments = "";
