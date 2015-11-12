@@ -38,9 +38,9 @@ public:
     QLabel *currentOponent;
     QFrame *dialogsInfoFrame;
     QGridLayout *gridLayout;
+    QLineEdit *dialogSearch;
     QScrollArea *dialogsInfoArea;
     QWidget *scrollAreaWidgetContents;
-    QLineEdit *dialogSearch;
     QFrame *dialogFrame;
     QGridLayout *gridLayout_2;
     QScrollArea *dialogArea;
@@ -81,6 +81,30 @@ public:
 "QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}\n"
 "\n"
 "\n"
+"QScrollBar:vertical { border-radius: 2px"
+                        "; background: transparent; width: 4px;  margin: 0px 0px 0px 0px;}\n"
+"\n"
+"QScrollBar::handle:vertical { border-radius: 2px; background: white; min-height: 5px; }\n"
+"\n"
+"QScrollBar::add-line:vertical { height: 0px; subcontrol-position: bottom; subcontrol-origin: margin; }\n"
+"\n"
+"QScrollBar::sub-line:vertical { height: 0px; subcontrol-position: top; subcontrol-origin: margin; }\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"\n"
+"	border-radius: 10px ;\n"
+"	background: rgb(176,196,222);\n"
+"	padding-left: 5px;\n"
+"    selection-background-color: rgb(86, 124, 164);\n"
+"}\n"
+"\n"
+"QComboBox { border: 1px solid white ; border-radius: 10px; background: rgb(86, 124, 164); padding-left: 5px;  color: white;}\n"
+"\n"
+"QComboBox::down-arrow { image: url(); }\n"
+"\n"
+"QComboBox::drop-down { border: 0px; }\n"
 ""));
         centralWidget = new QWidget(MessengerWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -224,21 +248,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        dialogsInfoArea = new QScrollArea(dialogsInfoFrame);
-        dialogsInfoArea->setObjectName(QStringLiteral("dialogsInfoArea"));
-        dialogsInfoArea->setMinimumSize(QSize(269, 571));
-        dialogsInfoArea->setMaximumSize(QSize(269, 571));
-        dialogsInfoArea->setFrameShape(QFrame::NoFrame);
-        dialogsInfoArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        dialogsInfoArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        dialogsInfoArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 269, 571));
-        dialogsInfoArea->setWidget(scrollAreaWidgetContents);
-
-        gridLayout->addWidget(dialogsInfoArea, 1, 0, 1, 1);
-
         dialogSearch = new QLineEdit(dialogsInfoFrame);
         dialogSearch->setObjectName(QStringLiteral("dialogSearch"));
         dialogSearch->setMinimumSize(QSize(265, 21));
@@ -247,6 +256,21 @@ public:
         dialogSearch->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(dialogSearch, 0, 0, 1, 1);
+
+        dialogsInfoArea = new QScrollArea(dialogsInfoFrame);
+        dialogsInfoArea->setObjectName(QStringLiteral("dialogsInfoArea"));
+        dialogsInfoArea->setMinimumSize(QSize(269, 571));
+        dialogsInfoArea->setMaximumSize(QSize(269, 571));
+        dialogsInfoArea->setFrameShape(QFrame::NoFrame);
+        dialogsInfoArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        dialogsInfoArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        dialogsInfoArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 269, 571));
+        dialogsInfoArea->setWidget(scrollAreaWidgetContents);
+
+        gridLayout->addWidget(dialogsInfoArea, 1, 0, 1, 1);
 
         dialogFrame = new QFrame(centralWidget);
         dialogFrame->setObjectName(QStringLiteral("dialogFrame"));
@@ -262,7 +286,7 @@ public:
         dialogArea->setMinimumSize(QSize(815, 551));
         dialogArea->setMaximumSize(QSize(16777215, 16777215));
         dialogArea->setLayoutDirection(Qt::LeftToRight);
-        dialogArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        dialogArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         dialogArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         dialogArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();

@@ -44,6 +44,29 @@ QScrollArea#dialogsInfoArea QWidget {background-color: rgb(86, 124, 164);}
 QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}
 
 
+QScrollBar:vertical { border-radius: 2px; background: transparent; width: 4px;  margin: 0px 0px 0px 0px;}
+
+QScrollBar::handle:vertical { border-radius: 2px; background: white; min-height: 5px; }
+
+QScrollBar::add-line:vertical { height: 0px; subcontrol-position: bottom; subcontrol-origin: margin; }
+
+QScrollBar::sub-line:vertical { height: 0px; subcontrol-position: top; subcontrol-origin: margin; }
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }
+
+QComboBox QAbstractItemView {
+
+	border-radius: 10px ;
+	background: rgb(176,196,222);
+	padding-left: 5px;
+    selection-background-color: rgb(86, 124, 164);
+}
+
+QComboBox { border: 1px solid white ; border-radius: 10px; background: rgb(86, 124, 164); padding-left: 5px;  color: white;}
+
+QComboBox::down-arrow { image: url(); }
+
+QComboBox::drop-down { border: 0px; }
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -943,44 +966,6 @@ QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}
      <enum>QFrame::Raised</enum>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QScrollArea" name="dialogsInfoArea">
-       <property name="minimumSize">
-        <size>
-         <width>269</width>
-         <height>571</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>269</width>
-         <height>571</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>269</width>
-          <height>571</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLineEdit" name="dialogSearch">
        <property name="minimumSize">
@@ -1006,6 +991,44 @@ QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}
        <property name="placeholderText">
         <string>Поиск...</string>
        </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QScrollArea" name="dialogsInfoArea">
+       <property name="minimumSize">
+        <size>
+         <width>269</width>
+         <height>571</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>269</width>
+         <height>571</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>269</width>
+          <height>571</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -1044,7 +1067,7 @@ QFrame#dialogsInfoFrame  				{background-color: rgb(86, 124, 164);}
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
+        <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>

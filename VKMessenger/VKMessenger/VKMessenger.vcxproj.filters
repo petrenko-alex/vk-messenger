@@ -137,6 +137,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_vklongpoll.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="friends.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_friends.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_friends.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messengerwindow.h">
@@ -185,6 +194,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="vklongpoll.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="friends.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QPixmap>
+#include <QComboBox>
 #include <QFile>
 #include <QDataStream>
 #include <QIODevice>
@@ -16,6 +17,7 @@
 #include "session.h"
 #include "dialogs.h"
 #include "dialoginfo.h"
+#include "friends.h"
 
 #define DATA_FILENAME "./Data/data.vkmd"
 
@@ -23,6 +25,8 @@
 // #TODO: Создание диалога - чата по сигналу из Long Poll
 // #TODO: Кнопка плюсик
 // #TODO: Стилизовать скролл бар
+// #TODO: Строка поиска
+// #TODO: Поле текущий собеседник для группы
 
 
 class MessengerWindow : public QMainWindow
@@ -47,8 +51,10 @@ private slots:
 	void moveScrollBarToBotton(int min, int max);
 	void changeDialogPosition(QWidget *dialog);
 	void sendMessage();
+	void showFriends();
 	void logout();
 	void closeProgram();
+
 
 private:
 	bool saveData();
@@ -60,7 +66,9 @@ private:
 	Authorization *authorization;
 	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
+	Friends *friends;
 	QWidget *dialogsScrollWidget;
+	QComboBox *friendList;
 };
 
 #endif // MESSENGERWINDOW_H

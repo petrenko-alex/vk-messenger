@@ -6,6 +6,9 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	ui.setupUi(this);
 	userDialogs = nullptr;
 	dataReceiver = new VKDataReceiver;
+	friendList = new QComboBox(this);
+	friendList->hide();
+	friends = new Friends(friendList);
 	authorization = new Authorization(this);
 
 	setConnections();
@@ -36,6 +39,8 @@ MessengerWindow::~MessengerWindow()
 	delete dataReceiver;
 	delete dialogsScrollWidget;
 	delete userDialogs;
+	delete friendList;
+	delete friends;
 }
 
 void MessengerWindow::setConnections()
@@ -46,6 +51,7 @@ void MessengerWindow::setConnections()
 	connect(ui.dialogArea->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(moveScrollBarToBotton(int,int)));
 	connect(ui.logoutB, SIGNAL(clicked()), this, SLOT(logout()));
 	connect(ui.sendMessageB, SIGNAL(clicked()), this, SLOT(sendMessage()));
+	connect(ui.newDialogB, SIGNAL(clicked()), this, SLOT(showFriends()));
 }
 
 void MessengerWindow::closeEvent(QCloseEvent *event)
@@ -76,7 +82,8 @@ void MessengerWindow::authorizationCompleted()
 	{
 		// #TODO: Попытаться загрузить еще раз?
 	}
-
+	/* Загружаем друзей */
+	friends->loadFriends(friendList);
 	emit userInfoLoaded();
 }
 
@@ -140,6 +147,18 @@ void MessengerWindow::sendMessage()
 		ui.message->clear();
 		emit newMessage(msg);
 	}
+}
+
+void MessengerWindow::showFriends()
+{
+	int xPos = ui.userName->x() /*+ ui.newDialogB->width ()*/;
+	int yPos = ui.newDialogB->y();
+	friendList->move(xPos, yPos);
+
+
+	friendList->showPopup();
+	//friends->setStyleSheet("QComboBox::down-arrow { image: url(); }");
+	friendList->show();
 }
 
 void MessengerWindow::logout()
