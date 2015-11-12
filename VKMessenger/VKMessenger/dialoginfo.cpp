@@ -3,15 +3,12 @@
 DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
 {
 	ui.setupUi(this);
-
 	ui.dialogInfo->installEventFilter(this);
 	ui.lastMessage->installEventFilter(this);
 	ui.lastMessageDateTime->installEventFilter(this);
 	ui.line_2->installEventFilter(this);
 	ui.name->installEventFilter(this);
 	ui.photo->installEventFilter(this);
-
-
 	dataReceiver = new VKDataReceiver;
 	messagesScrollWidget = new QWidget;
 	messagesScrollWidget->setLayout(new QVBoxLayout);
@@ -31,6 +28,7 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, 
 	setDataToWidgets();
 	clicked = false;
 	initialized = false;
+	clickBlock = false;
 }
 
 DialogInfo::~DialogInfo()
@@ -320,24 +318,18 @@ void DialogInfo::paintFrameWhite()
 	this->setStyleSheet("QWidget#dialogInfo {border: 1px solid white;border-radius: 10px;}");
 }
 
-void DialogInfo::mousePressEvent(QMouseEvent *event)
-{
-	if (event->button() == Qt::LeftButton) 
-	{
-		clicked = true;
-	}
-}
-
 void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 {
-	if (event->button() == Qt::LeftButton && clicked) 
+	if (event->button() == Qt::LeftButton && ! clickBlock) 
 	{
 		paintFrameWhite();
 		Session::getInstance().setCurrentOpponent(id);
 		clicked = false;
 		if (!initialized)
 		{
+			clickBlock = true;
 			loadMessages();
+			clickBlock = false;
 		}
 		else
 		{

@@ -55,7 +55,6 @@ private:
 	void setDataToWidgets();
 	void parseMessages(const QByteArray &messages);
 	void paintFrameWhite();
-	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 	Ui::DialogInfo ui;
@@ -69,6 +68,7 @@ private:
 	bool out;
 	bool clicked;
 	bool initialized;
+	bool clickBlock;
 
 	DialogType dialogType;
 	VKDataReceiver *dataReceiver;
