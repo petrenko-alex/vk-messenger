@@ -121,7 +121,7 @@ public:
         lastMessage->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         lastMessage->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         lastMessage->setReadOnly(true);
-        lastMessage->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse);
+        lastMessage->setTextInteractionFlags(Qt::NoTextInteraction);
 
         gridLayout->addWidget(lastMessage, 1, 1, 1, 2);
 

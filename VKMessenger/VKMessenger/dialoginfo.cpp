@@ -3,6 +3,15 @@
 DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
 {
 	ui.setupUi(this);
+
+	ui.dialogInfo->installEventFilter(this);
+	ui.lastMessage->installEventFilter(this);
+	ui.lastMessageDateTime->installEventFilter(this);
+	ui.line_2->installEventFilter(this);
+	ui.name->installEventFilter(this);
+	ui.photo->installEventFilter(this);
+
+
 	dataReceiver = new VKDataReceiver;
 	messagesScrollWidget = new QWidget;
 	messagesScrollWidget->setLayout(new QVBoxLayout);
@@ -259,6 +268,11 @@ void DialogInfo::sendMessage(QString &msg)
 	{
 		QMessageBox::warning(this, "Ошибка отправки", "Не удалось отправить сообщение.");
 	}
+}
+
+bool DialogInfo::eventFilter(QObject *obj, QEvent *event)
+{
+	return QWidget::eventFilter(obj, event);
 }
 
 void DialogInfo::setConnections()

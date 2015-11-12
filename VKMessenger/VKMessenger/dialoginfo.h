@@ -50,6 +50,7 @@ signals:
 	void messageWasSent(QWidget *dialog);
 
 private:
+	bool eventFilter(QObject *obj, QEvent *event);
 	void setConnections();
 	void setDataToWidgets();
 	void parseMessages(const QByteArray &messages);
