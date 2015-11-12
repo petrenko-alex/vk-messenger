@@ -68,7 +68,7 @@ void VKLongPoll::startTracing()
 {
 	while (!stopConnection)
 	{
-		qDebug() << "Tracing Long Poll server ...";
+ 		qDebug() << "Tracing Long Poll server ...";
 
 		VKDataReceiver dataReceiver;
 		QList<QPair<QString, QString> > parametres;

@@ -25,7 +25,6 @@
 // #TODO: Отправка сообщения
 // #TODO: Вызов сообщений диалога по нажатию на все части виджета диалога
 // #TODO: Кнопка плюсик
-// #TODO: Кнопка выйти
 
 
 class MessengerWindow : public QMainWindow
@@ -62,7 +61,6 @@ private:
 	Authorization *authorization;
 	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
-
 	QWidget *dialogsScrollWidget;
 };
 

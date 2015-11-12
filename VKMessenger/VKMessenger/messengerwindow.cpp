@@ -60,6 +60,7 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 
 void MessengerWindow::authorizationCompleted()
 {
+	authorization->closeBrowser();
 	/* Устанавливаем имя пользователя */
 	ui.userName->setText(Session::getInstance().get("userName"));
 	/* Получаем и устанавливаем фото*/
@@ -140,12 +141,11 @@ void MessengerWindow::logout()
 	Session::getInstance().deleteSession();
 	QFile dataFile(DATA_FILENAME);
 	dataFile.remove();
-
 }
 
 void MessengerWindow::closeProgram()
 {
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 bool MessengerWindow::saveData()
