@@ -9,6 +9,7 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, 
 	ui.line_2->installEventFilter(this);
 	ui.name->installEventFilter(this);
 	ui.photo->installEventFilter(this);
+
 	dataReceiver = new VKDataReceiver;
 	messagesScrollWidget = new QWidget;
 	messagesScrollWidget->setLayout(new QVBoxLayout);
@@ -20,7 +21,7 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, 
 	this->dialogType = type;
 	this->id = id;
 	this->messageId = messageId;
-	this->title = title;
+	this->name = title;
 	this->lastMessage = lastMessage;
 	this->lastMessageDateTime = lastMessageDateTime;
 	this->out = out;
@@ -60,7 +61,7 @@ void DialogInfo::loadOpponentInfo()
 			QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
 
 			ui.name->setText(userName);
-			this->username = userName;
+			this->name = userName;
 			loadOpponentPhoto(userPhoto);
 		}
 		else
@@ -72,7 +73,7 @@ void DialogInfo::loadOpponentInfo()
 	else
 	{
 		/* Имя группы */
-		ui.name->setText(title);
+		ui.name->setText(name);
 		/* Фото группы */
 		ui.photo->setPixmap(QPixmap(GROUP_AVATAR_PATH));
 	}
@@ -131,7 +132,7 @@ void DialogInfo::loadMessages()
 		messagesScrollWidget->layout()->addWidget(*it);
 	}
 
-	emit messagesLoaded(messagesScrollWidget, username);
+	emit messagesLoaded(messagesScrollWidget, name);
 	initialized = true;
 }
 
@@ -158,6 +159,16 @@ void DialogInfo::addMessage(MessageType type, const QString &fromId, const QStri
 QString DialogInfo::getId() const
 {
 	return QString::number(this->id);
+}
+
+QString DialogInfo::getUserName() const
+{
+	return this->name;
+}
+
+bool DialogInfo::isInitialized() const
+{
+	return this->initialized;
 }
 
 void DialogInfo::setLastMessage(const QString &text)
@@ -230,6 +241,11 @@ void DialogInfo::paintFrameRed()
 	{
 		this->setStyleSheet("QWidget#dialogInfo {border: 1px solid red;border-radius: 10px;}");
 	}
+}
+
+QWidget * DialogInfo::getMessagesWidget() const
+{
+	return this->messagesScrollWidget;
 }
 
 void DialogInfo::sendMessage(QString &msg)
@@ -306,9 +322,8 @@ DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 {
 	this->id = other.id;
 	this->messageId = other.messageId;
-	this->title = other.title;
 	this->lastMessage = other.lastMessage;
-	this->username = other.username;
+	this->name = other.name;
 	this->lastMessageDateTime = other.lastMessageDateTime;
 	this->out = other.out;
 
@@ -335,7 +350,7 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 		}
 		else
 		{
-			emit messagesLoaded(messagesScrollWidget, username);
+			emit messagesLoaded(messagesScrollWidget, name);
 		}
 	}
 }

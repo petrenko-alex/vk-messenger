@@ -24,9 +24,7 @@
 // #TODO: Добавить загрузку фото собеседников чата
 // #TODO: Создание диалога - чата по сигналу из Long Poll
 // #TODO: Кнопка плюсик
-// #TODO: Стилизовать скролл бар
 // #TODO: Строка поиска
-// #TODO: Поле текущий собеседник для группы
 
 
 class MessengerWindow : public QMainWindow
@@ -41,6 +39,7 @@ signals:
 	void userInfoLoaded();
 	void stopTracing();
 	void newMessage(QString &msg);
+	void newDialog(unsigned int userId);
 
 private slots:
 	void authorizationCompleted();
@@ -54,6 +53,7 @@ private slots:
 	void showFriends();
 	void logout();
 	void closeProgram();
+	void newDialog(int user);
 
 
 private:

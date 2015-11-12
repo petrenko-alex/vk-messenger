@@ -42,8 +42,11 @@ public:
 	void sendMessage(QString &msg);
 
 	QString getId() const;
+	QString getUserName() const;
+	bool isInitialized() const;
 	void setLastMessage(const QString &text);
 	void paintFrameRed();
+	QWidget * getMessagesWidget() const;
 
 signals:
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
@@ -60,8 +63,7 @@ private:
 	Ui::DialogInfo ui;
 	unsigned int id;
 	unsigned int messageId;
-	QString title;
-	QString username;
+	QString name;
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
 	QByteArray photo;

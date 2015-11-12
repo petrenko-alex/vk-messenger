@@ -101,7 +101,7 @@ void Dialogs::addMessage(MessageType type, const QString &fromId, const QString 
 			if (getDialogs(1))
 			{
 				userDialogs.last()->paintFrameRed();
-				changeDialogPosition(userDialogs.last());
+				emit changeDialogPosition(userDialogs.last());
 			}
 		}
 	}
@@ -128,6 +128,37 @@ void Dialogs::newMessage(QString &msg)
 			(*dialog).sendMessage(msg);
 		}
 	}
+}
+
+void Dialogs::newDialog(unsigned int userId)
+{
+	bool dialogExist = false;
+
+	/* Ищем диалог в списке существующих */
+	for (auto dialog : userDialogs)
+	{
+		if ((*dialog).getId().toInt() == userId)
+		{
+			dialogExist = true;
+			emit changeDialogPosition(dialog);
+
+			if ((*dialog).isInitialized())
+			{
+				messagesReceived((*dialog).getMessagesWidget(), (*dialog).getUserName());
+			}
+			else
+			{
+				(*dialog).loadMessages();
+			}
+		}
+	}
+
+
+	if (!dialogExist)
+	{
+		// #TODO: Реализовать
+	}
+
 }
 
 void Dialogs::messageWasSent(QWidget *dialog)

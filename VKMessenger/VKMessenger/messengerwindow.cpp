@@ -84,6 +84,7 @@ void MessengerWindow::authorizationCompleted()
 	}
 	/* Загружаем друзей */
 	friends->loadFriends(friendList);
+	connect(friendList, SIGNAL(currentIndexChanged(int)), this, SLOT(newDialog(int)));
 	emit userInfoLoaded();
 }
 
@@ -99,6 +100,7 @@ void MessengerWindow::loadDialogs()
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	connect(this, SIGNAL(stopTracing()), userDialogs, SLOT(stopTracing ()));
 	connect(this, SIGNAL(newMessage(QString &)), userDialogs, SLOT(newMessage(QString &)));
+	connect(this, SIGNAL(newDialog(unsigned int)), userDialogs, SLOT(newDialog(unsigned int)));
 	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
 	connect(userDialogs, SIGNAL(changeDialogPosition(QWidget *)), this, SLOT(changeDialogPosition(QWidget *)));
 	userDialogs->loadDialogs();
@@ -151,13 +153,10 @@ void MessengerWindow::sendMessage()
 
 void MessengerWindow::showFriends()
 {
-	int xPos = ui.userName->x() /*+ ui.newDialogB->width ()*/;
+	int xPos = ui.userName->x();
 	int yPos = ui.newDialogB->y();
 	friendList->move(xPos, yPos);
-
-
 	friendList->showPopup();
-	//friends->setStyleSheet("QComboBox::down-arrow { image: url(); }");
 	friendList->show();
 }
 
@@ -172,6 +171,13 @@ void MessengerWindow::logout()
 void MessengerWindow::closeProgram()
 {
 	exit(EXIT_SUCCESS);
+}
+
+void MessengerWindow::newDialog(int user)
+{
+	friendList->hide();
+	unsigned int id = friendList->itemData(user).toUInt();
+	emit newDialog(id);
 }
 
 bool MessengerWindow::saveData()
