@@ -6,6 +6,7 @@
 #include <QUrl>
 #include <QMouseEvent>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include "ui_dialoginfo.h"
 #include "session.h"
 #include <windows.h>
@@ -38,6 +39,7 @@ public:
 	void loadOpponentPhoto(QString photoUrl);
 	void loadMessages();
 	void addMessage(MessageType type,const QString &fromId, const QString &text);
+	void sendMessage(QString &msg);
 
 	QString getId() const;
 	void setLastMessage(const QString &text);
@@ -45,9 +47,7 @@ public:
 
 signals:
 	void messagesLoaded(QWidget *scrollWidget, QString &username);
-
-private slots:
-	void sendMessage();
+	void messageWasSent(QWidget *dialog);
 
 private:
 	void setConnections();

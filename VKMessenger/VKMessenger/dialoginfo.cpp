@@ -226,14 +226,44 @@ void DialogInfo::paintFrameRed()
 	}
 }
 
-void DialogInfo::sendMessage()
-{
 
+void DialogInfo::sendMessage(QString &msg)
+{
+	/* Формируем параметры запроса */
+	QList<QPair<QString, QString> > parametres;
+	if (dialogType == DialogType::PERSONAL)
+	{
+		parametres << QPair<QString, QString>("user_id", QString::number(id));
+	}
+	else
+	{
+		parametres << QPair<QString, QString>("chat_id", QString::number(id));
+	}
+	parametres << QPair<QString, QString>("message", msg);
+	parametres << QPair<QString, QString>("v", "5.40");
+	parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
+
+	/* Посылаем запрос, получаем данные */
+	QByteArray response = dataReceiver->loadData("messages.send", parametres);
+
+	if (! response.isEmpty() && QJsonDocument::fromJson(response).object().value("response").isDouble())
+	{
+		AbstractMessage *message = new TextMessage(msg, Session::getInstance().getPhoto());
+		userMessages.push_front(message);
+		message->setDataToWidgets(true);
+		messagesScrollWidget->layout()->addWidget(message);
+		setLastMessage(msg);
+		emit messageWasSent(this);
+	}
+	else if (response.isEmpty() || QJsonDocument::fromJson(response).object().value("error").isObject())
+	{
+		QMessageBox::warning(this, "Ошибка отправки", "Не удалось отправить сообщение.");
+	}
 }
 
 void DialogInfo::setConnections()
 {
-	
+	// #TODO: метод пуст
 }
 
 void DialogInfo::setDataToWidgets()

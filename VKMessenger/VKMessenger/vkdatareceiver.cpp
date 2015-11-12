@@ -43,7 +43,7 @@ QByteArray VKDataReceiver::request(QUrl &url, const QList<QPair<QString, QString
 		/* Ожидаем ответ */
 		QEventLoop waitForAnswer;
 		connect(&networkManager, SIGNAL(finished(QNetworkReply*)), &waitForAnswer, SLOT(quit()));
-		connect(&networkManager, SIGNAL(finished(QNetworkReply*)), &networkManager, SLOT(deleteLater()));
+		//connect(&networkManager, SIGNAL(finished(QNetworkReply*)), &networkManager, SLOT(deleteLater()));
 		QTimer::singleShot(WAIT_FOR_ANSWER_TIME, &waitForAnswer, SLOT(quit()));
 		waitForAnswer.exec();
 		/* Получаем ответ */

@@ -91,6 +91,7 @@ void MessengerWindow::loadDialogs()
 	connect(userDialogs, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	connect(this, SIGNAL(stopTracing()), userDialogs, SLOT(stopTracing ()));
+	connect(this, SIGNAL(newMessage(QString &)), userDialogs, SLOT(newMessage(QString &)));
 	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
 	connect(userDialogs, SIGNAL(changeDialogPosition(QWidget *)), this, SLOT(changeDialogPosition(QWidget *)));
 	userDialogs->loadDialogs();
@@ -132,7 +133,13 @@ void MessengerWindow::changeDialogPosition(QWidget *dialog)
 
 void MessengerWindow::sendMessage()
 {
+	QString msg = ui.message->toPlainText();
 	
+	if (!msg.isEmpty())
+	{
+		ui.message->clear();
+		emit newMessage(msg);
+	}
 }
 
 void MessengerWindow::logout()

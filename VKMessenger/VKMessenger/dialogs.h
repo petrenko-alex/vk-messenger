@@ -35,6 +35,8 @@ private slots:
 	void addMessage(MessageType type,const QString &fromId, const QString &text);
 	void stopTracing();
 	void tracingStopped();
+	void newMessage(QString &msg);
+	void messageWasSent(QWidget *dialog);
 
 private:
 	void setConnections();

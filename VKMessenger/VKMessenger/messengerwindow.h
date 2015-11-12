@@ -22,9 +22,9 @@
 // #TODO: Добавить загрузку фото собеседников чата
 // #TODO: Если нажать одновременно несколько диалогов!
 // #TODO: Создание диалога - чата по сигналу из Long Poll
-// #TODO: Отправка сообщения
 // #TODO: Вызов сообщений диалога по нажатию на все части виджета диалога
 // #TODO: Кнопка плюсик
+// #TODO: Размер сообщения в зависимости от содержимого
 
 
 class MessengerWindow : public QMainWindow
@@ -38,6 +38,7 @@ public:
 signals:
 	void userInfoLoaded();
 	void stopTracing();
+	void newMessage(QString &msg);
 
 private slots:
 	void authorizationCompleted();

@@ -117,6 +117,24 @@ void Dialogs::tracingStopped()
 	emit canExit();
 }
 
+void Dialogs::newMessage(QString &msg)
+{
+	DialogInfo *currentDialog;
+
+	for (auto dialog : userDialogs)
+	{
+		if ((*dialog).getId().toInt() == Session::getInstance().getCurrentOpponent())
+		{
+			(*dialog).sendMessage(msg);
+		}
+	}
+}
+
+void Dialogs::messageWasSent(QWidget *dialog)
+{
+	emit changeDialogPosition(dialog);
+}
+
 void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 {
 	DialogType dialogType;
@@ -154,6 +172,7 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 
 		connect(d, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
+		connect(d, SIGNAL(messageWasSent(QWidget *)), this, SLOT(messageWasSent(QWidget *)));
 
 		userDialogs << d;
 		d->loadOpponentInfo();
