@@ -38,7 +38,7 @@ public:
         if (UserTextMessage->objectName().isEmpty())
             UserTextMessage->setObjectName(QStringLiteral("UserTextMessage"));
         UserTextMessage->resize(407, 86);
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(UserTextMessage->sizePolicy().hasHeightForWidth());
