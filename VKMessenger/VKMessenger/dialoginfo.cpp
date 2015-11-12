@@ -135,7 +135,6 @@ void DialogInfo::loadMessages()
 	initialized = true;
 }
 
-
 void DialogInfo::addMessage(MessageType type, const QString &fromId, const QString &text)
 {
 	AbstractMessage *message;
@@ -233,7 +232,6 @@ void DialogInfo::paintFrameRed()
 	}
 }
 
-
 void DialogInfo::sendMessage(QString &msg)
 {
 	/* Формируем параметры запроса */
@@ -270,7 +268,11 @@ void DialogInfo::sendMessage(QString &msg)
 
 bool DialogInfo::eventFilter(QObject *obj, QEvent *event)
 {
-	return QWidget::eventFilter(obj, event);
+	if (event->type() == QEvent::MouseButtonPress)
+	{
+		return QWidget::eventFilter(obj, event);
+	}
+	return false;
 }
 
 void DialogInfo::setConnections()
