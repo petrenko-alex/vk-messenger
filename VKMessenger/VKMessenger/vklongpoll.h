@@ -17,14 +17,18 @@ public:
 
 	/* Получить данные для подключения к Long Poll серверу */
 	void getLongPollServer();
+
 	/* Подключиться к Long Poll и получать новые события */
 	void startTracing();
+
 	/* Остановить работу с Long Poll сервером */
 	void stopTracing();
 
 signals:
 	/* Сигнал - сообщение получено */
 	void messageReceived(MessageType type, const QString &fromId, const QString &text);
+
+	/* Сигнал - соединение с Long Poll разорвано */
 	void tracingStopped();
 
 private:
@@ -36,11 +40,14 @@ private:
 	QString pts;
 	QString key;
 	QString server;
+
 	/* Тип полученного события */
 	enum EventType
 	{
 		NEW_MESSAGE = 4
 	};
+
+	/* Флаг разрыва соединение - остановки бесконечного цикла */
 	bool stopConnection;
 };
 
