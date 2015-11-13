@@ -23,8 +23,9 @@
 
 // #TODO: Добавить загрузку фото собеседников чата
 // #TODO: Создание диалога - чата по сигналу из Long Poll
-// #TODO: Кнопка плюсик
 // #TODO: Строка поиска
+// #TODO: Удалить messageId из dialogInfo и переименовать dialog
+// #TODO: Отправка сообщения по Enter
 
 
 class MessengerWindow : public QMainWindow

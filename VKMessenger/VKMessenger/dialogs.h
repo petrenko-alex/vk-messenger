@@ -37,6 +37,7 @@ private slots:
 	void tracingStopped();
 	void newMessage(QString &msg);
 	void newDialog(unsigned int userId);
+	bool newDialogById(unsigned int userId);
 	void messageWasSent(QWidget *dialog);
 
 private:
