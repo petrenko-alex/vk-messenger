@@ -33,25 +33,54 @@ public:
 	~MessengerWindow();
 
 signals:
+	/* Информация о пользователе загружена */
 	void userInfoLoaded();
+
+	/* Разорвать соединение с Long Poll */
 	void stopTracing();
+
+	/* Отправить сообщение msg */
 	void newMessage(QString &msg);
+
+	/* Открыть новый диалог с пользователем userId */
 	void newDialog(unsigned int userId);
 
 private slots:
+	/* Слот, вызвывающийся при получении сигнала об успешной авторизации */
 	void authorizationCompleted();
-	void authorizationFailed();
-	void loadDialogs();
-	void messagesReceived(QWidget *scrollWidget, QString &username);
-	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
-	void moveScrollBarToBotton(int min, int max);
-	void changeDialogPosition(QWidget *dialog);
-	void sendMessage();
-	void showFriends();
-	void logout();
-	void closeProgram();
-	void newDialog(int user);
 
+	/* Слот, вызвывающийся при получении сигнала о неуспешной авторизации */
+	void authorizationFailed();
+
+	/* Первоначальная зугрузка диалогов - инициализация диалогов */
+	void loadDialogs();
+
+	/* Слот, вызывающийся при получении сигнала о том, что сообщения выбранного диалога загружены */
+	void messagesReceived(QWidget *scrollWidget, QString &username);
+
+	/* Слот, вызывающийся при получении сигнала о том, что первоначальный список диалогов загружен */
+	void dialogsLoaded(QList<DialogInfo *> *userDialogs);
+
+	/* Передвинуть скролл бар в самый низ */
+	void moveScrollBarToBotton(int min, int max);
+
+	/* Сменить позицию диалога dialog в списке диалогов */
+	void changeDialogPosition(QWidget *dialog);
+
+	/* Отправить сообщение по нажатию кнопки "Отправить" */
+	void sendMessage();
+
+	/* Показать список друзей по нажатию кнопки "+" */
+	void showFriends();
+
+	/* Выйти из программы и очистить данные авторизации по нажатию кнопки "Выйти" */
+	void logout();
+
+	/* Закрыть программы */
+	void closeProgram();
+
+	/* Открыть новый диалог по выбору друга из списка друзей */
+	void newDialog(int user);
 
 private:
 	/* Фильтр событий */
