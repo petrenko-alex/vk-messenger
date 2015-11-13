@@ -203,15 +203,14 @@ bool Dialogs::newDialogById(unsigned int userId)
 			}
 
 			/* Создаем новый диалог */
-			d = new DialogInfo(	DialogType::PERSONAL,
-								lastMessageObj["user_id"].toInt(), lastMessageObj["id"].toInt(),
+			d = new DialogInfo(	DialogType::PERSONAL, lastMessageObj["user_id"].toInt(),
 								lastMessageObj["title"].toString(), lastMessage,
 								QDateTime::fromTime_t(lastMessageObj["date"].toInt()), lastMessageObj["out"].toInt());
 		}
 		else
 		{
 			/* Создаем пустой диалог */
-			d = new DialogInfo(DialogType::PERSONAL, userId, 123, QString(""), QString(""), QDateTime::currentDateTime(), false);
+			d = new DialogInfo(DialogType::PERSONAL, userId, QString(""), QString(""), QDateTime::currentDateTime(), false);
 		}
 
 		connect(d, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
@@ -267,8 +266,7 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 			lastMessage += dialogInfo["attachments"].toArray()[0].toObject()["type"].toString();
 		}
 
-		DialogInfo *d = new DialogInfo( dialogType,
-										dialogInfo[idKey].toInt(), dialogInfo["id"].toInt(),
+		DialogInfo *d = new DialogInfo( dialogType, dialogInfo[idKey].toInt(),
 										dialogInfo["title"].toString(), lastMessage,
 										QDateTime::fromTime_t(dialogInfo["date"].toInt()), dialogInfo["out"].toInt());
 

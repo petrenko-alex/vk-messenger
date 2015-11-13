@@ -1,6 +1,6 @@
 #include "dialoginfo.h"
 
-DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
+DialogInfo::DialogInfo(DialogType type,unsigned int id, QString &title, QString &lastMessage, QDateTime &lastMessageDateTime, bool out)
 {
 	ui.setupUi(this);
 	ui.dialogInfo->installEventFilter(this);
@@ -20,7 +20,6 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, unsigned int messageId, 
 
 	this->dialogType = type;
 	this->id = id;
-	this->messageId = messageId;
 	this->name = title;
 	this->lastMessage = lastMessage;
 	this->lastMessageDateTime = lastMessageDateTime;
@@ -321,7 +320,6 @@ void DialogInfo::setDataToWidgets()
 DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 {
 	this->id = other.id;
-	this->messageId = other.messageId;
 	this->lastMessage = other.lastMessage;
 	this->name = other.name;
 	this->lastMessageDateTime = other.lastMessageDateTime;

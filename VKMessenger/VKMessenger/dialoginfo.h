@@ -28,8 +28,7 @@ class DialogInfo : public QWidget
 	Q_OBJECT
 
 public:
-	DialogInfo(	DialogType type, 
-				unsigned int id, unsigned int messageId,
+	DialogInfo(	DialogType type, unsigned int id,
 				QString &title,QString &lastMessage,
 				QDateTime &lastMessageDateTime, bool out);
 	~DialogInfo();
@@ -62,7 +61,6 @@ private:
 
 	Ui::DialogInfo ui;
 	unsigned int id;
-	unsigned int messageId;
 	QString name;
 	QString lastMessage;
 	QDateTime lastMessageDateTime;
