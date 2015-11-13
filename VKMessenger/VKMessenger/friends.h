@@ -19,7 +19,7 @@ public:
 	static Friends & getInstance();
 
 	void loadFriends(QComboBox *list);
-	QPixmap & getPhoto(unsigned int id) const;
+	QByteArray getPhoto(unsigned int id) const;
 	bool containsPhoto(unsigned int id) const;
 
 private:
@@ -29,7 +29,7 @@ private:
 	void operator=(const Friends &) = delete;
 	void operator=(const Friends &&) = delete;
 
-	QHash<unsigned int, QPair<QString, QPixmap> > friends;
+	QHash<unsigned int, QPair<QString, QByteArray> > friends;
 };
 
 #endif // FRIENDS_H

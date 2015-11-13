@@ -27,7 +27,7 @@ void Friends::loadFriends(QComboBox *list)
 		int index = 0;
 		for (auto i : friendsArray)
 		{
-			QPair<QString, QPixmap> tmpFriend;
+			QPair<QString, QByteArray> tmpFriend;
 			tmpFriend.first = i.toObject().value("first_name").toString() + " " + i.toObject().value("last_name").toString();
 
 			QString photoStr = i.toObject().value("photo_50").toString();
@@ -39,11 +39,12 @@ void Friends::loadFriends(QComboBox *list)
 			QPixmap friendPhoto;
 			if (!photo.isEmpty() && friendPhoto.loadFromData(photo))
 			{
-				tmpFriend.second = friendPhoto;
+				tmpFriend.second = photo;
 				list->setItemIcon(index, QIcon(friendPhoto));
 			}
 
 			++index;
+			friends.insert(id, tmpFriend);
 		}
 	}
 	else if (data.isEmpty() || QJsonDocument::fromJson(data).object().value("error").isObject())
@@ -52,9 +53,9 @@ void Friends::loadFriends(QComboBox *list)
 	}
 }
 
-QPixmap & Friends::getPhoto(unsigned int id) const
+QByteArray Friends::getPhoto(unsigned int id) const
 {
-	QPixmap tmp;
+	QByteArray tmp;
 	if (friends.contains(id))
 	{
 		tmp = friends.value(id).second;
