@@ -17,6 +17,11 @@
    <string notr="true">QWidget#dialogInfo {
 	border: 1px solid white;
 	border-radius: 10px;
+}
+
+QWidget#dialogInfo:hover {
+	border: 2px solid black;
+	border-radius: 10px;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">

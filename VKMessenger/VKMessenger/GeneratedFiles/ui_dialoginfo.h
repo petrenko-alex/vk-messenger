@@ -43,6 +43,11 @@ public:
         DialogInfo->setStyleSheet(QLatin1String("QWidget#dialogInfo {\n"
 "	border: 1px solid white;\n"
 "	border-radius: 10px;\n"
+"}\n"
+"\n"
+"QWidget#dialogInfo:hover {\n"
+"	border: 2px solid black;\n"
+"	border-radius: 10px;\n"
 "}"));
         gridLayout_2 = new QGridLayout(DialogInfo);
         gridLayout_2->setSpacing(6);
