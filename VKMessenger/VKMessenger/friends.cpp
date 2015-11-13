@@ -6,11 +6,6 @@ Friends & Friends::getInstance()
 	return instance;
 }
 
-
-Friends::~Friends()
-{
-}
-
 void Friends::loadFriends(QComboBox *list)
 {
 	QList<QPair<QString, QString> > parametres;

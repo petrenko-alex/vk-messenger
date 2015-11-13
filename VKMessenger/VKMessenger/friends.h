@@ -18,8 +18,6 @@ public:
 	/* Получить объект класса */
 	static Friends & getInstance();
 
-	~Friends();
-
 	void loadFriends(QComboBox *list);
 	QPixmap & getPhoto(unsigned int id) const;
 	bool containsPhoto(unsigned int id) const;
