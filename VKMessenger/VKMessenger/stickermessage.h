@@ -13,7 +13,10 @@ public:
 	StickerMessage(const StickerMessage &other);
 	~StickerMessage();
 
+	/* Установить данные в виджет */
 	virtual void setDataToWidgets(bool out);
+	
+	/* Склонировать объект класса */
 	virtual StickerMessage * clone() const;
 
 private:

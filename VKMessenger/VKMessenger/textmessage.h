@@ -13,7 +13,10 @@ public:
 	TextMessage(const TextMessage &other);
 	~TextMessage();
 
+	/* Установить данные в виджет */
 	virtual void setDataToWidgets(bool out);
+	
+	/* Склонировать объект класса */
 	virtual TextMessage * clone() const;
 
 private:

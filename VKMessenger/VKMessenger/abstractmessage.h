@@ -22,7 +22,10 @@ public:
 	AbstractMessage(const AbstractMessage &other);
 	virtual ~AbstractMessage();
 
+	/* Установить данные в виджет */
 	virtual void setDataToWidgets(bool out) = 0;
+
+	/* Склонировать объект класса */
 	virtual AbstractMessage * clone() const = 0;
 
 protected:
