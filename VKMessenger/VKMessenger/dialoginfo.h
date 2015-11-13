@@ -14,6 +14,7 @@
 #include "abstractmessage.h"
 #include "textmessage.h"
 #include "stickermessage.h"
+#include "friends.h"
 
 #define WIDTH  260
 #define HEIGHT 100
@@ -58,6 +59,7 @@ private:
 	void parseMessages(const QByteArray &messages);
 	void paintFrameWhite();
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	QByteArray loadPhotoByUserId(unsigned int userId);
 
 	Ui::DialogInfo ui;
 	unsigned int id;

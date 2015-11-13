@@ -179,6 +179,7 @@ void DialogInfo::setLastMessage(const QString &text)
 
 void DialogInfo::parseMessages(const QByteArray &messages)
 {
+	QByteArray tmpPhoto;
 	QJsonObject dialogMessagessObject = QJsonDocument::fromJson(messages).object();
 	QJsonArray dialogMessagesArray = dialogMessagessObject.value("response").toObject()["items"].toArray();
 
@@ -187,6 +188,16 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 		AbstractMessage *message = nullptr;
 		QString messageAttachments = "";
 		bool out = msg.toObject()["out"].toInt();
+
+		/* Если чат - загружаем фото реального отправителя */
+		if (dialogType == DialogType::CHAT)
+		{
+			tmpPhoto = loadPhotoByUserId(msg.toObject()["user_id"].toDouble());
+		}
+		else
+		{
+			tmpPhoto = this->photo;
+		}
 
 		/* Если есть вложения */
 		if (msg.toObject().keys().contains("attachments"))
@@ -200,7 +211,7 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 					QString stickerUrl = a.toObject()["sticker"].toObject()["photo_128"].toString();
 					QByteArray sticker = dataReceiver->loadSticker(stickerUrl);
 
-					message = new StickerMessage(sticker, this->photo);
+					message = new StickerMessage(sticker, tmpPhoto);
 				}
 				else
 				{
@@ -226,7 +237,7 @@ void DialogInfo::parseMessages(const QByteArray &messages)
 				messageAttachments.prepend("\n");
 			}
 
-			message = new TextMessage(messageText + messageAttachments, this->photo);
+			message = new TextMessage(messageText + messageAttachments, tmpPhoto);
 		}
 
 		userMessages << message;
@@ -351,4 +362,36 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 			emit messagesLoaded(messagesScrollWidget, name);
 		}
 	}
+}
+
+QByteArray DialogInfo::loadPhotoByUserId(unsigned int userId)
+{
+	/* Поиск фото в памяти */
+	if (Friends::getInstance().containsPhoto(userId))
+	{
+		return Friends::getInstance().getPhoto(userId);
+	}
+
+	/* Если в памяти нет - загружаем с ВК */
+	QList<QPair<QString, QString> > parametres;
+	parametres << QPair<QString, QString>("user_ids", QString::number(userId));
+	parametres << QPair<QString, QString>("fields", "photo_50");
+	parametres << QPair<QString, QString>("v", "5.37");
+	parametres << QPair<QString, QString>("access_token", Session::getInstance().get("accessToken"));
+
+	QByteArray userInfo = dataReceiver->loadData("users.get", parametres);
+
+	if (!userInfo.isEmpty())
+	{
+		QJsonObject doc = QJsonDocument::fromJson(userInfo).object();
+
+		if (doc.value("response").isArray())
+		{
+			QJsonObject userDataValue = doc.value("response").toArray()[0].toObject ();
+			QString userPhoto = userDataValue.value("photo_50").toString();
+
+			return dataReceiver->loadPhoto(QUrl(userPhoto));
+		}
+	}
+	return QByteArray();
 }
