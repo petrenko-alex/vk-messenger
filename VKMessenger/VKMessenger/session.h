@@ -47,8 +47,13 @@ private:
 	void operator=(const Session &) = delete;
 	void operator=(const Session &&) = delete;
 
+	/* Данные сессии */
 	QHash<QString, QString> sessionData;
+
+	/* Фото пользователя */
 	QByteArray photo;
+
+	/* id текущего собеседника */
 	unsigned int currentOpponentId;
 };
 
