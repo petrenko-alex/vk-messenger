@@ -1,15 +1,14 @@
 #include "friends.h"
 
-Friends::Friends(QComboBox *list)
+Friends & Friends::getInstance()
 {
-	list->setIconSize(QSize(40, 40));
-	list->setMaxVisibleItems(10);
-	list->setFixedSize(180, 50);
+	static Friends instance;
+	return instance;
 }
+
 
 Friends::~Friends()
 {
-
 }
 
 void Friends::loadFriends(QComboBox *list)
@@ -71,4 +70,9 @@ QPixmap & Friends::getPhoto(unsigned int id) const
 bool Friends::containsPhoto(unsigned int id) const
 {
 	return friends.contains(id) && !(friends.value(id).second.isNull());
+}
+
+Friends::Friends()
+{
+
 }

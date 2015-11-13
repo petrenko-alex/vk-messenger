@@ -66,7 +66,6 @@ private:
 	Authorization *authorization;
 	Dialogs *userDialogs;
 	VKDataReceiver *dataReceiver;
-	Friends *friends;
 	QWidget *dialogsScrollWidget;
 	QComboBox *friendList;
 };

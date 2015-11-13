@@ -6,9 +6,14 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	ui.setupUi(this);
 	userDialogs = nullptr;
 	dataReceiver = new VKDataReceiver;
+
 	friendList = new QComboBox(this);
+	friendList->setIconSize(QSize(40, 40));
+	friendList->setMaxVisibleItems(10);
+	friendList->setFixedSize(180, 50);
 	friendList->hide();
-	friends = new Friends(friendList);
+
+	
 	authorization = new Authorization(this);
 
 	setConnections();
@@ -40,7 +45,6 @@ MessengerWindow::~MessengerWindow()
 	delete dialogsScrollWidget;
 	delete userDialogs;
 	delete friendList;
-	delete friends;
 }
 
 void MessengerWindow::setConnections()
@@ -83,7 +87,7 @@ void MessengerWindow::authorizationCompleted()
 		// #TODO: Попытаться загрузить еще раз?
 	}
 	/* Загружаем друзей */
-	friends->loadFriends(friendList);
+	Friends::getInstance().loadFriends(friendList);
 	connect(friendList, SIGNAL(currentIndexChanged(int)), this, SLOT(newDialog(int)));
 	emit userInfoLoaded();
 }

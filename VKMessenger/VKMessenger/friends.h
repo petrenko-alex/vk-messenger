@@ -15,7 +15,9 @@ class Friends : public QObject
 	Q_OBJECT
 
 public:
-	Friends(QComboBox *list);
+	/* Получить объект класса */
+	static Friends & getInstance();
+
 	~Friends();
 
 	void loadFriends(QComboBox *list);
@@ -23,6 +25,12 @@ public:
 	bool containsPhoto(unsigned int id) const;
 
 private:
+	Friends();
+	Friends(const Friends &) = delete;
+	Friends(const Friends &&) = delete;
+	void operator=(const Friends &) = delete;
+	void operator=(const Friends &&) = delete;
+
 	QHash<unsigned int, QPair<QString, QPixmap> > friends;
 };
 
