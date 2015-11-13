@@ -18,8 +18,13 @@ public:
 	/* Получить объект класса */
 	static Friends & getInstance();
 
+	/* Загрузить список друзей */
 	void loadFriends(QComboBox *list);
+
+	/* Получить фото по id пользователя */
 	QByteArray getPhoto(unsigned int id) const;
+
+	/* Проверить, имеется ли фото пользователя с id */
 	bool containsPhoto(unsigned int id) const;
 
 private:
@@ -29,6 +34,7 @@ private:
 	void operator=(const Friends &) = delete;
 	void operator=(const Friends &&) = delete;
 
+	/* Информация о друзьях - id, имя и фото */
 	QHash<unsigned int, QPair<QString, QByteArray> > friends;
 };
 
