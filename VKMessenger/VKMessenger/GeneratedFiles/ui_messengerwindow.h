@@ -53,6 +53,8 @@ public:
         if (MessengerWindowClass->objectName().isEmpty())
             MessengerWindowClass->setObjectName(QStringLiteral("MessengerWindowClass"));
         MessengerWindowClass->resize(1111, 674);
+        MessengerWindowClass->setMinimumSize(QSize(1111, 674));
+        MessengerWindowClass->setMaximumSize(QSize(1111, 674));
         QFont font;
         font.setFamily(QStringLiteral("Verdana"));
         MessengerWindowClass->setFont(font);
