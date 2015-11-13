@@ -27,12 +27,20 @@ public:
 	VKDataReceiver();
 	~VKDataReceiver();
 
+	/* Получить фото по url */
 	QByteArray loadPhoto(const QUrl &photoUrl);
+
+	/* Получить стикер по url */
 	QByteArray loadSticker(const QUrl &stickerUrl);
+
+	/* Получить данные метода API methodName с параметрами parametres */
 	QByteArray loadData(const QString &methodName, const QList<QPair<QString, QString> > &parametres);
+
+	/* Получить данные для подключения к Long Poll */
 	QByteArray longPollRequest(const QString &serverPath, const QList<QPair<QString, QString> > &parametres);
 
 private:
+	/* Запрос к ВК по url с параметрами parametres */
 	QByteArray request(QUrl &url, const QList<QPair<QString, QString> > &parametres);
 
 };
