@@ -126,6 +126,7 @@ void VKLongPoll::startTracing()
 									attachments += "\nПересланные сообщения";
 								}
 							}
+							
 
 							if (!attachments.isEmpty())
 							{

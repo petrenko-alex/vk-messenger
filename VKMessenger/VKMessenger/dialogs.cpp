@@ -96,12 +96,7 @@ void Dialogs::addMessage(MessageType type, const QString &fromId, const QString 
 	/* Если не найден - создать новый */
 	if (!dialogExist)
 	{
-		QString idKey;
-		if (isChat(fromId))
-		{
-			// #TODO: Создать новый чат
-		}
-		else
+		if ( !isChat(fromId))
 		{
 			if (getDialogs(1))
 			{

@@ -2,6 +2,7 @@
 #define MESSENGERWINDOW_H
 
 #include <QtWidgets/QMainWindow>
+#include <QDebug>
 #include <QPixmap>
 #include <QComboBox>
 #include <QFile>
@@ -21,11 +22,7 @@
 
 #define DATA_FILENAME "./Data/data.vkmd"
 
-// #TODO: Добавить загрузку фото собеседников чата
-// #TODO: Создание диалога - чата по сигналу из Long Poll
 // #TODO: Строка поиска
-// #TODO: Удалить messageId из dialogInfo и переименовать dialog
-
 
 class MessengerWindow : public QMainWindow
 {
@@ -57,16 +54,33 @@ private slots:
 
 
 private:
+	/* Фильтр событий */
 	bool eventFilter(QObject *obj, QEvent *event);
+
+	/* Сохранить данные сессии в файл */
 	bool saveData();
+
+	/* Загрузить данные сессии из файла */
 	bool loadData();
+
+	/* Установить соединения */
 	void setConnections();
+
+	/* Перегрузка события закрытия окна */
 	void closeEvent(QCloseEvent *event);
 
 	Ui::MessengerWindowClass ui;
+
+	/* Модуль авторизации */
 	Authorization *authorization;
+
+	/* Модуль диалогов */
 	Dialogs *userDialogs;
+
+	/* Модуль получения данных с ВК */
 	VKDataReceiver *dataReceiver;
+
+	/* Виджеты отображения */
 	QWidget *dialogsScrollWidget;
 	QComboBox *friendList;
 };

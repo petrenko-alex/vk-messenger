@@ -133,7 +133,7 @@ void Authorization::loadUserInfo()
 	}
 	else
 	{
-		// #TODO: Решить, что делать здесь!
+		QMessageBox::warning(0, "Ошибка загрузки", "Не удалось загрузить информацию о пользователе");
 	}
 
 	emit authorizationCompleted();

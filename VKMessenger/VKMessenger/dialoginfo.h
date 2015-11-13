@@ -53,8 +53,8 @@ signals:
 	void messageWasSent(QWidget *dialog);
 
 private:
+	/* Фильтр событий */
 	bool eventFilter(QObject *obj, QEvent *event);
-	void setConnections();
 	void setDataToWidgets();
 	void parseMessages(const QByteArray &messages);
 	void paintFrameWhite();

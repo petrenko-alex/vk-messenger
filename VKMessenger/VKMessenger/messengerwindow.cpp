@@ -72,12 +72,13 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 void MessengerWindow::authorizationCompleted()
 {
 	authorization->closeBrowser();
+
 	/* Устанавливаем имя пользователя */
 	ui.userName->setText(Session::getInstance().get("userName"));
-	/* Получаем и устанавливаем фото*/
-	QByteArray photoData = dataReceiver->loadPhoto(QUrl(Session::getInstance().get("userPhoto")));
 
+	/* Получаем и устанавливаем фото*/
 	QPixmap photo;
+	QByteArray photoData = dataReceiver->loadPhoto(QUrl(Session::getInstance().get("userPhoto")));
 	if (!photoData.isEmpty() && photo.loadFromData(photoData))
 	{
 		ui.userPhoto->setPixmap(photo);
@@ -85,22 +86,25 @@ void MessengerWindow::authorizationCompleted()
 	}
 	else
 	{
-		// #TODO: Попытаться загрузить еще раз?
+		qDebug() << "Фото  авторизовавшегося пользователя не загружено";
 	}
+
 	/* Загружаем друзей */
 	Friends::getInstance().loadFriends(friendList);
 	connect(friendList, SIGNAL(currentIndexChanged(int)), this, SLOT(newDialog(int)));
+
 	emit userInfoLoaded();
 }
 
 void MessengerWindow::authorizationFailed()
 {
-	// #TODO: Реализовать слот
+	exit(EXIT_FAILURE);
 }
 
 void MessengerWindow::loadDialogs()
 {
 	userDialogs = new Dialogs();
+
 	connect(userDialogs, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 	connect(userDialogs, SIGNAL(dialogsLoaded(QList<DialogInfo *> *)), this, SLOT(dialogsLoaded(QList<DialogInfo *> *)));
 	connect(this, SIGNAL(stopTracing()), userDialogs, SLOT(stopTracing ()));
@@ -108,6 +112,7 @@ void MessengerWindow::loadDialogs()
 	connect(this, SIGNAL(newDialog(unsigned int)), userDialogs, SLOT(newDialog(unsigned int)));
 	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
 	connect(userDialogs, SIGNAL(changeDialogPosition(QWidget *)), this, SLOT(changeDialogPosition(QWidget *)));
+
 	userDialogs->loadDialogs();
 }
 

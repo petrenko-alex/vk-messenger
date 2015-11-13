@@ -13,7 +13,6 @@ DialogInfo::DialogInfo(DialogType type,unsigned int id, QString &title, QString 
 	dataReceiver = new VKDataReceiver;
 	messagesScrollWidget = new QWidget;
 	messagesScrollWidget->setLayout(new QVBoxLayout);
-	setConnections();
 
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	this->setMinimumSize(WIDTH, HEIGHT);
@@ -65,7 +64,7 @@ void DialogInfo::loadOpponentInfo()
 		}
 		else
 		{
-			// #TODO: Решить что делать здесь.
+			qDebug() << "Данные собеседника \"" + this->name + "\" не загружены";
 		}
 		
 	}
@@ -95,7 +94,7 @@ void DialogInfo::loadOpponentPhoto(QString photoUrl)
 		}
 		else
 		{
-			// #TODO: Решить что делать здесь.
+			qDebug() << "Фото собеседника \"" + this->name + "\" не загружено";
 		}
 	}
 }
@@ -299,11 +298,6 @@ bool DialogInfo::eventFilter(QObject *obj, QEvent *event)
 		return QWidget::eventFilter(obj, event);
 	}
 	return false;
-}
-
-void DialogInfo::setConnections()
-{
-	// #TODO: метод пуст
 }
 
 void DialogInfo::setDataToWidgets()
