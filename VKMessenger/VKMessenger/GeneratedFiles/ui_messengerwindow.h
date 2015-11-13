@@ -17,7 +17,6 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
@@ -38,15 +37,14 @@ public:
     QLabel *currentOponent;
     QFrame *dialogsInfoFrame;
     QGridLayout *gridLayout;
-    QLineEdit *dialogSearch;
     QScrollArea *dialogsInfoArea;
     QWidget *scrollAreaWidgetContents;
     QFrame *dialogFrame;
     QGridLayout *gridLayout_2;
+    QPushButton *sendMessageB;
     QScrollArea *dialogArea;
     QWidget *scrollAreaWidgetContents_2;
     QTextEdit *message;
-    QPushButton *sendMessageB;
 
     void setupUi(QMainWindow *MessengerWindowClass)
     {
@@ -250,29 +248,20 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        dialogSearch = new QLineEdit(dialogsInfoFrame);
-        dialogSearch->setObjectName(QStringLiteral("dialogSearch"));
-        dialogSearch->setMinimumSize(QSize(265, 21));
-        dialogSearch->setMaximumSize(QSize(265, 21));
-        dialogSearch->setFont(font);
-        dialogSearch->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(dialogSearch, 0, 0, 1, 1);
-
         dialogsInfoArea = new QScrollArea(dialogsInfoFrame);
         dialogsInfoArea->setObjectName(QStringLiteral("dialogsInfoArea"));
-        dialogsInfoArea->setMinimumSize(QSize(269, 571));
-        dialogsInfoArea->setMaximumSize(QSize(269, 571));
+        dialogsInfoArea->setMinimumSize(QSize(269, 600));
+        dialogsInfoArea->setMaximumSize(QSize(269, 600));
         dialogsInfoArea->setFrameShape(QFrame::NoFrame);
         dialogsInfoArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         dialogsInfoArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         dialogsInfoArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 269, 571));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 269, 600));
         dialogsInfoArea->setWidget(scrollAreaWidgetContents);
 
-        gridLayout->addWidget(dialogsInfoArea, 1, 0, 1, 1);
+        gridLayout->addWidget(dialogsInfoArea, 0, 0, 1, 1);
 
         dialogFrame = new QFrame(centralWidget);
         dialogFrame->setObjectName(QStringLiteral("dialogFrame"));
@@ -283,6 +272,19 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        sendMessageB = new QPushButton(dialogFrame);
+        sendMessageB->setObjectName(QStringLiteral("sendMessageB"));
+        sendMessageB->setMinimumSize(QSize(81, 39));
+        sendMessageB->setMaximumSize(QSize(81, 39));
+        QPalette palette6;
+        palette6.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
+        palette6.setBrush(QPalette::Inactive, QPalette::ButtonText, brush1);
+        palette6.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
+        sendMessageB->setPalette(palette6);
+        sendMessageB->setFont(font);
+
+        gridLayout_2->addWidget(sendMessageB, 1, 1, 1, 1);
+
         dialogArea = new QScrollArea(dialogFrame);
         dialogArea->setObjectName(QStringLiteral("dialogArea"));
         dialogArea->setMinimumSize(QSize(815, 551));
@@ -306,19 +308,6 @@ public:
 
         gridLayout_2->addWidget(message, 1, 0, 1, 1);
 
-        sendMessageB = new QPushButton(dialogFrame);
-        sendMessageB->setObjectName(QStringLiteral("sendMessageB"));
-        sendMessageB->setMinimumSize(QSize(81, 39));
-        sendMessageB->setMaximumSize(QSize(81, 39));
-        QPalette palette6;
-        palette6.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
-        palette6.setBrush(QPalette::Inactive, QPalette::ButtonText, brush1);
-        palette6.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        sendMessageB->setPalette(palette6);
-        sendMessageB->setFont(font);
-
-        gridLayout_2->addWidget(sendMessageB, 1, 1, 1, 1);
-
         MessengerWindowClass->setCentralWidget(centralWidget);
 
         retranslateUi(MessengerWindowClass);
@@ -334,9 +323,8 @@ public:
         logoutB->setText(QApplication::translate("MessengerWindowClass", "\320\222\321\213\320\271\321\202\320\270", 0));
         newDialogB->setText(QApplication::translate("MessengerWindowClass", "+", 0));
         currentOponent->setText(QApplication::translate("MessengerWindowClass", "\320\242\320\265\320\272\321\203\321\211\320\270\320\271 \321\201\320\276\320\261\320\265\321\201\320\265\320\264\320\275\320\270\320\272", 0));
-        dialogSearch->setPlaceholderText(QApplication::translate("MessengerWindowClass", "\320\237\320\276\320\270\321\201\320\272...", 0));
-        message->setPlaceholderText(QApplication::translate("MessengerWindowClass", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\201\320\276\320\276\320\261\321\211\320\265\320\275\320\270\320\265...", 0));
         sendMessageB->setText(QApplication::translate("MessengerWindowClass", "\320\236\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214", 0));
+        message->setPlaceholderText(QApplication::translate("MessengerWindowClass", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\201\320\276\320\276\320\261\321\211\320\265\320\275\320\270\320\265...", 0));
     } // retranslateUi
 
 };
