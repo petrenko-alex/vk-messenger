@@ -91,7 +91,7 @@ void MessengerWindow::authorizationCompleted()
 
 	/* Загружаем друзей */
 	Friends::getInstance().loadFriends(friendList);
-	connect(friendList, SIGNAL(currentIndexChanged(int)), this, SLOT(newDialog(int)));
+	connect(friendList, SIGNAL(activated(int)), this, SLOT(newDialog(int)));
 
 	emit userInfoLoaded();
 }
@@ -163,7 +163,7 @@ void MessengerWindow::sendMessage()
 
 void MessengerWindow::showFriends()
 {
-	int xPos = ui.userName->x();
+	int xPos = ui.newDialogB->x() + ui.newDialogB->width ();
 	int yPos = ui.newDialogB->y();
 	friendList->move(xPos, yPos);
 	friendList->showPopup();
