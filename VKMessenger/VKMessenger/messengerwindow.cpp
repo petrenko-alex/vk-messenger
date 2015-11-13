@@ -6,6 +6,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	ui.setupUi(this);
 	userDialogs = nullptr;
 	dataReceiver = new VKDataReceiver;
+	ui.message->installEventFilter(this);
 
 	friendList = new QComboBox(this);
 	friendList->setIconSize(QSize(40, 40));
@@ -182,6 +183,23 @@ void MessengerWindow::newDialog(int user)
 	friendList->hide();
 	unsigned int id = friendList->itemData(user).toUInt();
 	emit newDialog(id);
+}
+
+bool MessengerWindow::eventFilter(QObject *obj, QEvent *event)
+{
+	if (obj == ui.message)
+	{
+		if (event->type() == QEvent::KeyPress)
+		{
+			QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+			if ( keyEvent->key() == Qt::Key_Return)
+			{
+				sendMessage();
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 bool MessengerWindow::saveData()

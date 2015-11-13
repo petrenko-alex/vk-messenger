@@ -25,7 +25,6 @@
 // #TODO: Создание диалога - чата по сигналу из Long Poll
 // #TODO: Строка поиска
 // #TODO: Удалить messageId из dialogInfo и переименовать dialog
-// #TODO: Отправка сообщения по Enter
 
 
 class MessengerWindow : public QMainWindow
@@ -58,6 +57,7 @@ private slots:
 
 
 private:
+	bool eventFilter(QObject *obj, QEvent *event);
 	bool saveData();
 	bool loadData();
 	void setConnections();
