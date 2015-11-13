@@ -248,7 +248,7 @@ void DialogInfo::paintFrameRed()
 {
 	if (Session::getInstance().getCurrentOpponent() != id)
 	{
-		this->setStyleSheet("QWidget#dialogInfo {border: 1px solid red;border-radius: 10px;}");
+		this->setStyleSheet("QWidget#dialogInfo { border: 1px solid red; border-radius: 10px;} QWidget#dialogInfo:hover{ border: 2px solid black; border-radius: 10px;}");
 	}
 }
 
@@ -335,7 +335,7 @@ DialogInfo & DialogInfo::operator=(const DialogInfo &other)
 
 void DialogInfo::paintFrameWhite()
 {
-	this->setStyleSheet("QWidget#dialogInfo {border: 1px solid white;border-radius: 10px;}");
+	this->setStyleSheet("QWidget#dialogInfo { border: 1px solid white; border-radius: 10px;} QWidget#dialogInfo:hover{ border: 2px solid black; border-radius: 10px;}");
 }
 
 void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
