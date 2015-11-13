@@ -186,15 +186,15 @@ bool Dialogs::newDialogById(unsigned int userId)
 
 		if (response["count"].toDouble() != 0)
 		{
-			QJsonObject lastMessageObj = response["items"].toArray()[0].toObject();
+			QJsonObject lastMessageObj = response["items"].toArray().at(0).toObject();
 
 			QString lastMessage = lastMessageObj["body"].toString();
 
 			/* Добавляем информацию о последнем вложении */
-			if (lastMessageObj["attachments"].isArray() && lastMessageObj["attachments"].toArray()[0].isObject())
+			if (lastMessageObj["attachments"].isArray() && lastMessageObj["attachments"].toArray().at(0).isObject())
 			{
 				lastMessage += "\nВложения: ";
-				lastMessage += lastMessageObj["attachments"].toArray()[0].toObject()["type"].toString();
+				lastMessage += lastMessageObj["attachments"].toArray().at(0).toObject()["type"].toString();
 			}
 
 			/* Создаем новый диалог */
@@ -255,10 +255,10 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 		}
 
 		QString lastMessage = dialogInfo["body"].toString();
-		if (dialogInfo["attachments"].isArray() && dialogInfo["attachments"].toArray()[0].isObject())
+		if (dialogInfo["attachments"].isArray() && dialogInfo["attachments"].toArray().at(0).isObject())
 		{
 			lastMessage += "\nВложения: ";
-			lastMessage += dialogInfo["attachments"].toArray()[0].toObject()["type"].toString();
+			lastMessage += dialogInfo["attachments"].toArray().at(0).toObject()["type"].toString();
 		}
 
 		DialogInfo *d = new DialogInfo( dialogType, dialogInfo[idKey].toInt(),

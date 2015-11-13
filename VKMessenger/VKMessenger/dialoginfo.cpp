@@ -55,8 +55,8 @@ void DialogInfo::loadOpponentInfo()
 			QJsonObject userDataObject = QJsonDocument::fromJson(userInfo).object();
 			QJsonValue userDataValue = userDataObject.value("response");
 			QJsonArray userDataArray = userDataValue.toArray();
-			QString userName = userDataArray[0].toObject().value("first_name").toString() + " " + userDataArray[0].toObject().value("last_name").toString();
-			QString userPhoto = userDataArray[0].toObject().value("photo_50").toString();
+			QString userName = userDataArray.at(0).toObject().value("first_name").toString() + " " + userDataArray.at(0).toObject().value("last_name").toString();
+			QString userPhoto = userDataArray.at(0).toObject().value("photo_50").toString();
 
 			ui.name->setText(userName);
 			this->name = userName;
@@ -381,7 +381,7 @@ QByteArray DialogInfo::loadPhotoByUserId(unsigned int userId)
 
 		if (doc.value("response").isArray())
 		{
-			QJsonObject userDataValue = doc.value("response").toArray()[0].toObject ();
+			QJsonObject userDataValue = doc.value("response").toArray().at(0).toObject ();
 			QString userPhoto = userDataValue.value("photo_50").toString();
 
 			return dataReceiver->loadPhoto(QUrl(userPhoto));
