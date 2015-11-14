@@ -25,7 +25,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 	dialogsScrollWidget->setLayout(new QVBoxLayout);
 	ui.dialogsInfoArea->setWidget(dialogsScrollWidget);
 
-
+	this->show();
 	/* Если данные с файла успешно загружены и загруженный токен валиден */
 	if (loadData() && authorization->isTokenValid(Session::getInstance().get("accessToken")))
 	{
@@ -170,6 +170,7 @@ void MessengerWindow::showFriends()
 
 void MessengerWindow::logout()
 {
+	this->hide();
 	emit stopTracing();
 	Session::getInstance().deleteSession();
 	QFile dataFile(DATA_FILENAME);
