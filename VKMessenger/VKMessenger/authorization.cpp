@@ -7,7 +7,9 @@ Authorization::Authorization(QObject *parent)
 	dataReceiver = new VKDataReceiver;
 	browser->resize(AUTH_WINDOW_WIDTH, AUTH_WINDOW_HEIGHT);
 	browser->setWindowModality(Qt::ApplicationModal);
+	browser->installEventFilter(this);
 
+	authorizedSuccessfully = false;
 	setConnections();
 }
 
@@ -37,12 +39,13 @@ void Authorization::urlChanged(const QUrl &url)
 		Session::getInstance().add("userId", query.queryItemValue("user_id"));
 		Session::getInstance().add("accessToken", query.queryItemValue("access_token"));
 		Session::getInstance().add("expiresIn", query.queryItemValue("expires_in"));
+		authorizedSuccessfully = true;
 		loadUserInfo();
 	}
 	else
 	{
-		QMessageBox::critical(browser, "Ошибка доступа", "Вы не предоставили приложению необходимые права доступа");
-		emit authorizationFailed();
+		QMessageBox critical(QMessageBox::Critical, "Ошибка доступа", "Вы не предоставили приложению необходимые права доступа");
+		critical.exec();
 	}
 	browser->close();
 }
@@ -54,8 +57,9 @@ void Authorization::loadFinished(bool isSuccesful)
 
 	if (!isSuccesful)
 	{
-		browser->close();
-		QMessageBox::critical(browser, "Ошибка соединения", "Не удалось подключиться к серверу vk.com");
+		QMessageBox critical(QMessageBox::Critical, "Ошибка соединения", "Не удалось подключиться к серверу vk.com.\nПожалуйста, проверьте интернет соединение.");
+		critical.exec();
+		emit authorizationFailed();
 	}
 	else if (browserUrl.path() == authorizationUrl.path())
 	{
@@ -87,7 +91,7 @@ void Authorization::loadAuthorizationPage()
 	browser->load(authorizationUrl);
 }
 
-bool Authorization::isTokenValid(const QString &accessToken) const
+bool Authorization::isTokenValid(const QString &accessToken)
 {
 	/* Формируем параметры запроса */
 	QList<QPair<QString, QString> > parametres;
@@ -99,7 +103,26 @@ bool Authorization::isTokenValid(const QString &accessToken) const
 	/* Посылаем запрос - получаем ответ */
 	QByteArray test = dataReceiver->loadData("users.search", parametres);
 
-	return test.contains("error") ? false : true;
+	if (!test.contains("error"))
+	{
+		authorizedSuccessfully = true;
+		return true;
+	}
+
+	return false;
+}
+
+bool Authorization::eventFilter(QObject *obj, QEvent *event)
+{
+	if (obj == browser)
+	{
+		if (event->type() == QEvent::Close && !authorizedSuccessfully)
+		{
+			emit authorizationFailed();
+			return true;
+		}
+	}
+	return false;
 }
 
 void Authorization::setConnections()

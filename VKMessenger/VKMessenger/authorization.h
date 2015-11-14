@@ -31,7 +31,7 @@ public:
 	void loadAuthorizationPage();
 
 	/* Проверка токена на валидность */
-	bool isTokenValid(const QString &accessToken) const;
+	bool isTokenValid(const QString &accessToken);
 
 	/* Запрос на получение данных об авторизовавшемся пользователе */
 	void loadUserInfo();
@@ -53,6 +53,9 @@ private slots:
 	void loadFinished(bool isSuccesful);
 
 private:
+	/* Фильтр событий */
+	bool eventFilter(QObject *obj, QEvent *event);
+
 	/* Соединение сигналов и слотов */
 	void setConnections();
 
@@ -62,6 +65,7 @@ private:
 	VKDataReceiver *dataReceiver;
 	QUrl authorizationUrl;
 	QUrl redirectUri;
+	bool authorizedSuccessfully;
 };
 
 #endif // AUTHORIZATION_H
