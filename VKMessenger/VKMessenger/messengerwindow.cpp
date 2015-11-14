@@ -16,7 +16,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 
 	
 	authorization = new Authorization(this);
-
+	
 	setConnections();
 
 	ui.dialogsInfoArea->setWidgetResizable(true);
@@ -132,8 +132,6 @@ void MessengerWindow::dialogsLoaded(QList<DialogInfo *> *userDialogs)
 	{
 		dialogsScrollWidget->layout()->addWidget(dialog);
 	}
-
-	this->show();
 }
 
 void MessengerWindow::moveScrollBarToBotton(int min, int max)
