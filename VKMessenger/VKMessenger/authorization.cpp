@@ -6,6 +6,7 @@ Authorization::Authorization(QObject *parent)
 	browser = new QWebView;
 	dataReceiver = new VKDataReceiver;
 	browser->resize(AUTH_WINDOW_WIDTH, AUTH_WINDOW_HEIGHT);
+	browser->setWindowModality(Qt::ApplicationModal);
 
 	setConnections();
 }
