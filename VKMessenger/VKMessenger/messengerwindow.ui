@@ -348,7 +348,7 @@ QComboBox::drop-down { border: 0px; }
       </font>
      </property>
      <property name="text">
-      <string>Фото</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="userName">
@@ -496,7 +496,7 @@ QComboBox::drop-down { border: 0px; }
       </font>
      </property>
      <property name="text">
-      <string>Фамилия Имя</string>
+      <string/>
      </property>
     </widget>
     <widget class="QPushButton" name="logoutB">
@@ -943,7 +943,7 @@ QComboBox::drop-down { border: 0px; }
       </font>
      </property>
      <property name="text">
-      <string>Текущий собеседник</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

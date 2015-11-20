@@ -318,11 +318,11 @@ public:
     void retranslateUi(QMainWindow *MessengerWindowClass)
     {
         MessengerWindowClass->setWindowTitle(QApplication::translate("MessengerWindowClass", "MessengerWindow", 0));
-        userPhoto->setText(QApplication::translate("MessengerWindowClass", "\320\244\320\276\321\202\320\276", 0));
-        userName->setText(QApplication::translate("MessengerWindowClass", "\320\244\320\260\320\274\320\270\320\273\320\270\321\217 \320\230\320\274\321\217", 0));
+        userPhoto->setText(QString());
+        userName->setText(QString());
         logoutB->setText(QApplication::translate("MessengerWindowClass", "\320\222\321\213\320\271\321\202\320\270", 0));
         newDialogB->setText(QApplication::translate("MessengerWindowClass", "+", 0));
-        currentOponent->setText(QApplication::translate("MessengerWindowClass", "\320\242\320\265\320\272\321\203\321\211\320\270\320\271 \321\201\320\276\320\261\320\265\321\201\320\265\320\264\320\275\320\270\320\272", 0));
+        currentOponent->setText(QString());
         sendMessageB->setText(QApplication::translate("MessengerWindowClass", "\320\236\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214", 0));
         message->setPlaceholderText(QApplication::translate("MessengerWindowClass", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\201\320\276\320\276\320\261\321\211\320\265\320\275\320\270\320\265...", 0));
     } // retranslateUi
