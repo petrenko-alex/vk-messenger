@@ -19,10 +19,9 @@
 #include "dialogs.h"
 #include "dialoginfo.h"
 #include "friends.h"
+#include "loadingscreen.h"
 
 #define DATA_FILENAME "./Data/data.vkmd"
-
-// #TODO: Строка поиска
 
 class MessengerWindow : public QMainWindow
 {
@@ -82,6 +81,9 @@ private slots:
 	/* Открыть новый диалог по выбору друга из списка друзей */
 	void newDialog(int user);
 
+	/* Показать экран ожидания загрузки */
+	void showLoadingScreen();
+
 private:
 	/* Фильтр событий */
 	bool eventFilter(QObject *obj, QEvent *event);
@@ -112,6 +114,8 @@ private:
 	/* Виджеты отображения */
 	QWidget *dialogsScrollWidget;
 	QComboBox *friendList;
+
+	LoadingScreen *screen;
 };
 
 #endif // MESSENGERWINDOW_H

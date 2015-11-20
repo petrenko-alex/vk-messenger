@@ -210,6 +210,7 @@ bool Dialogs::newDialogById(unsigned int userId)
 
 		connect(d, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 		connect(d, SIGNAL(messageWasSent(QWidget *)), this, SLOT(messageWasSent(QWidget *)));
+		connect(d, SIGNAL(loadingStarted()), this, SLOT(showLoadScreen()));
 		userDialogs << d;
 		d->loadOpponentInfo();
 		userDialogs.last ()->loadMessages();
@@ -223,6 +224,11 @@ bool Dialogs::newDialogById(unsigned int userId)
 
 	return true;
 
+}
+
+void Dialogs::showLoadScreen()
+{
+	emit loadingStarted();
 }
 
 void Dialogs::messageWasSent(QWidget *dialog)
@@ -267,6 +273,7 @@ void Dialogs::parseDialogs(const QByteArray &userDialogsData)
 
 		connect(d, SIGNAL(messagesLoaded(QWidget *, QString &)), this, SLOT(messagesReceived(QWidget *, QString &)));
 		connect(d, SIGNAL(messageWasSent(QWidget *)), this, SLOT(messageWasSent(QWidget *)));
+		connect(d, SIGNAL(loadingStarted()), this, SLOT(showLoadScreen()));
 
 		userDialogs << d;
 		d->loadOpponentInfo();

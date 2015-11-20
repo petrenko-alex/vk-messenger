@@ -75,6 +75,9 @@ signals:
 	/* Сигнал - сообщение отправлено */
 	void messageWasSent(QWidget *dialog);
 
+	/* Сигнал - загрузка началась */
+	void loadingStarted();
+
 private:
 	/* Фильтр событий */
 	bool eventFilter(QObject *obj, QEvent *event);

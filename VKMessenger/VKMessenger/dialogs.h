@@ -31,6 +31,9 @@ signals:
 	/* Сигнал - можно закрывать программу - соединение с Long Poll разорвно */
 	void canExit();
 
+	/* Сигнал - загрузка началась */
+	void loadingStarted();
+
 public:
 	Dialogs();
 	~Dialogs();
@@ -62,6 +65,9 @@ private slots:
 
 	/* Добавить диалог по id userId */
 	bool newDialogById(unsigned int userId);
+
+	/* Послать сигнал о необходимости показа экрана загрузки */
+	void showLoadScreen();
 
 private:
 	/* Установить соединения */

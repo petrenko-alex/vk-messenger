@@ -342,6 +342,7 @@ void DialogInfo::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton && ! clickBlock) 
 	{
+		emit loadingStarted();
 		paintFrameWhite();
 		Session::getInstance().setCurrentOpponent(id);
 		clicked = false;

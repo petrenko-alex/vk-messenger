@@ -5,6 +5,7 @@ MessengerWindow::MessengerWindow(QWidget *parent)
 {
 	ui.setupUi(this);
 	userDialogs = nullptr;
+	screen = new LoadingScreen;
 	dataReceiver = new VKDataReceiver;
 	ui.message->installEventFilter(this);
 
@@ -46,6 +47,7 @@ MessengerWindow::~MessengerWindow()
 	delete dialogsScrollWidget;
 	delete userDialogs;
 	delete friendList;
+	delete screen;
 }
 
 void MessengerWindow::setConnections()
@@ -72,6 +74,7 @@ void MessengerWindow::closeEvent(QCloseEvent *event)
 void MessengerWindow::authorizationCompleted()
 {
 	authorization->closeBrowser();
+	showLoadingScreen();
 
 	/* Устанавливаем имя пользователя */
 	ui.userName->setText(Session::getInstance().get("userName"));
@@ -112,6 +115,7 @@ void MessengerWindow::loadDialogs()
 	connect(this, SIGNAL(newDialog(unsigned int)), userDialogs, SLOT(newDialog(unsigned int)));
 	connect(userDialogs, SIGNAL(canExit()), this, SLOT(closeProgram()));
 	connect(userDialogs, SIGNAL(changeDialogPosition(QWidget *)), this, SLOT(changeDialogPosition(QWidget *)));
+	connect(userDialogs, SIGNAL(loadingStarted()), this, SLOT(showLoadingScreen()));
 
 	userDialogs->loadDialogs();
 }
@@ -124,6 +128,7 @@ void MessengerWindow::messagesReceived(QWidget *scrollWidget, QString &username)
 	}
 	ui.dialogArea->setWidget(scrollWidget);
 	ui.currentOponent->setText(username);
+	screen->deactivate();
 }
 
 void MessengerWindow::dialogsLoaded(QList<DialogInfo *> *userDialogs)
@@ -142,7 +147,6 @@ void MessengerWindow::moveScrollBarToBotton(int min, int max)
 
 void MessengerWindow::changeDialogPosition(QWidget *dialog)
 {
-	//ui.dialogsInfoArea->ensureWidgetVisible(dialog);
 	QVBoxLayout *layout = qobject_cast<QVBoxLayout*>(ui.dialogsInfoArea->widget()->layout());
 	layout->removeWidget(dialog);
 	layout->insertWidget(0, dialog);
@@ -185,8 +189,14 @@ void MessengerWindow::closeProgram()
 void MessengerWindow::newDialog(int user)
 {
 	friendList->hide();
+	showLoadingScreen();
 	unsigned int id = friendList->itemData(user).toUInt();
 	emit newDialog(id);
+}
+
+void MessengerWindow::showLoadingScreen()
+{
+	screen->activate(this);
 }
 
 bool MessengerWindow::eventFilter(QObject *obj, QEvent *event)
