@@ -15,7 +15,7 @@
 #include "vkdatareceiver.h"
 #include "session.h"
 
-#define VK_APPLICATION_ID 5078976
+#define VK_APPLICATION_ID 123456
 #define AUTH_WINDOW_WIDTH 640
 #define AUTH_WINDOW_HEIGHT 420
 
